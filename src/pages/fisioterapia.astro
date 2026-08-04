@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import TreatmentGrid from '../components/sections/TreatmentGrid.astro';
+import ContactSection from '../components/sections/ContactSection.astro';
+
+import { fisioterapiaTreatments } from '../data/treatments';
+import { site, isPending } from '../data/site';
+import heroFisioterapia from '../assets/images/hero-fisioterapia.jpg';
+
+const city = isPending(site.city) ? '' : ` en ${site.city}`;
+
+const intro = [
+  'La fisioterapia ayuda a <strong>prevenir, tratar y recuperar alteraciones del aparato locomotor</strong> mediante técnicas manuales, ejercicio terapéutico y programas de tratamiento personalizados.',
+  'Nuestro objetivo es <strong>aliviar el dolor, recuperar la funcionalidad y mejorar la calidad de vida</strong> de cada paciente.',
+];
+---
+
+<BaseLayout
+  title={isPending(site.city) ? 'Fisioterapia traumatológica, deportiva y pediátrica | Clínica LAUVEL' : `Fisioterapia en ${site.city} | Clínica LAUVEL`}
+  description="Fisioterapia traumatológica, deportiva y pediátrica, ATM, suelo pélvico y ejercicio terapéutico personalizado. Alivia el dolor y recupérate."
+>
+  <Hero title={`Fisioterapia${city}`} image={heroFisioterapia} imageAlt="Sesión de fisioterapia en Clínica LAUVEL" />
+
+  <section class="py-20 md:py-24">
+    <div class="container-site">
+      <div class="reveal reveal--up mx-auto flex max-w-3xl flex-col gap-5 text-center text-[1.05rem] text-body">
+        {intro.map((p) => <p set:html={p} />)}
+      </div>
+    </div>
+  </section>
+
+  <TreatmentGrid
+    title="Servicios de fisioterapia"
+    sideText="Abordamos todas las áreas de la disciplina, con especial atención a nuestras áreas de especialización:"
+    treatments={fisioterapiaTreatments}
+  />
+
+  <ContactSection />
+</BaseLayout>

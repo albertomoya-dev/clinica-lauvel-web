@@ -1,0 +1,28 @@
+---
+interface Props {
+  variant?: 'dark' | 'light';
+  class?: string;
+}
+
+const { variant = 'dark', class: className = '' } = Astro.props;
+---
+
+<a href="/" class:list={['group inline-flex flex-col items-center leading-none', className]} aria-label="Clínica LAUVEL — Inicio">
+  <span
+    class:list={[
+      'font-sans text-[0.62rem] font-medium tracking-[0.42em] uppercase transition-colors',
+      variant === 'light' ? 'text-white/80' : 'text-body',
+    ]}
+  >
+    Clínica
+  </span>
+  <span
+    class:list={[
+      'font-display text-[1.75rem] font-semibold tracking-[0.18em] transition-colors',
+      variant === 'light' ? 'text-white' : 'text-accent',
+      'group-hover:text-accent',
+    ]}
+  >
+    LAUVEL
+  </span>
+</a>

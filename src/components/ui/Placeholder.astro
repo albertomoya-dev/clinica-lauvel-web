@@ -1,0 +1,25 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  label: string;
+  class?: string;
+}
+
+const { label, class: className = '' } = Astro.props;
+---
+
+<div
+  class:list={[
+    'relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-soft via-softer to-soft',
+    className,
+  ]}
+  role="img"
+  aria-label={label}
+>
+  <div class="flex flex-col items-center gap-3 px-6 py-10 text-center">
+    <Icon name="image" class="size-10 text-accent/50" />
+    <span class="font-sans text-xs font-medium tracking-[0.16em] text-accent/70 uppercase">{label}</span>
+    <span class="font-sans text-[0.7rem] text-body/60">Imagen pendiente del cliente</span>
+  </div>
+</div>

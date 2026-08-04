@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+@theme {
+  --color-accent: #d7006b;
+  --color-accent-hover: #b8005c;
+  --color-ink: #161615;
+  --color-body: #5d5d5c;
+  --color-soft: #fdf2f7;
+  --color-softer: #fefafc;
+  --color-card-number: #f6d9e8;
+
+  --font-display: "Baloo 2", "Quicksand", system-ui, sans-serif;
+  --font-sans: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --shadow-card: 0 10px 40px rgb(22 22 21 / 0.06);
+  --shadow-card-hover: 0 18px 50px rgb(22 22 21 / 0.1);
+  --shadow-form: 0 20px 60px rgb(22 22 21 / 0.12);
+
+  --radius-card: 0.75rem;
+  --radius-image: 1rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white font-sans text-body antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display font-medium text-ink;
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-7xl px-5 md:px-8;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-accent px-8 py-3.5 font-sans text-base font-medium text-white transition-colors duration-300 hover:bg-accent-hover;
+  }
+
+  .eyebrow {
+    @apply font-sans text-sm font-medium tracking-[0.12em] text-accent uppercase;
+  }
+
+  .hero-overlay {
+    background: linear-gradient(rgb(0 0 0 / 0.42), rgb(0 0 0 / 0.42));
+  }
+
+  .prose-legal {
+    @apply text-body;
+  }
+
+  .prose-legal h2 {
+    @apply mt-12 mb-4 font-display text-2xl font-medium text-ink;
+  }
+
+  .prose-legal h3 {
+    @apply mt-8 mb-3 font-display text-xl font-medium text-ink;
+  }
+
+  .prose-legal p {
+    @apply mb-4;
+  }
+
+  .prose-legal ul {
+    @apply mb-4 list-disc space-y-1.5 pl-6;
+  }
+
+  .prose-legal a {
+    @apply text-accent underline underline-offset-2;
+  }
+
+  .prose-legal strong {
+    @apply font-semibold text-ink;
+  }
+}
+
+/* Animaciones de entrada al hacer scroll (spec §13). Sin JS todo permanece visible. */
+.js .reveal {
+  opacity: 0;
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.js .reveal--up {
+  transform: translateY(36px);
+}
+
+.js .reveal--left {
+  transform: translateX(-36px);
+}
+
+.js .reveal--right {
+  transform: translateX(36px);
+}
+
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

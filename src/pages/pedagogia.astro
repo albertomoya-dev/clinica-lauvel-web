@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import TreatmentGrid from '../components/sections/TreatmentGrid.astro';
+import NeaeCta from '../components/sections/NeaeCta.astro';
+import ContactSection from '../components/sections/ContactSection.astro';
+
+import { pedagogiaTreatments } from '../data/treatments';
+import { neaePedagogia } from '../data/neae';
+import { site, isPending } from '../data/site';
+import heroPedagogia from '../assets/images/hero-pedagogia.jpg';
+
+const city = isPending(site.city) ? '' : ` en ${site.city}`;
+
+const intro = [
+  'Cada niño aprende a un ritmo diferente. En LAUVEL acompañamos a <strong>niños y adolescentes en su proceso de aprendizaje</strong> mediante una intervención individualizada, adaptada a sus fortalezas y necesidades.',
+  'Nuestro objetivo es <strong>potenciar sus capacidades, mejorar su rendimiento académico</strong> y favorecer un aprendizaje más autónomo y motivador.',
+  'Trabajamos en <strong>coordinación con las familias y los centros educativos</strong> para ofrecer una atención integral.',
+];
+---
+
+<BaseLayout
+  title={`Pedagogía y reeducación pedagógica${city} | Clínica LAUVEL`}
+  description="Reeducación pedagógica y dificultades de aprendizaje: dislexia, TDAH y técnicas de estudio, en coordinación con familias y centros educativos."
+>
+  <Hero title={`Pedagogía${city}`} image={heroPedagogia} imageAlt="Sesión de pedagogía en Clínica LAUVEL" />
+
+  <section class="py-20 md:py-24">
+    <div class="container-site">
+      <div class="reveal reveal--up mx-auto flex max-w-3xl flex-col gap-5 text-center text-[1.05rem] text-body">
+        {intro.map((p) => <p set:html={p} />)}
+      </div>
+    </div>
+  </section>
+
+  <TreatmentGrid
+    title="Servicios de pedagogía"
+    sideText="Abordamos todas las áreas de la disciplina, con especial atención a nuestras áreas de especialización:"
+    treatments={pedagogiaTreatments}
+  />
+
+  <NeaeCta block={neaePedagogia} />
+
+  <ContactSection />
+</BaseLayout>

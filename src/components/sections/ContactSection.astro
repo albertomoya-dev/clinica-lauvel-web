@@ -1,0 +1,43 @@
+---
+import ContactForm from './ContactForm.astro';
+import formBg from '../../assets/images/form-bg.jpg';
+import { primaryCtaLabel } from '../../data/site';
+---
+
+<section class="relative overflow-hidden">
+  <div
+    class="bg-image absolute inset-0 -z-10 bg-cover bg-center"
+    style={`background-image: url('${formBg.src}')`}
+    aria-hidden="true"
+  ></div>
+  <div class="hero-overlay absolute inset-0" aria-hidden="true"></div>
+  <div class="container-site relative z-10 grid items-center gap-14 py-20 md:py-28 lg:grid-cols-2">
+    <div class="reveal reveal--left">
+      <p class="eyebrow mb-4">¿Necesitas más información?</p>
+      <h2 class="text-[2rem] text-white md:text-[2.75rem]">Estamos aquí para ayudarte</h2>
+      <div class="mt-6 flex max-w-lg flex-col gap-4 text-[1.02rem] text-white/85">
+        <p>
+          Si quieres resolver dudas, solicitar una valoración o conocer mejor cómo trabajamos, nuestro equipo te
+          atenderá con total cercanía y profesionalidad.
+        </p>
+        <p>Déjanos tus datos y nos pondremos en contacto contigo lo antes posible.</p>
+      </div>
+      <a href="/contacto/" class="btn-primary mt-8">{primaryCtaLabel}</a>
+    </div>
+    <div class="reveal reveal--right">
+      <ContactForm />
+    </div>
+  </div>
+</section>
+
+<style>
+  .bg-image {
+    background-attachment: fixed;
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    .bg-image {
+      background-attachment: scroll;
+    }
+  }
+</style>

@@ -1,0 +1,72 @@
+---
+import { Image } from 'astro:assets';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { team } from '../../data/team';
+
+interface Props {
+  variant?: 'preview' | 'full';
+}
+
+const { variant = 'preview' } = Astro.props;
+---
+
+{
+  variant === 'preview' ? (
+    <section class="py-20 md:py-28">
+      <div class="container-site">
+        <SectionHeading
+          eyebrow="Nuestro equipo"
+          title="Especialistas en logopedia, psicología, pedagogía y fisioterapia"
+          description="En LAUVEL contamos con un equipo multidisciplinar especializado y en constante formación. Nuestra forma de trabajar se basa en la evidencia científica, la personalización de cada intervención y un trato cercano que genera confianza desde el primer día."
+          class="reveal reveal--up"
+        />
+        <div class="mt-14 grid grid-cols-2 gap-5 lg:grid-cols-4">
+          {team.map((member) => (
+            <Image
+              src={member.photo}
+              alt={member.photoAlt}
+              widths={[320, 512]}
+              sizes="(min-width: 1024px) 25vw, 50vw"
+              class="reveal reveal--up aspect-[3/4] w-full rounded-2xl object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+          ))}
+        </div>
+        <div class="reveal reveal--up mt-12 text-center">
+          <a href="/quienes-somos/" class="btn-primary">Conócenos</a>
+        </div>
+      </div>
+    </section>
+  ) : (
+    <section class="py-20 md:py-28">
+      <div class="container-site">
+        <SectionHeading
+          eyebrow="Un equipo que lidera con experiencia y vocación"
+          title="Un proyecto que nace de la vocación y del compromiso"
+          description="Este equipo forma el núcleo del centro y es la razón por la que tantas familias depositan su confianza en nosotros."
+          class="reveal reveal--up"
+        />
+        <div class="mt-14 grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
+          {team.map((member) => (
+            <article class="reveal reveal--up">
+              <Image
+                src={member.photo}
+                alt={member.photoAlt}
+                widths={[320, 512]}
+                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                class="aspect-[3/4] w-full rounded-2xl object-cover"
+                loading="lazy"
+                decoding="async"
+              />
+              <h3 class="mt-6 font-display text-xl font-medium text-ink">
+                {member.name} <span class="font-normal text-body">- {member.role}</span>
+              </h3>
+              <p class="mt-3 text-[0.95rem] text-body">{member.bio}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

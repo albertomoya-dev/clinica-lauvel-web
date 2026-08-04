@@ -1,0 +1,128 @@
+---
+import Icon from '../ui/Icon.astro';
+---
+
+<div
+  id="cookie-banner"
+  class="fixed inset-x-0 bottom-0 z-[80] border-t border-ink/10 bg-white shadow-[0_-10px_40px_rgb(22_22_21/0.12)]"
+  role="dialog"
+  aria-live="polite"
+  aria-label="Aviso de cookies"
+  hidden
+>
+  <div class="container-site flex flex-col gap-5 py-6 lg:flex-row lg:items-center lg:justify-between">
+    <p class="max-w-3xl text-sm text-body">
+      En <strong class="font-medium text-ink">Clínica LAUVEL</strong> utilizamos cookies técnicas y de analítica para
+      garantizar el correcto funcionamiento del sitio web y ofrecerte la mejor experiencia. Puedes aceptar todas las
+      cookies, rechazarlas o configurar tus preferencias. Más información en nuestra
+      <a href="/politica-de-cookies/" class="font-medium text-accent underline underline-offset-2">Política de cookies</a>.
+    </p>
+    <div class="flex flex-wrap items-center gap-3">
+      <button type="button" id="cookie-accept" class="rounded-md bg-ink px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-accent">
+        Aceptar cookies
+      </button>
+      <button type="button" id="cookie-reject" class="rounded-md border border-ink/25 px-6 py-2.5 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent">
+        Rechazar
+      </button>
+      <button type="button" id="cookie-settings" class="rounded-md border border-ink/25 px-6 py-2.5 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent" aria-expanded="false" aria-controls="cookie-panel">
+        Ajustes
+      </button>
+    </div>
+  </div>
+
+  <div id="cookie-panel" class="border-t border-ink/10" hidden>
+    <div class="container-site flex flex-col gap-4 py-5">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-sm font-medium text-ink">Cookies técnicas</p>
+          <p class="text-xs text-body">Necesarias para el funcionamiento del sitio. Siempre activas.</p>
+        </div>
+        <span class="rounded-full bg-soft px-3 py-1 text-xs font-medium text-accent">Siempre activas</span>
+      </div>
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-sm font-medium text-ink">Cookies de analítica</p>
+          <p class="text-xs text-body">Nos ayudan a entender cómo se usa la web para mejorarla.</p>
+        </div>
+        <label class="relative inline-flex cursor-pointer items-center">
+          <input type="checkbox" id="cookie-analytics" class="peer sr-only" />
+          <span class="h-6 w-11 rounded-full bg-ink/15 transition-colors peer-checked:bg-accent after:absolute after:top-0.5 after:left-0.5 after:size-5 after:rounded-full after:bg-white after:transition-transform peer-checked:after:translate-x-5"></span>
+          <span class="sr-only">Activar cookies de analítica</span>
+        </label>
+      </div>
+      <div>
+        <button type="button" id="cookie-save" class="rounded-md bg-ink px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-accent">
+          Guardar ajustes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button
+  type="button"
+  id="cookie-reopen"
+  class="fixed bottom-5 left-5 z-50 inline-flex size-12 items-center justify-center rounded-full bg-ink text-white shadow-lg transition-transform duration-300 hover:scale-110"
+  aria-label="Cambiar los ajustes de cookies"
+  hidden
+>
+  <Icon name="settings" class="size-5" />
+</button>
+
+<script>
+  const storageKey = 'lauvel-cookie-consent';
+  const banner = document.getElementById('cookie-banner');
+  const reopen = document.getElementById('cookie-reopen');
+  const panel = document.getElementById('cookie-panel');
+  const settingsBtn = document.getElementById('cookie-settings');
+  const analytics = document.getElementById('cookie-analytics') as HTMLInputElement | null;
+
+  const getConsent = () => {
+    try {
+      return JSON.parse(localStorage.getItem(storageKey) ?? 'null');
+    } catch {
+      return null;
+    }
+  };
+
+  const saveConsent = (value: { necessary: true; analytics: boolean }) => {
+    localStorage.setItem(storageKey, JSON.stringify(value));
+    banner?.setAttribute('hidden', '');
+    reopen?.removeAttribute('hidden');
+  };
+
+  if (!getConsent()) {
+    banner?.removeAttribute('hidden');
+  } else {
+    reopen?.removeAttribute('hidden');
+    if (analytics) analytics.checked = Boolean(getConsent()?.analytics);
+  }
+
+  document.getElementById('cookie-accept')?.addEventListener('click', () => {
+    saveConsent({ necessary: true, analytics: true });
+  });
+
+  document.getElementById('cookie-reject')?.addEventListener('click', () => {
+    saveConsent({ necessary: true, analytics: false });
+  });
+
+  document.getElementById('cookie-save')?.addEventListener('click', () => {
+    saveConsent({ necessary: true, analytics: Boolean(analytics?.checked) });
+  });
+
+  settingsBtn?.addEventListener('click', () => {
+    const open = panel?.hasAttribute('hidden') === false;
+    if (open) {
+      panel?.setAttribute('hidden', '');
+      settingsBtn.setAttribute('aria-expanded', 'false');
+    } else {
+      panel?.removeAttribute('hidden');
+      settingsBtn.setAttribute('aria-expanded', 'true');
+    }
+  });
+
+  reopen?.addEventListener('click', () => {
+    banner?.removeAttribute('hidden');
+    reopen.setAttribute('hidden', '');
+  });
+</script>

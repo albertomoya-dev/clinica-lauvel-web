@@ -1,0 +1,38 @@
+---
+import Icon from './Icon.astro';
+import type { IconName } from './Icon.astro';
+
+interface Props {
+  href?: string;
+  label: string;
+  controls?: string;
+  expanded?: boolean;
+  icon?: IconName;
+  class?: string;
+}
+
+const { href, label, controls, expanded, icon = 'arrow-right', class: className = '' } = Astro.props;
+const classes = [
+  'inline-flex size-14 shrink-0 items-center justify-center rounded-full border border-accent/60 bg-white/40 text-accent transition-all duration-300 hover:border-accent hover:bg-accent hover:text-white',
+  className,
+];
+---
+
+{
+  href ? (
+    <a href={href} class:list={classes} aria-label={label}>
+      <Icon name={icon} class="size-5" />
+    </a>
+  ) : (
+    <button
+      type="button"
+      class:list={classes}
+      aria-label={label}
+      aria-controls={controls}
+      aria-expanded={expanded ? 'true' : 'false'}
+      data-accordion-trigger
+    >
+      <Icon name={icon} class="size-5 transition-transform duration-300" />
+    </button>
+  )
+}

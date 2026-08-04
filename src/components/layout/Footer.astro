@@ -1,0 +1,113 @@
+---
+import Logo from '../ui/Logo.astro';
+import Icon from '../ui/Icon.astro';
+import { mainNavLeft, mainNavRight, servicesNav, legalNav } from '../../data/navigation';
+import { site, isPending } from '../../data/site';
+
+const path = Astro.url.pathname;
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+
+<footer class="bg-ink text-white/75">
+  <div class="container-site flex flex-col items-center gap-9 py-16 text-center">
+    <Logo variant="light" class="scale-125" />
+
+    {
+      site.languageSelector && (
+        <select class="rounded-md border border-white/20 bg-white px-4 py-2 text-sm text-ink" aria-label="Selector de idioma">
+          <option value="es">Español</option>
+          <option value="en">English</option>
+        </select>
+      )
+    }
+
+    <nav aria-label="Menú secundario">
+      <ul class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[0.95rem] font-medium">
+        {
+          mainNavLeft.map((item) => (
+            <li>
+              <a href={item.href} class="transition-colors hover:text-accent" data-active={isActive(item.href) ? 'true' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+        <li class="relative">
+          <details class="group">
+            <summary class="flex cursor-pointer list-none items-center gap-1.5 transition-colors hover:text-accent [&::-webkit-details-marker]:hidden">
+              Servicios
+              <Icon name="chevron-down" class="size-4 transition-transform duration-300 group-open:rotate-180" />
+            </summary>
+            <ul class="absolute bottom-full left-1/2 mb-3 flex w-56 -translate-x-1/2 flex-col rounded-xl bg-white/5 py-2 text-left backdrop-blur">
+              {
+                servicesNav.map((item) => (
+                  <li>
+                    <a href={item.href} class="block px-5 py-2.5 text-sm transition-colors hover:text-accent">
+                      {item.label}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </details>
+        </li>
+        {
+          mainNavRight.map((item) => (
+            <li>
+              <a href={item.href} class="transition-colors hover:text-accent" data-active={isActive(item.href) ? 'true' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    {!isPending(site.instagramUrl) && (
+      <a href={site.instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram de Clínica LAUVEL" class="text-white transition-colors hover:text-accent">
+        <Icon name="instagram" class="size-6" />
+      </a>
+    )}
+
+    {
+      (!isPending(site.address) || !isPending(site.phone) || !isPending(site.email)) && (
+        <address class="flex flex-col items-center gap-1.5 text-sm not-italic text-white/55">
+          {!isPending(site.address) && <span>{site.address}</span>}
+          <span>
+            {!isPending(site.phone) && <>Tel. {site.phone}</>}
+            {!isPending(site.phone) && !isPending(site.email) && <> · </>}
+            {!isPending(site.email) && <a href={`mailto:${site.email}`} class="transition-colors hover:text-accent">{site.email}</a>}
+          </span>
+        </address>
+      )
+    }
+
+    {
+      site.fundingLogos && (
+        <div class="flex flex-col items-center gap-3">
+          <p class="max-w-xl text-[0.65rem] tracking-wide text-white/40 uppercase">
+            Programa Kit Digital cofinanciado por los fondos Next Generation (EU) del Mecanismo de Recuperación y Resiliencia
+          </p>
+        </div>
+      )
+    }
+
+    <p class="border-t border-white/10 pt-7 text-[0.82rem] text-white/50">
+      {site.name}©.
+      {
+        legalNav.map((item, i) => (
+          <>
+            <a href={item.href} class="transition-colors hover:text-accent">{item.label}</a>
+            {i < legalNav.length - 1 && <span aria-hidden="true"> · </span>}
+          </>
+        ))
+      }
+    </p>
+  </div>
+</footer>
+
+<style>
+  footer a[data-active] {
+    color: var(--color-accent);
+  }
+</style>

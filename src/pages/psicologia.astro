@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import TwoColumn from '../components/sections/TwoColumn.astro';
+import TreatmentGrid from '../components/sections/TreatmentGrid.astro';
+import NeaeCta from '../components/sections/NeaeCta.astro';
+import ContactSection from '../components/sections/ContactSection.astro';
+
+import { psicologiaTreatments } from '../data/treatments';
+import { neaePsicologia } from '../data/neae';
+import { site, isPending } from '../data/site';
+import heroPsicologia from '../assets/images/hero-psicologia.jpg';
+import materials from '../assets/images/materials.jpg';
+
+const city = isPending(site.city) ? '' : ` en ${site.city}`;
+---
+
+<BaseLayout
+  title={`Psicólogos${city} | Terapia infantil, adolescentes y adultos`}
+  description="Psicología para niños, adolescentes y adultos: ansiedad, gestión emocional, autoestima, neurodesarrollo y terapia familiar. Pide tu valoración."
+>
+  <Hero title={`Psicología${city}`} image={heroPsicologia} imageAlt="Consulta de psicología en Clínica LAUVEL" />
+
+  <TwoColumn
+    title="Un espacio de confianza para cada etapa de la vida"
+    image={materials}
+    imageAlt="Tarjetas didácticas de animales utilizadas en la consulta de psicología"
+  >
+    <p>
+      En LAUVEL ofrecemos un espacio de confianza donde <strong>niños, adolescentes y adultos</strong> pueden
+      comprender lo que les ocurre y desarrollar herramientas para afrontar las dificultades del día a día.
+    </p>
+    <p>
+      Cada intervención se adapta a las necesidades de la persona, respetando sus tiempos y objetivos, desde un
+      enfoque <strong>cercano, profesional y basado en la evidencia científica</strong>.
+    </p>
+  </TwoColumn>
+
+  <TreatmentGrid
+    title="Servicios de psicología"
+    sideText="Abordamos todas las áreas de la disciplina, con especial atención a nuestras áreas de especialización:"
+    treatments={psicologiaTreatments}
+  />
+
+  <NeaeCta block={neaePsicologia} />
+
+  <ContactSection />
+</BaseLayout>

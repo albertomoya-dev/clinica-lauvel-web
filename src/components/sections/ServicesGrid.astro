@@ -1,0 +1,29 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro';
+import ServiceCard from './ServiceCard.astro';
+import type { Service } from '../../data/services';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  services: Service[];
+  columns?: 3 | 4;
+}
+
+const { eyebrow, title, description, services, columns = 3 } = Astro.props;
+---
+
+<section class="py-20 md:py-28">
+  <div class="container-site">
+    <SectionHeading eyebrow={eyebrow} title={title} description={description} class="reveal reveal--up" />
+    <div
+      class:list={[
+        'mt-14 grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2',
+        columns === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4',
+      ]}
+    >
+      {services.map((service) => <ServiceCard service={service} />)}
+    </div>
+  </div>
+</section>

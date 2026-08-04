@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import ServicesGrid from '../components/sections/ServicesGrid.astro';
+import TwoColumn from '../components/sections/TwoColumn.astro';
+import ProcessList from '../components/sections/ProcessList.astro';
+import TeamSection from '../components/sections/TeamSection.astro';
+import Testimonials from '../components/sections/Testimonials.astro';
+import NeaeCta from '../components/sections/NeaeCta.astro';
+import ContactSection from '../components/sections/ContactSection.astro';
+
+import heroHome from '../assets/images/hero-home.jpg';
+import sessionVertical from '../assets/images/session-vertical.jpg';
+import materials from '../assets/images/materials.jpg';
+import heroQuienes from '../assets/images/hero-quienes.jpg';
+import neaeImg from '../assets/images/neae.jpg';
+
+import { homeServices } from '../data/services';
+import { processSteps } from '../data/process';
+import { neaeHome } from '../data/neae';
+import { site, isPending, primaryCtaLabel } from '../data/site';
+
+const city = isPending(site.city) ? '' : ` en ${site.city}`;
+---
+
+<BaseLayout
+  title={`Clínica LAUVEL: logopedia, psicología, pedagogía y fisioterapia${city}`}
+  description="Clínica LAUVEL: centro multidisciplinar de logopedia, psicología, pedagogía y fisioterapia para bebés, niños, adolescentes y adultos. Pide tu valoración."
+>
+  <Hero
+    title={`Centro multidisciplinar de logopedia, psicología, pedagogía y fisioterapia${city}`}
+    image={heroHome}
+    imageAlt="Sala de terapia de Clínica LAUVEL con tarjetas didácticas y material de logopedia sobre la mesa"
+    cta={{ label: primaryCtaLabel, href: '/contacto/' }}
+    large
+  />
+
+  <ServicesGrid
+    eyebrow="Nuestros servicios"
+    title="Atención integral para todas las etapas de la vida"
+    description="En LAUVEL ofrecemos una atención individualizada para bebés, niños, adolescentes y adultos. Somos un centro multidisciplinar donde la logopedia, la psicología, la pedagogía y la fisioterapia trabajan de forma coordinada, siempre desde un enfoque basado en la evidencia científica."
+    services={homeServices}
+  />
+
+  <TwoColumn
+    eyebrow="Logopedia · Psicología · Pedagogía · Fisioterapia"
+    title="Un centro multidisciplinar, un único objetivo: tu bienestar"
+    image={sessionVertical}
+    imageAlt="Logopeda de Clínica LAUVEL mostrando una tarjeta didáctica a una niña en sesión"
+    smallImage={materials}
+    smallImageAlt="Tarjetas didácticas de animales para terapia del lenguaje"
+    cta={{ label: 'Sobre nosotros', href: '/quienes-somos/' }}
+    soft
+  >
+    <p>
+      En LAUVEL creemos en una atención integral y personalizada. La coordinación entre nuestros profesionales y la
+      colaboración con las familias, centros educativos y otros especialistas nos permite ofrecer una atención
+      completa, cercana y de calidad, acompañando a cada persona durante todo el proceso.
+    </p>
+  </TwoColumn>
+
+  <ProcessList
+    eyebrow="Cómo trabajamos"
+    title="Atención integral y personalizada, paso a paso"
+    steps={processSteps}
+    image={heroQuienes}
+    imageAlt="Equipo de Clínica LAUVEL con uniforme rosa en el pasillo de la clínica"
+  />
+
+  <TeamSection variant="preview" />
+
+  <Testimonials />
+
+  <NeaeCta
+    block={neaeHome}
+    variant="split"
+    image={neaeImg}
+    imageAlt="Material escolar y didáctico para alumnado con Beca NEAE"
+  />
+
+  <ContactSection />
+</BaseLayout>

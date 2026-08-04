@@ -1,0 +1,364 @@
+---
+import Logo from '../ui/Logo.astro';
+import Icon from '../ui/Icon.astro';
+import { mainNavLeft, mainNavRight, servicesNav } from '../../data/navigation';
+import { primaryCtaLabel } from '../../data/site';
+
+interface Props {
+  solid?: boolean;
+}
+
+const { solid = false } = Astro.props;
+const path = Astro.url.pathname;
+
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+const servicesActive = servicesNav.some((s) => isActive(s.href));
+---
+
+<header id="site-header" data-solid={solid ? 'true' : undefined}>
+  <div class="container-site">
+    <nav class="grid h-20 grid-cols-[1fr_auto_1fr] items-center gap-6 lg:h-24 lg:gap-10" aria-label="Navegación principal">
+      <ul class="hidden items-center justify-start gap-6 justify-self-end lg:flex">
+        {
+          mainNavLeft.map((item) => (
+            <li>
+              <a href={item.href} class="nav-link" data-active={isActive(item.href) ? 'true' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <button
+        type="button"
+        id="menu-open"
+        class="nav-fg inline-flex size-11 items-center justify-center justify-self-start lg:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Abrir menú"
+      >
+        <Icon name="menu" class="size-6" />
+      </button>
+
+      <Logo variant="light" class="header-logo justify-self-center" />
+
+      <ul class="hidden items-center justify-start gap-6 justify-self-start lg:flex">
+        <li class="relative" data-dropdown>
+          <button
+            type="button"
+            class="nav-link inline-flex items-center gap-1.5"
+            data-active={servicesActive ? 'true' : undefined}
+            aria-expanded="false"
+            aria-haspopup="true"
+            data-dropdown-trigger
+          >
+            Servicios
+            <Icon name="chevron-down" class="size-4 transition-transform duration-300" />
+          </button>
+          <div class="dropdown-panel" data-dropdown-panel>
+            <ul class="flex flex-col py-3">
+              {
+                servicesNav.map((item) => (
+                  <li>
+                    <a href={item.href} class="dropdown-link" data-active={isActive(item.href) ? 'true' : undefined}>
+                      {item.label}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </li>
+        {
+          mainNavRight.map((item) => (
+            <li>
+              <a href={item.href} class="nav-link" data-active={isActive(item.href) ? 'true' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <span class="hidden lg:hidden" aria-hidden="true"></span>
+      <span class="justify-self-end lg:hidden" aria-hidden="true"></span>
+    </nav>
+  </div>
+
+  <div id="mobile-menu" class="mobile-menu" hidden>
+    <div class="flex h-20 items-center justify-between px-5">
+      <Logo variant="light" />
+      <button
+        type="button"
+        id="menu-close"
+        class="inline-flex size-11 items-center justify-center text-white"
+        aria-label="Cerrar menú"
+      >
+        <Icon name="close" class="size-6" />
+      </button>
+    </div>
+    <nav class="px-6 pt-6" aria-label="Navegación móvil">
+      <ul class="flex flex-col gap-1">
+        {
+          [...mainNavLeft, ...mainNavRight].map((item, i) => (
+            <li style={`--i:${i}`} class="mobile-item">
+              <a
+                href={item.href}
+                class="flex items-center justify-between border-b border-white/10 py-4 font-display text-2xl text-white"
+                data-active={isActive(item.href) ? 'true' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+        <li class="mobile-item" style="--i:2">
+          <button
+            type="button"
+            class="flex w-full items-center justify-between border-b border-white/10 py-4 font-display text-2xl text-white"
+            aria-expanded="false"
+            aria-controls="mobile-services"
+            data-mobile-services-trigger
+          >
+            Servicios
+            <Icon name="chevron-down" class="size-5 transition-transform duration-300" />
+          </button>
+          <ul id="mobile-services" class="overflow-hidden" hidden>
+            {
+              servicesNav.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    class="block border-b border-white/5 py-3 pl-4 text-lg text-white/75"
+                    data-active={isActive(item.href) ? 'true' : undefined}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </li>
+      </ul>
+      <a href="/contacto/" class="btn-primary mt-8 w-full">{primaryCtaLabel}</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  #site-header {
+    --header-fg: #fff;
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    z-index: 60;
+    color: var(--header-fg);
+    transition:
+      background-color 0.35s ease,
+      box-shadow 0.35s ease;
+  }
+
+  #site-header[data-scrolled],
+  #site-header[data-solid] {
+    --header-fg: var(--color-ink);
+    background: #fff;
+    box-shadow: 0 6px 30px rgb(22 22 21 / 0.08);
+  }
+
+  .nav-fg {
+    color: var(--header-fg);
+  }
+
+  :global(.header-logo span:last-child) {
+    color: var(--color-accent);
+  }
+
+  #site-header[data-scrolled] :global(.header-logo span:first-child),
+  #site-header[data-solid] :global(.header-logo span:first-child) {
+    color: color-mix(in srgb, var(--color-ink) 75%, transparent);
+  }
+
+  .nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding-block: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--header-fg);
+    background: none;
+    cursor: pointer;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .nav-link:hover::after,
+  .nav-link[data-active]::after {
+    transform: scaleX(1);
+  }
+
+  .dropdown-panel {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    left: 0;
+    min-width: 17rem;
+    border-radius: 0.75rem;
+    background: var(--color-ink);
+    box-shadow: 0 20px 50px rgb(0 0 0 / 0.25);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease,
+      visibility 0.25s;
+  }
+
+  [data-dropdown]:hover .dropdown-panel,
+  [data-dropdown]:focus-within .dropdown-panel,
+  .dropdown-panel[data-open] {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .dropdown-link {
+    display: block;
+    padding: 0.85rem 1.5rem;
+    font-size: 0.95rem;
+    color: #fff;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .dropdown-link:hover,
+  .dropdown-link[data-active] {
+    background: rgb(255 255 255 / 0.06);
+    color: var(--color-accent);
+  }
+
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    background: var(--color-ink);
+    overflow-y: auto;
+  }
+
+  .mobile-menu[hidden] {
+    display: none;
+  }
+
+  .mobile-item {
+    animation: menu-item-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--i) * 60ms + 100ms);
+  }
+
+  @keyframes menu-item-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .mobile-menu a[data-active] {
+    color: var(--color-accent);
+  }
+</style>
+
+<script>
+  const header = document.getElementById('site-header');
+  if (header) {
+    if (window.scrollY > 40) header.setAttribute('data-scrolled', '');
+    else header.removeAttribute('data-scrolled');
+  }
+
+  if (!(window as any).__lauvelHeaderBound) {
+    (window as any).__lauvelHeaderBound = true;
+
+    window.addEventListener(
+      'scroll',
+      () => {
+        const h = document.getElementById('site-header');
+        if (!h) return;
+        if (window.scrollY > 40) h.setAttribute('data-scrolled', '');
+        else h.removeAttribute('data-scrolled');
+      },
+      { passive: true },
+    );
+
+    document.addEventListener('click', (e) => {
+      const dropdown = document.querySelector('[data-dropdown]');
+      if (dropdown && !dropdown.contains(e.target as Node)) {
+        document.querySelector('[data-dropdown-panel]')?.removeAttribute('data-open');
+        document.querySelector('[data-dropdown-trigger]')?.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      const menu = document.getElementById('mobile-menu');
+      if (e.key === 'Escape' && menu && !menu.hasAttribute('hidden')) {
+        menu.setAttribute('hidden', '');
+        document.body.style.overflow = '';
+        document.getElementById('menu-open')?.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  const dropdown = document.querySelector('[data-dropdown]');
+  const trigger = dropdown?.querySelector('[data-dropdown-trigger]');
+  const panel = dropdown?.querySelector('[data-dropdown-panel]');
+  trigger?.addEventListener('click', () => {
+    const open = panel?.hasAttribute('data-open');
+    if (open) {
+      panel?.removeAttribute('data-open');
+      trigger.setAttribute('aria-expanded', 'false');
+    } else {
+      panel?.setAttribute('data-open', '');
+      trigger.setAttribute('aria-expanded', 'true');
+    }
+  });
+
+  const menu = document.getElementById('mobile-menu');
+  const openBtn = document.getElementById('menu-open');
+  const closeBtn = document.getElementById('menu-close');
+  const openMenu = () => {
+    menu?.removeAttribute('hidden');
+    document.body.style.overflow = 'hidden';
+    openBtn?.setAttribute('aria-expanded', 'true');
+  };
+  const closeMenu = () => {
+    menu?.setAttribute('hidden', '');
+    document.body.style.overflow = '';
+    openBtn?.setAttribute('aria-expanded', 'false');
+  };
+  openBtn?.addEventListener('click', openMenu);
+  closeBtn?.addEventListener('click', closeMenu);
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
+
+  const servicesTrigger = document.querySelector('[data-mobile-services-trigger]');
+  const servicesPanel = document.getElementById('mobile-services');
+  servicesTrigger?.addEventListener('click', () => {
+    const open = servicesTrigger.getAttribute('aria-expanded') === 'true';
+    servicesTrigger.setAttribute('aria-expanded', String(!open));
+    servicesTrigger.querySelector('svg')?.classList.toggle('rotate-180', !open);
+    if (open) servicesPanel?.setAttribute('hidden', '');
+    else servicesPanel?.removeAttribute('hidden');
+  });
+</script>

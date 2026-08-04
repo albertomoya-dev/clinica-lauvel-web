@@ -1,0 +1,21 @@
+---
+import Icon from '../ui/Icon.astro';
+import { site, isPending } from '../../data/site';
+
+const configured = !isPending(site.whatsappNumber);
+const whatsappHref = `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(site.whatsappMessage)}`;
+---
+
+{
+  configured && (
+    <a
+      href={whatsappHref}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="fixed right-5 bottom-5 z-50 inline-flex size-14 items-center justify-center rounded-full bg-accent text-white shadow-lg transition-transform duration-300 hover:scale-110 md:right-7 md:bottom-7"
+      aria-label="Abrir chat de WhatsApp"
+    >
+      <Icon name="whatsapp" class="size-7" />
+    </a>
+  )
+}

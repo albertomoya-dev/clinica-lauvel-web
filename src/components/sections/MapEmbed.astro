@@ -1,0 +1,24 @@
+---
+import { site, isPending } from '../../data/site';
+import Placeholder from '../ui/Placeholder.astro';
+
+const query = encodeURIComponent(`${site.address}, ${site.city}, España`);
+---
+
+<section class="pb-20 md:pb-28">
+  <div class="container-site">
+    {
+      isPending(site.address) ? (
+        <Placeholder label="Mapa de Google — ubicación pendiente de confirmar" class="h-[450px] w-full rounded-2xl" />
+      ) : (
+        <iframe
+          src={`https://www.google.com/maps?q=${query}&output=embed`}
+          class="h-[450px] w-full rounded-2xl border-0"
+          loading="lazy"
+          allowfullscreen
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Mapa con la ubicación de Clínica LAUVEL"></iframe>
+      )
+    }
+  </div>
+</section>

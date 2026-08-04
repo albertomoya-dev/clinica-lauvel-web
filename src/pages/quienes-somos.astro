@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import TwoColumn from '../components/sections/TwoColumn.astro';
+import ServicesGrid from '../components/sections/ServicesGrid.astro';
+import TeamSection from '../components/sections/TeamSection.astro';
+import ContactSection from '../components/sections/ContactSection.astro';
+
+import heroQuienes from '../assets/images/hero-quienes.jpg';
+import sessionVertical from '../assets/images/session-vertical.jpg';
+import materials from '../assets/images/materials.jpg';
+
+import { disciplines } from '../data/services';
+import { site, isPending } from '../data/site';
+
+const city = isPending(site.city) ? '' : ` en ${site.city}`;
+---
+
+<BaseLayout
+  title={isPending(site.city) ? 'Equipo Clínica LAUVEL | Especialistas en logopedia, psicología, pedagogía y fisioterapia' : `Equipo Clínica LAUVEL | Especialistas en ${site.city}`}
+  description="Conoce al equipo multidisciplinar de Clínica LAUVEL: especialistas en logopedia, psicología, pedagogía y fisioterapia comprometidos con tu bienestar."
+>
+  <Hero
+    title={`Quiénes somos: tu equipo de confianza${city}`}
+    image={heroQuienes}
+    imageAlt="Equipo de Clínica LAUVEL con uniforme rosa en el pasillo de la clínica"
+  />
+
+  <TwoColumn
+    title="Un equipo multidisciplinar comprometido con tu bienestar"
+    image={sessionVertical}
+    imageAlt="Logopeda de Clínica LAUVEL mostrando una tarjeta didáctica a una niña en sesión"
+    imagePosition="left"
+    smallImage={materials}
+    smallImageAlt="Tarjetas didácticas de animales para terapia del lenguaje"
+  >
+    <p>
+      En LAUVEL creemos en una atención integral y personalizada. Trabajamos desde una visión global del desarrollo,
+      la comunicación, el aprendizaje, la salud emocional y el bienestar físico.
+    </p>
+    <p>
+      Atendemos a bebés, niños, adolescentes y adultos con intervenciones estructuradas, basadas en la evidencia
+      científica y adaptadas a las necesidades de cada persona.
+    </p>
+  </TwoColumn>
+
+  <ServicesGrid title="Nuestras disciplinas" services={disciplines} columns={4} />
+
+  <TeamSection variant="full" />
+
+  <ContactSection />
+</BaseLayout>

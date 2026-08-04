@@ -1,0 +1,18 @@
+---
+import Icon from '../ui/Icon.astro';
+import ArrowButton from '../ui/ArrowButton.astro';
+import type { Service } from '../../data/services';
+
+interface Props {
+  service: Service;
+}
+
+const { service } = Astro.props;
+---
+
+<article class="reveal reveal--up flex flex-col items-center text-center">
+  <Icon name={service.icon} class="size-12 text-accent" />
+  <h3 class="mt-6 font-display text-[1.4rem] leading-snug font-medium text-ink">{service.title}</h3>
+  <p class="mt-3 max-w-xs text-[0.98rem] text-body">{service.description}</p>
+  <ArrowButton href={service.href} label={`Ver ${service.title}`} class="mt-7" />
+</article>

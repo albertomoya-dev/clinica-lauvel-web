@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import TreatmentGrid from '../components/sections/TreatmentGrid.astro';
+import NeaeCta from '../components/sections/NeaeCta.astro';
+import ContactSection from '../components/sections/ContactSection.astro';
+
+import { logopediaTreatments } from '../data/treatments';
+import { neaeLogopedia } from '../data/neae';
+import { site, isPending } from '../data/site';
+import heroLogopedia from '../assets/images/hero-logopedia.jpg';
+
+const city = isPending(site.city) ? '' : ` en ${site.city}`;
+
+const intro = [
+  'La logopedia es la disciplina sanitaria encargada de <strong>prevenir, evaluar, diagnosticar e intervenir en las alteraciones del lenguaje, el habla, la comunicación, la voz, la deglución y las funciones orofaciales</strong>.',
+  'En LAUVEL ofrecemos una atención individualizada para <strong>bebés, niños, adolescentes y adultos</strong>, adaptando cada tratamiento a las necesidades específicas de cada persona y trabajando siempre desde un enfoque <strong>basado en la evidencia científica</strong>.',
+  'Creemos que una comunicación eficaz y una correcta función orofacial son fundamentales para el desarrollo, el aprendizaje y la calidad de vida.',
+];
+---
+
+<BaseLayout
+  title={isPending(site.city) ? 'Logopedia infantil y de adultos | Clínica LAUVEL' : `Logopeda en ${site.city} | Clínica LAUVEL`}
+  description="Logopedia para bebés, niños, adolescentes y adultos: motricidad orofacial, lenguaje, habla, voz y deglución. Enfoque basado en la evidencia."
+>
+  <Hero title={`Logopedia${city}`} image={heroLogopedia} imageAlt="Sesión de logopedia en Clínica LAUVEL" />
+
+  <section class="py-20 md:py-24">
+    <div class="container-site">
+      <div class="reveal reveal--up mx-auto flex max-w-3xl flex-col gap-5 text-center text-[1.05rem] text-body">
+        {intro.map((p) => <p set:html={p} />)}
+      </div>
+    </div>
+  </section>
+
+  <TreatmentGrid
+    title="Tratamientos de logopedia"
+    sideText="Abordamos todas las áreas de la disciplina, con especial atención a nuestras áreas de especialización:"
+    treatments={logopediaTreatments}
+  />
+
+  <NeaeCta block={neaeLogopedia} />
+
+  <ContactSection />
+</BaseLayout>

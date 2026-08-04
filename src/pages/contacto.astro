@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import ContactForm from '../components/sections/ContactForm.astro';
+import MapEmbed from '../components/sections/MapEmbed.astro';
+import Icon from '../components/ui/Icon.astro';
+
+import { site, isPending } from '../data/site';
+import heroContacto from '../assets/images/hero-contacto.jpg';
+---
+
+<BaseLayout
+  title="Contacto Clínica LAUVEL | Pide tu cita"
+  description="Contacta con Clínica LAUVEL: resuelve dudas, solicita una valoración o pide cita de logopedia, psicología, pedagogía o fisioterapia."
+>
+  <Hero title="Contacta con nosotros" image={heroContacto} imageAlt="Interior de Clínica LAUVEL" />
+
+  <section class="py-20 md:py-28">
+    <div class="container-site grid gap-14 lg:grid-cols-2 lg:gap-16">
+      <div class="reveal reveal--left">
+        <h2 class="text-[1.9rem] md:text-[2.6rem]">Contacto</h2>
+        <div class="mt-6 flex max-w-lg flex-col gap-4 text-[1.02rem] text-body">
+          <p>
+            Si quieres resolver dudas, solicitar una valoración o conocer mejor cómo trabajamos, nuestro equipo te
+            atenderá con total cercanía y profesionalidad.
+          </p>
+          <p>Déjanos tus datos y nos pondremos en contacto contigo lo antes posible.</p>
+        </div>
+
+        <address class="mt-8 flex flex-col gap-4 not-italic">
+          {
+            !isPending(site.address) && (
+              <p class="flex items-start gap-3 text-body">
+                <Icon name="map-pin" class="mt-0.5 size-5 shrink-0 text-accent" />
+                <span>{site.address}{!isPending(site.city) && `, ${site.city}`}</span>
+              </p>
+            )
+          }
+          {
+            !isPending(site.phone) && (
+              <p class="flex items-center gap-3">
+                <Icon name="phone" class="size-5 shrink-0 text-accent" />
+                <span class="font-semibold text-ink">Tel. {site.phone}</span>
+              </p>
+            )
+          }
+          {
+            !isPending(site.email) && (
+              <p class="flex items-center gap-3">
+                <Icon name="mail" class="size-5 shrink-0 text-accent" />
+                <a href={`mailto:${site.email}`} class="text-body transition-colors hover:text-accent">{site.email}</a>
+              </p>
+            )
+          }
+          {
+            !isPending(site.instagramUrl) && (
+              <p>
+                <a href={site.instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram de Clínica LAUVEL" class="inline-flex text-accent transition-transform hover:scale-110">
+                  <Icon name="instagram" class="size-6" />
+                </a>
+              </p>
+            )
+          }
+        </address>
+      </div>
+
+      <div class="reveal reveal--right" id="formulario">
+        <ContactForm />
+      </div>
+    </div>
+  </section>
+
+  <MapEmbed />
+</BaseLayout>

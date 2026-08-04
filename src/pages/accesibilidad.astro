@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout
+  title="Accesibilidad | Clínica LAUVEL"
+  description="Declaración de accesibilidad del sitio web de Clínica LAUVEL: compromiso con las pautas WCAG 2.1 nivel AA y canales de contacto para incidencias."
+  solidHeader
+>
+  <section class="pt-40 pb-20 md:pb-28">
+    <div class="container-site">
+      <article class="prose-legal mx-auto max-w-3xl">
+        <h1 class="mb-8 text-[2.2rem] md:text-[2.9rem]">Declaración de accesibilidad</h1>
+        <p><strong>Última actualización:</strong> agosto de 2026</p>
+
+        <h2>Compromiso de accesibilidad</h2>
+        <p>
+          {site.name} se ha comprometido a hacer accesible su sitio web de conformidad con el Real Decreto 1112/2018,
+          de 7 de septiembre, sobre accesibilidad de los sitios web y aplicaciones del sector público, aplicando las
+          pautas de contenido web <strong>WCAG 2.1 en su nivel AA</strong> como referencia de buenas prácticas.
+        </p>
+
+        <h2>Medidas adoptadas</h2>
+        <ul>
+          <li>Estructura semántica del contenido con encabezados jerárquicos.</li>
+          <li>Textos alternativos descriptivos en las imágenes.</li>
+          <li>Contraste de color suficiente entre texto y fondo.</li>
+          <li>Navegación completa mediante teclado, con foco visible.</li>
+          <li>Etiquetas asociadas a todos los campos de formulario.</li>
+          <li>
+            Widget de accesibilidad disponible en todas las páginas (botón en el lateral izquierdo) que permite
+            aumentar el tamaño del texto, activar el alto contraste y la escala de grises.
+          </li>
+          <li>Respeto de la preferencia de reducción de movimiento del sistema.</li>
+        </ul>
+
+        <h2>Contenido no accesible</h2>
+        <p>
+          A pesar de nuestros esfuerzos, es posible que algunos contenidos incrustados de terceros (por ejemplo, el
+          mapa de Google Maps) no sean plenamente accesibles. Trabajamos para ofrecer alternativas: la dirección
+          completa del centro está disponible siempre en formato texto en la página de <a href="/contacto/">contacto</a>.
+        </p>
+
+        <h2>Comunicaciones y sugerencias</h2>
+        <p>
+          Si detectas cualquier barrera de accesibilidad o necesitas información en un formato alternativo, puedes
+          comunicárnoslo a través de:
+        </p>
+        <ul>
+          <li><strong>Correo electrónico:</strong> {site.email}</li>
+          <li><strong>Teléfono:</strong> {site.phone}</li>
+        </ul>
+        <p>Atenderemos tu solicitud a la mayor brevedad posible.</p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

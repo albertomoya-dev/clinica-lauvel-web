@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout
+  title="Política de privacidad | Clínica LAUVEL"
+  description="Política de privacidad de Clínica LAUVEL: responsable del tratamiento, finalidades, legitimación, conservación, destinatarios y derechos RGPD."
+  solidHeader
+>
+  <section class="pt-40 pb-20 md:pb-28">
+    <div class="container-site">
+      <article class="prose-legal mx-auto max-w-3xl">
+        <h1 class="mb-8 text-[2.2rem] md:text-[2.9rem]">Política de privacidad</h1>
+        <p><strong>Última actualización:</strong> agosto de 2026</p>
+
+        <h2>1. Responsable del tratamiento</h2>
+        <ul>
+          <li><strong>Responsable:</strong> {site.rgpdOwner}</li>
+          <li><strong>Nombre comercial:</strong> {site.name}</li>
+          <li><strong>CIF/NIF:</strong> {site.cif}</li>
+          <li><strong>Domicilio:</strong> {site.address}</li>
+          <li><strong>Teléfono:</strong> {site.phone}</li>
+          <li><strong>Correo electrónico:</strong> {site.email}</li>
+        </ul>
+
+        <h2>2. Finalidad del tratamiento</h2>
+        <p>
+          Los datos personales facilitados a través de los formularios de este sitio web se tratan con la finalidad
+          de atender tu solicitud de información, gestionar la petición de valoración o cita y ponernos en contacto
+          contigo para dar respuesta a tu consulta.
+        </p>
+
+        <h2>3. Legitimación</h2>
+        <p>
+          La base jurídica del tratamiento es tu consentimiento, otorgado al marcar la casilla de aceptación de la
+          presente política de privacidad antes de enviar el formulario (art. 6.1.a RGPD). Puedes retirar tu
+          consentimiento en cualquier momento, sin que ello afecte a la licitud del tratamiento previo.
+        </p>
+
+        <h2>4. Plazo de conservación</h2>
+        <p>
+          Los datos se conservarán durante el tiempo necesario para atender tu solicitud y, en su caso, durante los
+          plazos legalmente exigibles para atender posibles responsabilidades.
+        </p>
+
+        <h2>5. Destinatarios</h2>
+        <p>
+          No se cederán datos a terceros salvo obligación legal. El envío del formulario se realiza a través de un
+          proveedor de servicios de correo electrónico que actúa como encargado del tratamiento con las garantías
+          adecuadas conforme al RGPD.
+        </p>
+
+        <h2>6. Derechos de las personas interesadas</h2>
+        <p>Puedes ejercer, en cualquier momento y de forma gratuita, los siguientes derechos:</p>
+        <ul>
+          <li>Acceso a tus datos personales.</li>
+          <li>Rectificación de los datos inexactos o incompletos.</li>
+          <li>Supresión de tus datos cuando ya no sean necesarios.</li>
+          <li>Oposición al tratamiento.</li>
+          <li>Limitación del tratamiento.</li>
+          <li>Portabilidad de los datos.</li>
+          <li>Retirada del consentimiento otorgado.</li>
+        </ul>
+        <p>
+          Para ejercerlos, envía tu solicitud al correo electrónico {site.email} indicando el derecho que deseas
+          ejercer y adjuntando un documento acreditativo de tu identidad. Si consideras que el tratamiento no se
+          ajusta a la normativa, puedes presentar una reclamación ante la Agencia Española de Protección de Datos
+          (www.aepd.es).
+        </p>
+
+        <h2>7. Medidas de seguridad</h2>
+        <p>
+          {site.name} aplica las medidas técnicas y organizativas apropiadas para garantizar un nivel de seguridad
+          adecuado al riesgo, evitando la pérdida, el uso indebido o el acceso no autorizado a los datos personales.
+        </p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

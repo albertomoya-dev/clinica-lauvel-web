@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import type { ProcessStep } from '../../data/process';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  steps: ProcessStep[];
+  image?: ImageMetadata;
+  imageAlt?: string;
+}
+
+const { eyebrow, title, steps, image, imageAlt = '' } = Astro.props;
+---
+
+<section class="py-20 md:py-28">
+  <div class="container-site">
+    <div class="reveal reveal--up max-w-2xl">
+      <p class="eyebrow mb-4">{eyebrow}</p>
+      <h2 class="text-[1.9rem] md:text-[2.6rem]">{title}</h2>
+    </div>
+    <hr class="mt-10 border-ink/10" />
+    <ol>
+      {
+        steps.map((step, i) => (
+          <li class="reveal reveal--up grid gap-3 border-b border-ink/10 py-10 md:grid-cols-[7rem_1fr_1.3fr] md:items-baseline md:gap-8">
+            <span class="font-display text-6xl leading-none font-semibold text-card-number md:text-7xl" aria-hidden="true">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <h3 class="font-display text-[1.45rem] leading-snug font-medium text-ink">{step.title}</h3>
+            <p class="text-[1rem] text-body">{step.description}</p>
+          </li>
+        ))
+      }
+    </ol>
+    {
+      image && (
+        <Image
+          src={image}
+          alt={imageAlt}
+          widths={[1024, 1536]}
+          sizes="(min-width: 1280px) 1216px, 100vw"
+          class="reveal reveal--up mt-14 aspect-[21/9] w-full rounded-2xl object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+      )
+    }
+  </div>
+</section>

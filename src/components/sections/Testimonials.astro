@@ -1,0 +1,82 @@
+---
+import Icon from '../ui/Icon.astro';
+import { testimonials } from '../../data/testimonials';
+import { isPending } from '../../data/site';
+---
+
+<section class="overflow-hidden py-20 md:py-28">
+  <div class="container-site">
+    <div class="reveal reveal--up max-w-2xl">
+      <p class="eyebrow mb-4">Testimonios</p>
+      <h2 class="text-[1.9rem] md:text-[2.6rem]">Lo que nuestros pacientes destacan</h2>
+    </div>
+
+    <div class="relative mt-14">
+      <div
+        id="testimonials-track"
+        class="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        tabindex="0"
+        aria-label="Carrusel de reseñas de Google"
+      >
+        {
+          testimonials.map((t) => {
+            const pending = isPending(t.author);
+            return (
+              <article class="w-[85%] shrink-0 snap-start rounded-xl border border-ink/5 bg-white p-7 shadow-card sm:w-[46%] lg:w-[31.5%]">
+                <div class="flex items-center gap-3">
+                  <span class="flex size-11 items-center justify-center rounded-full bg-accent font-display text-lg font-semibold text-white" aria-hidden="true">
+                    {pending ? <Icon name="logopedia" class="size-5" /> : t.author.charAt(0)}
+                  </span>
+                  <div>
+                    <p class="text-[0.95rem] font-medium text-ink">{pending ? 'Reseña de Google' : t.author}</p>
+                    <p class="text-xs text-body">{t.date}</p>
+                  </div>
+                  {!pending && <Icon name="google" class="ml-auto size-5 text-ink/70" />}
+                </div>
+                {!pending && (
+                  <div class="mt-3 flex gap-0.5 text-[#fbbc04]" aria-label={`${t.rating} de 5 estrellas`}>
+                    {Array.from({ length: t.rating }).map(() => (
+                      <Icon name="star" class="size-4" filled />
+                    ))}
+                  </div>
+                )}
+                <p class="mt-3 text-[0.95rem] text-body">{t.text}</p>
+              </article>
+            );
+          })
+        }
+      </div>
+
+      <button
+        type="button"
+        id="testimonials-prev"
+        class="absolute top-1/2 -left-2 hidden size-12 -translate-y-1/2 items-center justify-center rounded-full border border-accent/50 bg-white text-accent shadow-md transition-colors hover:bg-accent hover:text-white md:inline-flex"
+        aria-label="Reseñas anteriores"
+      >
+        <Icon name="arrow-right" class="size-5 rotate-180" />
+      </button>
+      <button
+        type="button"
+        id="testimonials-next"
+        class="absolute top-1/2 -right-2 hidden size-12 -translate-y-1/2 items-center justify-center rounded-full border border-accent/50 bg-white text-accent shadow-md transition-colors hover:bg-accent hover:text-white md:inline-flex"
+        aria-label="Reseñas siguientes"
+      >
+        <Icon name="arrow-right" class="size-5" />
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  const track = document.getElementById('testimonials-track');
+  const step = () => {
+    const card = track?.querySelector('article');
+    return card ? card.getBoundingClientRect().width + 24 : 320;
+  };
+  document.getElementById('testimonials-prev')?.addEventListener('click', () => {
+    track?.scrollBy({ left: -step(), behavior: 'smooth' });
+  });
+  document.getElementById('testimonials-next')?.addEventListener('click', () => {
+    track?.scrollBy({ left: step(), behavior: 'smooth' });
+  });
+</script>
