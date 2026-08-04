@@ -2,6 +2,7 @@
 import ContactForm from './ContactForm.astro';
 import formBg from '../../assets/images/form-bg.jpg';
 import { primaryCtaLabel } from '../../data/site';
+import { withBase } from '../../utils/url';
 ---
 
 <section class="relative overflow-hidden">
@@ -22,7 +23,7 @@ import { primaryCtaLabel } from '../../data/site';
         </p>
         <p>Déjanos tus datos y nos pondremos en contacto contigo lo antes posible.</p>
       </div>
-      <a href="/contacto/" class="btn-primary mt-8">{primaryCtaLabel}</a>
+      <a href={withBase('/contacto/')} class="btn-primary mt-8">{primaryCtaLabel}</a>
     </div>
     <div class="reveal reveal--right">
       <ContactForm />

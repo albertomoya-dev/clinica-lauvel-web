@@ -1,8 +1,10 @@
 ---
 import Icon from '../ui/Icon.astro';
 import { site, isPending } from '../../data/site';
+import { withBase } from '../../utils/url';
 
 const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
+const privacyHref = withBase('/politica-de-privacidad/');
 ---
 
 <div class="rounded-xl bg-white p-7 shadow-form md:p-9">
@@ -50,7 +52,7 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
         class="mt-1 size-4 shrink-0 accent-[#d7006b]"
       />
       <label for="form-privacidad" class="text-sm text-body">
-        He leído y acepto la <a href="/politica-de-privacidad/" class="font-medium text-accent underline underline-offset-2">Política de privacidad</a>
+        He leído y acepto la <a href={privacyHref} class="font-medium text-accent underline underline-offset-2">Política de privacidad</a>
       </label>
     </div>
 
@@ -84,7 +86,7 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
             <div><dt class="inline font-medium text-ink">Destinatarios: </dt><dd class="inline">no se cederán datos a terceros salvo obligación legal.</dd></div>
             <div>
               <dt class="inline font-medium text-ink">Derechos: </dt>
-              <dd class="inline">puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad conforme a la <a href="/politica-de-privacidad/" class="text-accent underline underline-offset-2">Política de privacidad</a>.</dd>
+              <dd class="inline">puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad conforme a la <a href={privacyHref} class="text-accent underline underline-offset-2">Política de privacidad</a>.</dd>
             </div>
           </dl>
         </div>

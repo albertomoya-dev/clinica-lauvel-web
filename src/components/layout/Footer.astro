@@ -3,9 +3,11 @@ import Logo from '../ui/Logo.astro';
 import Icon from '../ui/Icon.astro';
 import { mainNavLeft, mainNavRight, servicesNav, legalNav } from '../../data/navigation';
 import { site, isPending } from '../../data/site';
+import { withBase } from '../../utils/url';
 
 const path = Astro.url.pathname;
-const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+const homeHref = withBase('/');
+const isActive = (href: string) => (href === homeHref ? path === homeHref : path.startsWith(href));
 ---
 
 <footer class="bg-ink text-white/75">

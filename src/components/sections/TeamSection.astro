@@ -2,12 +2,14 @@
 import { Image } from 'astro:assets';
 import SectionHeading from '../ui/SectionHeading.astro';
 import { team } from '../../data/team';
+import { withBase } from '../../utils/url';
 
 interface Props {
   variant?: 'preview' | 'full';
 }
 
 const { variant = 'preview' } = Astro.props;
+const quienesHref = withBase('/quienes-somos/');
 ---
 
 {
@@ -34,7 +36,7 @@ const { variant = 'preview' } = Astro.props;
           ))}
         </div>
         <div class="reveal reveal--up mt-12 text-center">
-          <a href="/quienes-somos/" class="btn-primary">Conócenos</a>
+          <a href={quienesHref} class="btn-primary">Conócenos</a>
         </div>
       </div>
     </section>

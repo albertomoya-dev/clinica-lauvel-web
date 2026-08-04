@@ -3,6 +3,7 @@ import Logo from '../ui/Logo.astro';
 import Icon from '../ui/Icon.astro';
 import { mainNavLeft, mainNavRight, servicesNav } from '../../data/navigation';
 import { primaryCtaLabel } from '../../data/site';
+import { withBase } from '../../utils/url';
 
 interface Props {
   solid?: boolean;
@@ -10,8 +11,9 @@ interface Props {
 
 const { solid = false } = Astro.props;
 const path = Astro.url.pathname;
+const homeHref = withBase('/');
 
-const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+const isActive = (href: string) => (href === homeHref ? path === homeHref : path.startsWith(href));
 const servicesActive = servicesNav.some((s) => isActive(s.href));
 ---
 
@@ -141,7 +143,7 @@ const servicesActive = servicesNav.some((s) => isActive(s.href));
           </ul>
         </li>
       </ul>
-      <a href="/contacto/" class="btn-primary mt-8 w-full">{primaryCtaLabel}</a>
+      <a href={withBase('/contacto/')} class="btn-primary mt-8 w-full">{primaryCtaLabel}</a>
     </nav>
   </div>
 </header>
