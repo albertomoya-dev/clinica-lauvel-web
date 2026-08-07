@@ -90,7 +90,7 @@ const servicesActive = servicesNav.some((s) => isActive(s.href));
 
   <div id="mobile-menu" class="mobile-menu" hidden>
     <div class="flex h-20 items-center justify-between px-5">
-      <Logo type="icon" class="h-14" />
+      <Logo type="icon" class="mobile-logo h-14" />
       <button
         type="button"
         id="menu-close"
@@ -174,6 +174,20 @@ const servicesActive = servicesNav.some((s) => isActive(s.href));
 
   :global(.header-logo span:last-child) {
     color: var(--color-accent);
+  }
+
+  :global(.header-logo img) {
+    filter: invert(1);
+    transition: filter 0.35s ease;
+  }
+
+  #site-header[data-scrolled] :global(.header-logo img),
+  #site-header[data-solid] :global(.header-logo img) {
+    filter: none;
+  }
+
+  :global(.mobile-logo img) {
+    filter: invert(1);
   }
 
   #site-header[data-scrolled] :global(.header-logo span:first-child),
