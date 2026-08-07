@@ -105,4 +105,14 @@ import { isPending } from '../../data/site';
     const i = currentIndex();
     if (i < cards.length - 1) centerCard(cards[i + 1]);
   });
+
+  const centerFirst = () => {
+    if (!track || cards.length === 0) return;
+    const trackRect = track.getBoundingClientRect();
+    const cardRect = cards[0].getBoundingClientRect();
+    const delta = cardRect.left + cardRect.width / 2 - (trackRect.left + trackRect.width / 2);
+    track.scrollTo({ left: track.scrollLeft + delta, behavior: 'instant' as ScrollBehavior });
+  };
+  centerFirst();
+  window.addEventListener('resize', centerFirst);
 </script>
