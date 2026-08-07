@@ -39,7 +39,7 @@ npm run check     # astro check (tipos)
 
 | Token | Valor | Uso |
 |---|---|---|
-| `accent` | `#D7006B` | botones, enlaces, eyebrows, iconos, títulos de tarjetas de tratamiento, subrayado activo |
+| `accent` | `#AC9687` | botones, enlaces, eyebrows, iconos, títulos de tarjetas de tratamiento, subrayado activo |
 | `ink` | `#161615` | titulares, footer, desplegables |
 | `body` | `#5D5D5C` | texto de cuerpo |
 | `bg` | `#FFFFFF` | fondo base |
@@ -56,7 +56,7 @@ npm run check     # astro check (tipos)
 
 ## Datos pendientes del cliente (spec LAUVEL §15)
 
-Ciudad/zona, dirección, teléfono, email, WhatsApp, redes sociales, equipo (nombres/roles/bios — fotos ya recibidas), logo e identidad (¿sustituir `#D7006B`?), gratuidad de primera consulta (CTA), titular RGPD, selector de idioma, logos de financiación, reseñas de Google, aseguradoras. → **Todos en `src/data/site.ts`**.
+Ciudad/zona, dirección, teléfono, email, WhatsApp, redes sociales, equipo (nombres/roles/bios — fotos ya recibidas), logo, gratuidad de primera consulta (CTA), titular RGPD, selector de idioma, logos de financiación, reseñas de Google, aseguradoras. → **Todos en `src/data/site.ts`**.
 
 ## Imágenes
 

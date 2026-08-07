@@ -51,14 +51,14 @@ El resto de la estructura (hero, bloques dos columnas, tarjetas numeradas con ac
 
 Se hereda por completo del documento de especificaciones de referencia:
 
-- **Paleta**: acento rosa fucsia `#D7006B`; negro suave `#161615` (titulares, footer, desplegables); gris `#5D5D5C` (cuerpo); blanco `#FFFFFF`; fondos alternos rosa pálido `#FDF2F7` y `#FEFAFC`; overlay de heroes `rgba(0,0,0,0.35–0.45)`.
+- **Paleta**: acento `#AC9687`; negro suave `#161615` (titulares, footer, desplegables); gris `#5D5D5C` (cuerpo); blanco `#FFFFFF`; fondos alternos beige pálido `#F5F0EB` y `#FAF8F5`; overlay de heroes `rgba(0,0,0,0.35–0.45)`.
 - **Tipografía**: display redondeada para titulares (Aloevera Display; sustitutas libres: Quicksand Bold, Comfortaa, Baloo 2) + DM Sans 400/500 para cuerpo, eyebrow labels y botones.
 - **Botones**: primario rosa con texto blanco (radio ~4–6 px) y botón circular con borde rosa y flecha `→` (enlaces y acordeones).
 - **Eyebrow labels**: mayúsculas, rosa, letter-spacing amplio, sobre cada H2.
 - **Componentes reutilizables**: hero de página, tarjeta de servicio, tarjeta numerada con acordeón "Qué tratamos", lista numerada horizontal, tarjeta de persona, carrusel de testimonios, bloque dos columnas texto+imagen, sección formulario, botones flotantes (WhatsApp y accesibilidad), banner de cookies.
 - **Responsive y animaciones**: según §13 del documento de referencia (grids 3→2→1 columnas, animaciones fade/slide al hacer scroll, menú hamburguesa en móvil).
 
-> Nota de marca: el color corporativo definitivo de LAUVEL está por confirmar. Si LAUVEL tiene identidad propia (logo/colores), se sustituye el fucsia `#D7006B` por su color principal manteniendo el resto del sistema. Ver §15.
+> Nota de marca: el color corporativo definitivo de LAUVEL ha sido confirmado como `#AC9687`. El logo debe mantenerse con la identidad recibida del cliente. Ver §15.
 
 ---
 
@@ -406,7 +406,7 @@ Cuatro páginas de texto legal con cabecera y footer globales: **Aviso legal**, 
 | 2 | **Dirección, teléfono, email, WhatsApp** | Contacto, footer, botón flotante |
 | 3 | **Redes sociales** (URLs) | Footer y página de contacto |
 | 4 | **Equipo**: nombres, roles, fotos y bios | Home §5 y Quiénes somos §4 |
-| 5 | **Logo e identidad de LAUVEL** (colores) | Sustituir `#D7006B` si la marca tiene otro color |
+| 5 | **Logo e identidad de LAUVEL** (logo ya recibido; acento confirmado `#AC9687`) | Mantener logo del cliente; acento ya aplicado en web |
 | 6 | **¿Primera consulta/valoración gratuita?** | Texto del CTA principal |
 | 7 | **Titular RGPD** (nombre del responsable) | Formularios y política de privacidad |
 | 8 | **¿Selector de idioma?** | Footer |

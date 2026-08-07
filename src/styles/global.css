@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  --color-accent: #d7006b;
-  --color-accent-hover: #b8005c;
+  --color-accent: #ac9687;
+  --color-accent-hover: #8a7b6e;
   --color-ink: #161615;
   --color-body: #5d5d5c;
-  --color-soft: #fdf2f7;
-  --color-softer: #fefafc;
-  --color-card-number: #f6d9e8;
+  --color-soft: #f5f0eb;
+  --color-softer: #faf8f5;
+  --color-card-number: #eaddd3;
 
   --font-display: "Baloo 2", "Quicksand", system-ui, sans-serif;
   --font-sans: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
