@@ -18,11 +18,12 @@ import { isPending } from '../../data/site';
         tabindex="0"
         aria-label="Carrusel de reseñas de Google"
       >
+        <div class="w-[7.5%] shrink-0 sm:w-[27%] lg:w-[34.25%]" aria-hidden="true"></div>
         {
           testimonials.map((t) => {
             const pending = isPending(t.author);
             return (
-              <article class="relative w-[85%] shrink-0 snap-start rounded-xl border border-ink/5 bg-white p-7 shadow-card sm:w-[46%] lg:w-[31.5%]">
+              <article class="relative w-[85%] shrink-0 snap-center rounded-xl border border-ink/5 bg-white p-7 shadow-card sm:w-[46%] lg:w-[31.5%]">
                 <span class="pointer-events-none absolute top-5 right-6 font-display text-6xl leading-none text-accent/10 select-none" aria-hidden="true">&rdquo;</span>
                 <div class="flex items-center gap-3">
                   <span class="flex size-11 items-center justify-center rounded-full bg-accent font-display text-lg font-semibold text-white" aria-hidden="true">
@@ -44,6 +45,7 @@ import { isPending } from '../../data/site';
             );
           })
         }
+        <div class="w-[7.5%] shrink-0 sm:w-[27%] lg:w-[34.25%]" aria-hidden="true"></div>
       </div>
 
       <button
@@ -68,14 +70,39 @@ import { isPending } from '../../data/site';
 
 <script>
   const track = document.getElementById('testimonials-track');
-  const step = () => {
-    const card = track?.querySelector('article');
-    return card ? card.getBoundingClientRect().width + 24 : 320;
+  const cards = track ? Array.from(track.querySelectorAll('article')) : [];
+
+  const centerCard = (card: Element) => {
+    if (!track) return;
+    const trackRect = track.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    const delta = cardRect.left + cardRect.width / 2 - (trackRect.left + trackRect.width / 2);
+    track.scrollBy({ left: delta, behavior: 'smooth' });
   };
+
+  const currentIndex = () => {
+    if (!track || cards.length === 0) return 0;
+    const trackRect = track.getBoundingClientRect();
+    const mid = trackRect.left + trackRect.width / 2;
+    let best = 0;
+    let bestDist = Infinity;
+    cards.forEach((card, i) => {
+      const r = card.getBoundingClientRect();
+      const d = Math.abs(r.left + r.width / 2 - mid);
+      if (d < bestDist) {
+        bestDist = d;
+        best = i;
+      }
+    });
+    return best;
+  };
+
   document.getElementById('testimonials-prev')?.addEventListener('click', () => {
-    track?.scrollBy({ left: -step(), behavior: 'smooth' });
+    const i = currentIndex();
+    if (i > 0) centerCard(cards[i - 1]);
   });
   document.getElementById('testimonials-next')?.addEventListener('click', () => {
-    track?.scrollBy({ left: step(), behavior: 'smooth' });
+    const i = currentIndex();
+    if (i < cards.length - 1) centerCard(cards[i + 1]);
   });
 </script>
