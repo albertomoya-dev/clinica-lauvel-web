@@ -2,6 +2,9 @@
 import Icon from '../ui/Icon.astro';
 import { testimonials } from '../../data/testimonials';
 import { isPending } from '../../data/site';
+
+const count = testimonials.length;
+const triple = [...testimonials, ...testimonials, ...testimonials];
 ---
 
 <section class="overflow-hidden py-20 md:py-28">
@@ -20,10 +23,16 @@ import { isPending } from '../../data/site';
       >
         <div class="w-[7.5%] shrink-0 sm:w-[27%] lg:w-[34.25%]" aria-hidden="true"></div>
         {
-          testimonials.map((t) => {
+          triple.map((t, index) => {
+            const block = Math.floor(index / count);
             const pending = isPending(t.author);
             return (
-              <article class="relative w-[85%] shrink-0 snap-center rounded-xl border border-ink/5 bg-white p-7 shadow-card sm:w-[46%] lg:w-[31.5%]">
+              <article
+                class="relative w-[85%] shrink-0 snap-center rounded-xl border border-ink/5 bg-white p-7 shadow-card sm:w-[46%] lg:w-[31.5%]"
+                data-slide-index={index % count}
+                data-block={block}
+                aria-hidden={block !== 1 ? 'true' : undefined}
+              >
                 <span class="pointer-events-none absolute top-5 right-6 font-display text-6xl leading-none text-accent/10 select-none" aria-hidden="true">&rdquo;</span>
                 <div class="flex items-center gap-3">
                   <span class="flex size-11 items-center justify-center rounded-full bg-accent font-display text-lg font-semibold text-white" aria-hidden="true">
@@ -70,17 +79,8 @@ import { isPending } from '../../data/site';
 
 <script>
   const track = document.getElementById('testimonials-track');
-  let cards = track ? Array.from(track.querySelectorAll('article')) : [];
-
-  if (track && cards.length > 1) {
-    const firstClone = cards[0].cloneNode(true) as Element;
-    const lastClone = cards[cards.length - 1].cloneNode(true) as Element;
-    firstClone.setAttribute('aria-hidden', 'true');
-    lastClone.setAttribute('aria-hidden', 'true');
-    track.appendChild(firstClone);
-    track.insertBefore(lastClone, cards[0]);
-    cards = Array.from(track.querySelectorAll('article'));
-  }
+  const cards = track ? Array.from(track.querySelectorAll('article')) : [];
+  const count = cards.length / 3 || 0;
 
   const centerCard = (card: Element, smooth = true) => {
     if (!track) return;
@@ -107,30 +107,40 @@ import { isPending } from '../../data/site';
     return best;
   };
 
-  let jumpTimer: ReturnType<typeof setTimeout> | undefined;
-  const scheduleCloneFix = () => {
-    clearTimeout(jumpTimer);
-    jumpTimer = setTimeout(() => {
-      const i = currentIndex();
-      if (i === 0 && cards.length > 2) centerCard(cards[cards.length - 2], false);
-      else if (i === cards.length - 1 && cards.length > 2) centerCard(cards[1], false);
-    }, 450);
+  const cardByBlock = (realIndex: number, block: number) =>
+    cards[block * count + realIndex];
+
+  const fixBlock = () => {
+    const i = currentIndex();
+    const block = Number(cards[i]?.getAttribute('data-block'));
+    if (block !== 1 && cards[i]) {
+      const realIndex = Number(cards[i].getAttribute('data-slide-index'));
+      centerCard(cardByBlock(realIndex, 1), false);
+    }
+  };
+
+  let fixTimer: ReturnType<typeof setTimeout> | undefined;
+  const scheduleFix = () => {
+    clearTimeout(fixTimer);
+    fixTimer = setTimeout(fixBlock, 450);
   };
 
   document.getElementById('testimonials-prev')?.addEventListener('click', () => {
     const i = currentIndex();
-    centerCard(cards[(i - 1 + cards.length) % cards.length]);
-    scheduleCloneFix();
+    if (i <= 0) return;
+    centerCard(cards[i - 1]);
+    scheduleFix();
   });
   document.getElementById('testimonials-next')?.addEventListener('click', () => {
     const i = currentIndex();
-    centerCard(cards[(i + 1) % cards.length]);
-    scheduleCloneFix();
+    if (i >= cards.length - 1) return;
+    centerCard(cards[i + 1]);
+    scheduleFix();
   });
 
   const centerInitial = () => {
-    if (!track || cards.length === 0) return;
-    centerCard(cards[cards.length > 2 ? 1 : 0], false);
+    if (!track || cards.length < 2) return;
+    centerCard(cards[count], false);
   };
   centerInitial();
   window.addEventListener('resize', centerInitial);
