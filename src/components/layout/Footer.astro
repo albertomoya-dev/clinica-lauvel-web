@@ -116,4 +116,22 @@ const isActive = (href: string) => (href === homeHref ? path === homeHref : path
   :global(.footer-logo img) {
     filter: brightness(0) invert(1);
   }
+
+  footer details > ul {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    pointer-events: none;
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease,
+      visibility 0.25s;
+  }
+
+  footer details[open] > ul {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
 </style>

@@ -126,21 +126,23 @@ const servicesActive = servicesNav.some((s) => isActive(s.href));
             Servicios
             <Icon name="chevron-down" class="size-5 transition-transform duration-300" />
           </button>
-          <ul id="mobile-services" class="overflow-hidden" hidden>
-            {
-              servicesNav.map((item) => (
-                <li>
-                  <a
-                    href={item.href}
-                    class="block border-b border-white/5 py-3 pl-4 text-lg text-white/75"
-                    data-active={isActive(item.href) ? 'true' : undefined}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
+          <div class="mobile-services-panel" id="mobile-services">
+            <ul class="overflow-hidden">
+              {
+                servicesNav.map((item) => (
+                  <li>
+                    <a
+                      href={item.href}
+                      class="block border-b border-white/5 py-3 pl-4 text-lg text-white/75"
+                      data-active={isActive(item.href) ? 'true' : undefined}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
         </li>
       </ul>
       <a href={withBase('/contacto/')} class="btn-primary mt-8 w-full">{primaryCtaLabel}</a>
@@ -296,6 +298,28 @@ const servicesActive = servicesNav.some((s) => isActive(s.href));
   .mobile-menu a[data-active] {
     color: var(--color-accent);
   }
+
+  .mobile-services-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+    opacity: 0;
+    transition:
+      grid-template-rows 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.25s ease,
+      visibility 0.25s;
+  }
+
+  .mobile-services-panel.is-open {
+    grid-template-rows: 1fr;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .mobile-services-panel > ul {
+    overflow: hidden;
+    min-height: 0;
+  }
 </style>
 
 <script>
@@ -355,6 +379,9 @@ const servicesActive = servicesNav.some((s) => isActive(s.href));
   const openBtn = document.getElementById('menu-open');
   const closeBtn = document.getElementById('menu-close');
   const openMenu = () => {
+    servicesPanel?.classList.remove('is-open');
+    servicesTrigger?.setAttribute('aria-expanded', 'false');
+    servicesTrigger?.querySelector('svg')?.classList.remove('rotate-180');
     menu?.removeAttribute('hidden');
     document.body.style.overflow = 'hidden';
     openBtn?.setAttribute('aria-expanded', 'true');
@@ -371,10 +398,10 @@ const servicesActive = servicesNav.some((s) => isActive(s.href));
   const servicesTrigger = document.querySelector('[data-mobile-services-trigger]');
   const servicesPanel = document.getElementById('mobile-services');
   servicesTrigger?.addEventListener('click', () => {
-    const open = servicesTrigger.getAttribute('aria-expanded') === 'true';
+    const open = servicesPanel?.classList.contains('is-open');
     servicesTrigger.setAttribute('aria-expanded', String(!open));
     servicesTrigger.querySelector('svg')?.classList.toggle('rotate-180', !open);
-    if (open) servicesPanel?.setAttribute('hidden', '');
-    else servicesPanel?.removeAttribute('hidden');
+    if (open) servicesPanel?.classList.remove('is-open');
+    else servicesPanel?.classList.add('is-open');
   });
 </script>

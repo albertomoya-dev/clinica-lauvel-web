@@ -33,30 +33,32 @@ const cookiesHref = withBase('/politica-de-cookies/');
     </div>
   </div>
 
-  <div id="cookie-panel" class="border-t border-ink/10" hidden>
-    <div class="container-site flex flex-col gap-4 py-5">
-      <div class="flex items-center justify-between gap-4">
-        <div>
-          <p class="text-sm font-medium text-ink">Cookies técnicas</p>
-          <p class="text-xs text-body">Necesarias para el funcionamiento del sitio. Siempre activas.</p>
+  <div id="cookie-panel" class="border-t border-ink/10">
+    <div class="cookie-settings-panel">
+      <div class="container-site flex flex-col gap-4 py-5">
+        <div class="flex items-center justify-between gap-4">
+          <div>
+            <p class="text-sm font-medium text-ink">Cookies técnicas</p>
+            <p class="text-xs text-body">Necesarias para el funcionamiento del sitio. Siempre activas.</p>
+          </div>
+          <span class="rounded-full bg-soft px-3 py-1 text-xs font-medium text-accent">Siempre activas</span>
         </div>
-        <span class="rounded-full bg-soft px-3 py-1 text-xs font-medium text-accent">Siempre activas</span>
-      </div>
-      <div class="flex items-center justify-between gap-4">
-        <div>
-          <p class="text-sm font-medium text-ink">Cookies de analítica</p>
-          <p class="text-xs text-body">Nos ayudan a entender cómo se usa la web para mejorarla.</p>
+        <div class="flex items-center justify-between gap-4">
+          <div>
+            <p class="text-sm font-medium text-ink">Cookies de analítica</p>
+            <p class="text-xs text-body">Nos ayudan a entender cómo se usa la web para mejorarla.</p>
+          </div>
+          <label class="relative inline-flex cursor-pointer items-center">
+            <input type="checkbox" id="cookie-analytics" class="peer sr-only" />
+            <span class="h-6 w-11 rounded-full bg-ink/15 transition-colors peer-checked:bg-accent after:absolute after:top-0.5 after:left-0.5 after:size-5 after:rounded-full after:bg-white after:transition-transform peer-checked:after:translate-x-5"></span>
+            <span class="sr-only">Activar cookies de analítica</span>
+          </label>
         </div>
-        <label class="relative inline-flex cursor-pointer items-center">
-          <input type="checkbox" id="cookie-analytics" class="peer sr-only" />
-          <span class="h-6 w-11 rounded-full bg-ink/15 transition-colors peer-checked:bg-accent after:absolute after:top-0.5 after:left-0.5 after:size-5 after:rounded-full after:bg-white after:transition-transform peer-checked:after:translate-x-5"></span>
-          <span class="sr-only">Activar cookies de analítica</span>
-        </label>
-      </div>
-      <div>
-        <button type="button" id="cookie-save" class="rounded-md bg-ink px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-accent">
-          Guardar ajustes
-        </button>
+        <div>
+          <button type="button" id="cookie-save" class="rounded-md bg-ink px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-accent">
+            Guardar ajustes
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -91,6 +93,8 @@ const cookiesHref = withBase('/politica-de-cookies/');
   const saveConsent = (value: { necessary: true; analytics: boolean }) => {
     localStorage.setItem(storageKey, JSON.stringify(value));
     banner?.setAttribute('hidden', '');
+    panel?.classList.remove('is-open');
+    settingsBtn?.setAttribute('aria-expanded', 'false');
     reopen?.removeAttribute('hidden');
   };
 
@@ -114,18 +118,44 @@ const cookiesHref = withBase('/politica-de-cookies/');
   });
 
   settingsBtn?.addEventListener('click', () => {
-    const open = panel?.hasAttribute('hidden') === false;
+    const open = panel?.classList.contains('is-open');
     if (open) {
-      panel?.setAttribute('hidden', '');
+      panel?.classList.remove('is-open');
       settingsBtn.setAttribute('aria-expanded', 'false');
     } else {
-      panel?.removeAttribute('hidden');
+      panel?.classList.add('is-open');
       settingsBtn.setAttribute('aria-expanded', 'true');
     }
   });
 
   reopen?.addEventListener('click', () => {
     banner?.removeAttribute('hidden');
+    panel?.classList.remove('is-open');
+    settingsBtn?.setAttribute('aria-expanded', 'false');
     reopen.setAttribute('hidden', '');
   });
 </script>
+
+<style>
+  .cookie-settings-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+    opacity: 0;
+    transition:
+      grid-template-rows 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.25s ease,
+      visibility 0.25s;
+  }
+
+  .cookie-settings-panel.is-open {
+    grid-template-rows: 1fr;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .cookie-settings-panel > div {
+    overflow: hidden;
+    min-height: 0;
+  }
+</style>
