@@ -8,6 +8,7 @@ export const site = {
 
   city: 'Sevilla',
   address: 'C.Mijail Gorbachov, 8, LOC 1, 41702 Dos Hermanas',
+  mapUrl: 'https://www.google.com/maps/place/C.+Mijail+Gorbachov,+8,+41702+Dos+Hermanas,+Sevilla/@37.285662,-5.9113787,20.5z/data=!4m6!3m5!1s0xd127064e44f666f:0x787742fc5a6c826e!8m2!3d37.2856754!4d-5.9110482!16s%2Fg%2F11c2c7wjjw?entry=ttu&g_ep=EgoyMDI2MDgwNC4wIKXMDSoASAFQAw%3D%3D',
   phone: 'PENDIENTE_TELEFONO',
   phoneHref: 'PENDIENTE_TELEFONO',
   email: 'PENDIENTE_EMAIL',

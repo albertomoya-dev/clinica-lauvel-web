@@ -74,7 +74,16 @@ const isActive = (href: string) => (href === homeHref ? path === homeHref : path
     {
       (!isPending(site.address) || !isPending(site.phone) || !isPending(site.email)) && (
         <address class="flex flex-col items-center gap-1.5 text-sm not-italic text-white/55">
-          {!isPending(site.address) && <span>{site.address}</span>}
+          {!isPending(site.address) && (
+            <a
+              href={site.mapUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="transition-colors hover:text-accent"
+            >
+              {site.address}
+            </a>
+          )}
           <span>
             {!isPending(site.phone) && <>Tel. {site.phone}</>}
             {!isPending(site.phone) && !isPending(site.email) && <> · </>}
