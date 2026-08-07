@@ -7,7 +7,7 @@ export const site = {
   population: 'bebés, niños, adolescentes y adultos',
 
   city: 'Sevilla',
-  address: 'Sevilla centro',
+  address: 'C.Mijail Gorbachov, 8, LOC 1, 41702 Dos Hermanas',
   phone: 'PENDIENTE_TELEFONO',
   phoneHref: 'PENDIENTE_TELEFONO',
   email: 'PENDIENTE_EMAIL',
