@@ -1,6 +1,7 @@
 ---
 export type IconName =
   | 'arrow-right'
+  | 'arrow-down'
   | 'chevron-down'
   | 'menu'
   | 'close'
@@ -46,6 +47,7 @@ const { name, class: className = 'size-6', filled = false } = Astro.props;
   focusable="false"
 >
   {name === 'arrow-right' && <path d="M4 12h16m0 0-6-6m6 6-6 6" />}
+  {name === 'arrow-down' && <path d="M12 4v16m0 0-6-6m6 6 6-6" />}
   {name === 'chevron-down' && <path d="m6 9 6 6 6-6" />}
   {name === 'menu' && <path d="M4 7h16M4 12h16M4 17h16" />}
   {name === 'close' && <path d="M6 6l12 12M18 6 6 18" />}

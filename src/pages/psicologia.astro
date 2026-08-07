@@ -3,10 +3,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/sections/Hero.astro';
 import TwoColumn from '../components/sections/TwoColumn.astro';
 import TreatmentGrid from '../components/sections/TreatmentGrid.astro';
+import PsychologyIndex from '../components/sections/PsychologyIndex.astro';
+import ProcessList from '../components/sections/ProcessList.astro';
 import NeaeCta from '../components/sections/NeaeCta.astro';
 import ContactSection from '../components/sections/ContactSection.astro';
 
-import { psicologiaTreatments } from '../data/treatments';
+import { psicologiaInfantilTreatments, psicologiaAdultosTreatments } from '../data/treatments';
+import { psicologiaAdultosProcess } from '../data/process';
 import { neaePsicologia } from '../data/neae';
 import { site, isPending } from '../data/site';
 import heroPsicologia from '../assets/images/hero-psicologia.jpg';
@@ -17,7 +20,7 @@ const city = isPending(site.city) ? '' : ` en ${site.city}`;
 
 <BaseLayout
   title={`Psicólogos${city} | Terapia infantil, adolescentes y adultos`}
-  description="Psicología para niños, adolescentes y adultos: ansiedad, gestión emocional, autoestima, neurodesarrollo y terapia familiar. Pide tu valoración."
+  description="Psicología para niños, adolescentes y adultos: ansiedad, gestión emocional, autoestima, neurodesarrollo, terapia familiar y bienestar emocional. Pide tu valoración."
 >
   <Hero title={`Psicología${city}`} image={heroPsicologia} imageAlt="Consulta de psicología en Clínica LAUVEL" />
 
@@ -36,11 +39,54 @@ const city = isPending(site.city) ? '' : ` en ${site.city}`;
     </p>
   </TwoColumn>
 
-  <TreatmentGrid
-    title="Servicios de psicología"
-    sideText="Abordamos todas las áreas de la disciplina, con especial atención a nuestras áreas de especialización:"
-    treatments={psicologiaTreatments}
+  <PsychologyIndex
+    eyebrow="Nuestros servicios"
+    title="Psicología en todas las etapas"
+    cards={[
+      {
+        label: 'Infancia y adolescencia',
+        description: 'Psicología infantil, adolescentes, neurodesarrollo y terapia familiar.',
+        href: '#psicologia-infantil',
+      },
+      {
+        label: 'Adultos',
+        description: 'Ansiedad, depresión, autoestima, relaciones, duelo, terapia de pareja y familiar.',
+        href: '#psicologia-adultos',
+      },
+    ]}
   />
+
+  <section id="psicologia-infantil" class="scroll-mt-32">
+    <TreatmentGrid
+      eyebrow="Psicología infantil y de adolescentes"
+      title="Acompañamos a los más pequeños (y a sus familias)"
+      sideText="La infancia y la adolescencia son etapas de cambios constantes. Trabajamos las dificultades emocionales, de conducta y del neurodesarrollo en coordinación con las familias y los centros educativos."
+      treatments={psicologiaInfantilTreatments}
+    />
+  </section>
+
+  <section id="psicologia-adultos" class="scroll-mt-32 bg-soft">
+    <TreatmentGrid
+      eyebrow="Psicología para adultos"
+      title="Un espacio para ti: bienestar emocional en la edad adulta"
+      sideText="Comenzamos con una entrevista de evaluación para conocer tus necesidades y, a partir de ahí, diseñamos una intervención personalizada que combina técnicas cognitivo-conductuales, psicodinámicas y mindfulness. Tú eres el protagonista de tu proceso."
+      treatments={psicologiaAdultosTreatments}
+    />
+  </section>
+
+  <ProcessList
+    eyebrow="Cómo trabajamos"
+    title="Acompañamiento en adultos, paso a paso"
+    steps={psicologiaAdultosProcess}
+  />
+
+  <div class="bg-soft">
+    <div class="container-site py-12 text-center md:py-16">
+      <p class="mx-auto max-w-3xl text-[1.05rem] text-body">
+        Cada persona y sus circunstancias son diferentes: por eso adaptamos siempre el tratamiento a tus necesidades, con la posibilidad de coordinarnos con el resto de profesionales del centro (logopedia, pedagogía y fisioterapia) para una atención verdaderamente integral.
+      </p>
+    </div>
+  </div>
 
   <NeaeCta block={neaePsicologia} />
 
