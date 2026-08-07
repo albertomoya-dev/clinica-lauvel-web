@@ -63,34 +63,30 @@ const privacyHref = withBase('/politica-de-privacidad/');
     <p class="form-status hidden rounded-md px-4 py-3 text-sm" role="status" aria-live="polite"></p>
 
     <div class="data-protection text-sm text-body">
-      <button
-        type="button"
-        class="data-protection-trigger flex w-full cursor-pointer items-center gap-2 font-medium text-ink"
-        aria-expanded="false"
-        aria-controls="data-protection-panel"
-        data-form-details-trigger
-      >
-        <Icon name="info" class="size-4 text-accent" />
-        Información sobre protección de datos
-        <Icon name="chevron-down" class="data-protection-chevron ml-auto size-4 transition-transform duration-300" />
-      </button>
-      <div id="data-protection-panel" class="data-protection-panel" role="region" aria-label="Información sobre protección de datos">
-        <div class="data-protection-content">
-          <dl class="mt-3 flex flex-col gap-2 border-l-2 border-soft pl-4 text-[0.85rem] leading-relaxed">
-            <div>
-              <dt class="inline font-medium text-ink">Responsable: </dt>
-              <dd class="inline">{isPending(site.rgpdOwner) ? 'Clínica LAUVEL (titularidad pendiente de confirmar)' : site.rgpdOwner}</dd>
-            </div>
-            <div><dt class="inline font-medium text-ink">Finalidad: </dt><dd class="inline">atender tu solicitud de información y ponernos en contacto contigo.</dd></div>
-            <div><dt class="inline font-medium text-ink">Legitimación: </dt><dd class="inline">tu consentimiento al marcar la casilla de aceptación.</dd></div>
-            <div><dt class="inline font-medium text-ink">Destinatarios: </dt><dd class="inline">no se cederán datos a terceros salvo obligación legal.</dd></div>
-            <div>
-              <dt class="inline font-medium text-ink">Derechos: </dt>
-              <dd class="inline">puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad conforme a la <a href={privacyHref} class="text-accent underline underline-offset-2">Política de privacidad</a>.</dd>
-            </div>
-          </dl>
+      <details class="data-protection-details">
+        <summary class="data-protection-trigger flex w-full cursor-pointer items-center gap-2 font-medium text-ink">
+          <Icon name="info" class="size-4 text-accent" />
+          <span class="flex-1">Información sobre protección de datos</span>
+          <Icon name="chevron-down" class="data-protection-chevron size-4 transition-transform duration-300" />
+        </summary>
+        <div id="data-protection-panel" class="data-protection-panel" role="region" aria-label="Información sobre protección de datos">
+          <div class="data-protection-content">
+            <dl class="mt-3 flex flex-col gap-2 border-l-2 border-soft pl-4 text-[0.85rem] leading-relaxed">
+              <div>
+                <dt class="inline font-medium text-ink">Responsable: </dt>
+                <dd class="inline">{isPending(site.rgpdOwner) ? 'Clínica LAUVEL (titularidad pendiente de confirmar)' : site.rgpdOwner}</dd>
+              </div>
+              <div><dt class="inline font-medium text-ink">Finalidad: </dt><dd class="inline">atender tu solicitud de información y ponernos en contacto contigo.</dd></div>
+              <div><dt class="inline font-medium text-ink">Legitimación: </dt><dd class="inline">tu consentimiento al marcar la casilla de aceptación.</dd></div>
+              <div><dt class="inline font-medium text-ink">Destinatarios: </dt><dd class="inline">no se cederán datos a terceros salvo obligación legal.</dd></div>
+              <div>
+                <dt class="inline font-medium text-ink">Derechos: </dt>
+                <dd class="inline">puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad conforme a la <a href={privacyHref} class="text-accent underline underline-offset-2">Política de privacidad</a>.</dd>
+              </div>
+            </dl>
+          </div>
         </div>
-      </div>
+      </details>
     </div>
   </form>
 </div>
@@ -127,13 +123,13 @@ const privacyHref = withBase('/politica-de-privacidad/');
     color: #b42347;
   }
 
-  .data-protection-panel {
+  .data-protection-details .data-protection-panel {
     display: grid;
     grid-template-rows: 0fr;
     transition: grid-template-rows 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .data-protection-panel[data-open] {
+  .data-protection-details[open] .data-protection-panel {
     grid-template-rows: 1fr;
   }
 
@@ -141,32 +137,16 @@ const privacyHref = withBase('/politica-de-privacidad/');
     overflow: hidden;
   }
 
-  .data-protection-trigger[aria-expanded='true'] .data-protection-chevron {
+  .data-protection-details[open] .data-protection-chevron {
     transform: rotate(180deg);
+  }
+
+  .data-protection-trigger::-webkit-details-marker {
+    display: none;
   }
 </style>
 
 <script>
-  const initDataProtection = () => {
-    const trigger = document.querySelector('[data-form-details-trigger]');
-    const panel = document.getElementById('data-protection-panel');
-    if (!trigger || !panel) return;
-
-    trigger.addEventListener('click', () => {
-      const open = panel.hasAttribute('data-open');
-      if (open) {
-        panel.removeAttribute('data-open');
-        trigger.setAttribute('aria-expanded', 'false');
-      } else {
-        panel.setAttribute('data-open', '');
-        trigger.setAttribute('aria-expanded', 'true');
-      }
-    });
-  };
-
-  initDataProtection();
-  document.addEventListener('astro:page-load', initDataProtection);
-
   const form = document.querySelector('[data-contact-form]');
   const status = form?.querySelector('.form-status');
 
