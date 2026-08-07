@@ -78,6 +78,24 @@ const privacyHref = withBase('/politica-de-privacidad/');
       )
     }
 
+    <script is:inline>
+      (function () {
+        function checkNeae() {
+          var checkbox = document.getElementById('form-neae');
+          if (!checkbox) return;
+          if (new URLSearchParams(window.location.search).has('neae')) {
+            checkbox.checked = true;
+            checkbox.setAttribute('checked', 'checked');
+          } else {
+            checkbox.checked = false;
+            checkbox.removeAttribute('checked');
+          }
+        }
+        checkNeae();
+        document.addEventListener('astro:page-load', checkNeae);
+      })();
+    </script>
+
     <div>
       <button type="submit" class="btn-primary">Enviar</button>
     </div>
@@ -217,10 +235,4 @@ const privacyHref = withBase('/politica-de-privacidad/');
       }
     }
   });
-
-  const neaeCheckbox = document.getElementById('form-neae') as HTMLInputElement | null;
-  if (neaeCheckbox) {
-    const params = new URLSearchParams(window.location.search);
-    neaeCheckbox.checked = params.has('neae');
-  }
 </script>
