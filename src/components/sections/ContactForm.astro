@@ -3,6 +3,11 @@ import Icon from '../ui/Icon.astro';
 import { site, isPending } from '../../data/site';
 import { withBase } from '../../utils/url';
 
+interface Props {
+  showNeae?: boolean;
+}
+
+const { showNeae = false } = Astro.props;
 const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
 const privacyHref = withBase('/politica-de-privacidad/');
 ---
@@ -55,6 +60,23 @@ const privacyHref = withBase('/politica-de-privacidad/');
         He leído y acepto la <a href={privacyHref} class="font-medium text-accent underline underline-offset-2">Política de privacidad</a>
       </label>
     </div>
+
+    {
+      showNeae && (
+        <div class="flex items-start gap-3">
+          <input
+            type="checkbox"
+            id="form-neae"
+            name="neae_info"
+            value="Sí"
+            class="mt-1 size-4 shrink-0 accent-[#d7006b]"
+          />
+          <label for="form-neae" class="text-sm text-body">
+            Quiero recibir información sobre las Becas NEAE
+          </label>
+        </div>
+      )
+    }
 
     <div>
       <button type="submit" class="btn-primary">Enviar</button>
@@ -195,4 +217,10 @@ const privacyHref = withBase('/politica-de-privacidad/');
       }
     }
   });
+
+  const neaeCheckbox = document.getElementById('form-neae') as HTMLInputElement | null;
+  if (neaeCheckbox) {
+    const params = new URLSearchParams(window.location.search);
+    neaeCheckbox.checked = params.has('neae');
+  }
 </script>

@@ -6,18 +6,15 @@ import TwoColumn from '../components/sections/TwoColumn.astro';
 import ProcessList from '../components/sections/ProcessList.astro';
 import TeamSection from '../components/sections/TeamSection.astro';
 import Testimonials from '../components/sections/Testimonials.astro';
-import NeaeCta from '../components/sections/NeaeCta.astro';
 import ContactSection from '../components/sections/ContactSection.astro';
 
 import heroHome from '../assets/images/hero-home.jpg';
 import sessionVertical from '../assets/images/session-vertical.jpg';
 import materials from '../assets/images/materials.jpg';
 import heroQuienes from '../assets/images/hero-quienes.jpg';
-import neaeImg from '../assets/images/neae.jpg';
 
 import { homeServices } from '../data/services';
 import { processSteps } from '../data/process';
-import { neaeHome } from '../data/neae';
 import { site, isPending, primaryCtaLabel } from '../data/site';
 
 const city = isPending(site.city) ? '' : ` en ${site.city}`;
@@ -70,13 +67,6 @@ const city = isPending(site.city) ? '' : ` en ${site.city}`;
   <TeamSection variant="preview" />
 
   <Testimonials />
-
-  <NeaeCta
-    block={neaeHome}
-    variant="split"
-    image={neaeImg}
-    imageAlt="Material escolar y didáctico para alumnado con Beca NEAE"
-  />
 
   <ContactSection />
 </BaseLayout>

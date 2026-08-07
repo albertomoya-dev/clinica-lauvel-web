@@ -12,7 +12,7 @@ interface Props {
 }
 
 const { block, variant = 'simple', image, imageAlt = '' } = Astro.props;
-const contactHref = withBase('/contacto/');
+const neaeContactHref = withBase('/contacto/?neae=1');
 ---
 
 {
@@ -27,7 +27,9 @@ const contactHref = withBase('/contacto/');
             ))}
             {block.closing && <p class="font-semibold text-ink">{block.closing}</p>}
           </div>
-          <a href={contactHref} class="btn-primary mt-8">Contacta</a>
+          <a href={neaeContactHref} class="btn-primary mt-8">
+            Quiero recibir información sobre las Becas NEAE
+          </a>
         </div>
         <div class="reveal reveal--right">
           {image && (
@@ -55,6 +57,9 @@ const contactHref = withBase('/contacto/');
             ))}
             {block.closing && <p class="font-semibold text-ink">{block.closing}</p>}
           </div>
+          <a href={neaeContactHref} class="btn-primary mt-8">
+            Quiero recibir información sobre las Becas NEAE
+          </a>
         </div>
       </div>
     </section>
