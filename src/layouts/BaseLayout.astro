@@ -24,7 +24,7 @@ interface Props {
 }
 
 const { title, description, solidHeader = false, noindex = false } = Astro.props;
-const faviconHref = withBase('/favicon.svg');
+const faviconHref = withBase('/favicon.ico');
 const sitemapHref = withBase('/sitemap-index.xml');
 ---
 
@@ -33,7 +33,7 @@ const sitemapHref = withBase('/sitemap-index.xml');
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href={faviconHref} />
+    <link rel="icon" type="image/x-icon" href={faviconHref} />
     <link rel="sitemap" href={sitemapHref} />
     <Seo title={title} description={description} noindex={noindex} />
     <JsonLd />
