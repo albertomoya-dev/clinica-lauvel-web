@@ -40,14 +40,12 @@ const city = isPending(site.city) ? '' : ` en ${site.city}`;
     </p>
   </TwoColumn>
 
-  <section class="bg-soft">
-    <TreatmentGrid
-      eyebrow="Psicología para adultos"
-      title="Bienestar emocional en la edad adulta"
-      sideText="Comenzamos con una entrevista de evaluación para conocer tus necesidades y, a partir de ahí, diseñamos una intervención personalizada. Tú eres el protagonista de tu proceso."
-      treatments={psicologiaAdultosTreatments}
-    />
-  </section>
+  <TreatmentGrid
+    eyebrow="Psicología para adultos"
+    title="Bienestar emocional en la edad adulta"
+    sideText="Comenzamos con una entrevista de evaluación para conocer tus necesidades y, a partir de ahí, diseñamos una intervención personalizada. Tú eres el protagonista de tu proceso."
+    treatments={psicologiaAdultosTreatments}
+  />
 
   <ProcessList
     eyebrow="Cómo trabajamos"
