@@ -70,14 +70,24 @@ import { isPending } from '../../data/site';
 
 <script>
   const track = document.getElementById('testimonials-track');
-  const cards = track ? Array.from(track.querySelectorAll('article')) : [];
+  let cards = track ? Array.from(track.querySelectorAll('article')) : [];
 
-  const centerCard = (card: Element) => {
+  if (track && cards.length > 1) {
+    const firstClone = cards[0].cloneNode(true) as Element;
+    const lastClone = cards[cards.length - 1].cloneNode(true) as Element;
+    firstClone.setAttribute('aria-hidden', 'true');
+    lastClone.setAttribute('aria-hidden', 'true');
+    track.appendChild(firstClone);
+    track.insertBefore(lastClone, cards[0]);
+    cards = Array.from(track.querySelectorAll('article'));
+  }
+
+  const centerCard = (card: Element, smooth = true) => {
     if (!track) return;
     const trackRect = track.getBoundingClientRect();
     const cardRect = card.getBoundingClientRect();
     const delta = cardRect.left + cardRect.width / 2 - (trackRect.left + trackRect.width / 2);
-    track.scrollBy({ left: delta, behavior: 'smooth' });
+    track.scrollBy({ left: delta, behavior: smooth ? 'smooth' : ('instant' as ScrollBehavior) });
   };
 
   const currentIndex = () => {
@@ -97,22 +107,31 @@ import { isPending } from '../../data/site';
     return best;
   };
 
+  let jumpTimer: ReturnType<typeof setTimeout> | undefined;
+  const scheduleCloneFix = () => {
+    clearTimeout(jumpTimer);
+    jumpTimer = setTimeout(() => {
+      const i = currentIndex();
+      if (i === 0 && cards.length > 2) centerCard(cards[cards.length - 2], false);
+      else if (i === cards.length - 1 && cards.length > 2) centerCard(cards[1], false);
+    }, 450);
+  };
+
   document.getElementById('testimonials-prev')?.addEventListener('click', () => {
     const i = currentIndex();
-    if (i > 0) centerCard(cards[i - 1]);
+    centerCard(cards[(i - 1 + cards.length) % cards.length]);
+    scheduleCloneFix();
   });
   document.getElementById('testimonials-next')?.addEventListener('click', () => {
     const i = currentIndex();
-    if (i < cards.length - 1) centerCard(cards[i + 1]);
+    centerCard(cards[(i + 1) % cards.length]);
+    scheduleCloneFix();
   });
 
-  const centerFirst = () => {
+  const centerInitial = () => {
     if (!track || cards.length === 0) return;
-    const trackRect = track.getBoundingClientRect();
-    const cardRect = cards[0].getBoundingClientRect();
-    const delta = cardRect.left + cardRect.width / 2 - (trackRect.left + trackRect.width / 2);
-    track.scrollTo({ left: track.scrollLeft + delta, behavior: 'instant' as ScrollBehavior });
+    centerCard(cards[cards.length > 2 ? 1 : 0], false);
   };
-  centerFirst();
-  window.addEventListener('resize', centerFirst);
+  centerInitial();
+  window.addEventListener('resize', centerInitial);
 </script>

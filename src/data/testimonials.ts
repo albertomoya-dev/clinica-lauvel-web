@@ -5,23 +5,11 @@ export interface Testimonial {
   rating: number;
 }
 
-export const testimonials: Testimonial[] = [
-  {
-    author: 'PENDIENTE_RESEÑA_1',
-    date: 'Reseña de Google',
-    text: 'Aquí aparecerá una reseña real de Google cuando el cliente facilite las suyas (spec §15).',
-    rating: 5,
-  },
-  {
-    author: 'PENDIENTE_RESEÑA_2',
-    date: 'Reseña de Google',
-    text: 'Aquí aparecerá una reseña real de Google cuando el cliente facilite las suyas (spec §15).',
-    rating: 5,
-  },
-  {
-    author: 'PENDIENTE_RESEÑA_3',
-    date: 'Reseña de Google',
-    text: 'Aquí aparecerá una reseña real de Google cuando el cliente facilite las suyas (spec §15).',
-    rating: 5,
-  },
-];
+const PENDING_TEXT = 'Aquí aparecerá una reseña real de Google cuando el cliente facilite las suyas (spec §15).';
+
+export const testimonials: Testimonial[] = Array.from({ length: 9 }, (_, i) => ({
+  author: `PENDIENTE_RESEÑA_${i + 1}`,
+  date: 'Reseña de Google',
+  text: PENDING_TEXT,
+  rating: 5,
+}));
