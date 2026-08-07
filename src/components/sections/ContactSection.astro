@@ -3,6 +3,12 @@ import ContactForm from './ContactForm.astro';
 import formBg from '../../assets/images/form-bg.jpg';
 import { primaryCtaLabel } from '../../data/site';
 import { withBase } from '../../utils/url';
+
+interface Props {
+  showNeae?: boolean;
+}
+
+const { showNeae = false } = Astro.props;
 ---
 
 <section class="relative overflow-hidden">
@@ -26,7 +32,7 @@ import { withBase } from '../../utils/url';
       <a href={withBase('/contacto/')} class="btn-primary mt-8">{primaryCtaLabel}</a>
     </div>
     <div class="reveal reveal--right">
-      <ContactForm />
+      <ContactForm showNeae={showNeae} />
     </div>
   </div>
 </section>

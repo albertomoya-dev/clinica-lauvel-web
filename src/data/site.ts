@@ -6,8 +6,8 @@ export const site = {
   disciplines: ['Logopedia', 'Psicología', 'Pedagogía', 'Fisioterapia'] as const,
   population: 'bebés, niños, adolescentes y adultos',
 
-  city: 'PENDIENTE_CIUDAD',
-  address: 'PENDIENTE_DIRECCION',
+  city: 'Sevilla',
+  address: 'Sevilla centro',
   phone: 'PENDIENTE_TELEFONO',
   phoneHref: 'PENDIENTE_TELEFONO',
   email: 'PENDIENTE_EMAIL',
