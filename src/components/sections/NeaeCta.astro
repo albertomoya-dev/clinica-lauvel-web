@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import type { NeaeBlock } from '../../data/neae';
+import { withBase } from '../../utils/url';
 
 interface Props {
   block: NeaeBlock;
@@ -11,6 +12,7 @@ interface Props {
 }
 
 const { block, variant = 'simple', image, imageAlt = '' } = Astro.props;
+const contactHref = withBase('/contacto/');
 ---
 
 {
@@ -25,7 +27,7 @@ const { block, variant = 'simple', image, imageAlt = '' } = Astro.props;
             ))}
             {block.closing && <p class="font-semibold text-ink">{block.closing}</p>}
           </div>
-          <a href="/contacto/" class="btn-primary mt-8">Contacta</a>
+          <a href={contactHref} class="btn-primary mt-8">Contacta</a>
         </div>
         <div class="reveal reveal--right">
           {image && (

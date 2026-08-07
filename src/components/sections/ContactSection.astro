@@ -2,6 +2,7 @@
 import ContactForm from './ContactForm.astro';
 import formBg from '../../assets/images/form-bg.jpg';
 import { primaryCtaLabel } from '../../data/site';
+import { withBase } from '../../utils/url';
 ---
 
 <section class="relative overflow-hidden">
@@ -11,8 +12,8 @@ import { primaryCtaLabel } from '../../data/site';
     aria-hidden="true"
   ></div>
   <div class="hero-overlay absolute inset-0" aria-hidden="true"></div>
-  <div class="container-site relative z-10 grid items-center gap-14 py-20 md:py-28 lg:grid-cols-2">
-    <div class="reveal reveal--left">
+  <div class="container-site relative z-10 grid gap-14 py-20 md:py-28 lg:grid-cols-2 lg:items-start">
+    <div class="reveal reveal--left lg:pt-4">
       <p class="eyebrow mb-4">¿Necesitas más información?</p>
       <h2 class="text-[2rem] text-white md:text-[2.75rem]">Estamos aquí para ayudarte</h2>
       <div class="mt-6 flex max-w-lg flex-col gap-4 text-[1.02rem] text-white/85">
@@ -22,7 +23,7 @@ import { primaryCtaLabel } from '../../data/site';
         </p>
         <p>Déjanos tus datos y nos pondremos en contacto contigo lo antes posible.</p>
       </div>
-      <a href="/contacto/" class="btn-primary mt-8">{primaryCtaLabel}</a>
+      <a href={withBase('/contacto/')} class="btn-primary mt-8">{primaryCtaLabel}</a>
     </div>
     <div class="reveal reveal--right">
       <ContactForm />

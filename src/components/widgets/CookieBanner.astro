@@ -1,5 +1,8 @@
 ---
 import Icon from '../ui/Icon.astro';
+import { withBase } from '../../utils/url';
+
+const cookiesHref = withBase('/politica-de-cookies/');
 ---
 
 <div
@@ -15,7 +18,7 @@ import Icon from '../ui/Icon.astro';
       En <strong class="font-medium text-ink">Clínica LAUVEL</strong> utilizamos cookies técnicas y de analítica para
       garantizar el correcto funcionamiento del sitio web y ofrecerte la mejor experiencia. Puedes aceptar todas las
       cookies, rechazarlas o configurar tus preferencias. Más información en nuestra
-      <a href="/politica-de-cookies/" class="font-medium text-accent underline underline-offset-2">Política de cookies</a>.
+      <a href={cookiesHref} class="font-medium text-accent underline underline-offset-2">Política de cookies</a>.
     </p>
     <div class="flex flex-wrap items-center gap-3">
       <button type="button" id="cookie-accept" class="rounded-md bg-ink px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-accent">

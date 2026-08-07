@@ -2,6 +2,9 @@
 import Icon from '../ui/Icon.astro';
 import { testimonials } from '../../data/testimonials';
 import { isPending } from '../../data/site';
+
+const count = testimonials.length;
+const triple = [...testimonials, ...testimonials, ...testimonials];
 ---
 
 <section class="overflow-hidden py-20 md:py-28">
@@ -18,11 +21,19 @@ import { isPending } from '../../data/site';
         tabindex="0"
         aria-label="Carrusel de reseñas de Google"
       >
+        <div class="w-[7.5%] shrink-0 sm:w-[27%] lg:w-[34.25%]" aria-hidden="true"></div>
         {
-          testimonials.map((t) => {
+          triple.map((t, index) => {
+            const block = Math.floor(index / count);
             const pending = isPending(t.author);
             return (
-              <article class="w-[85%] shrink-0 snap-start rounded-xl border border-ink/5 bg-white p-7 shadow-card sm:w-[46%] lg:w-[31.5%]">
+              <article
+                class="relative w-[85%] shrink-0 snap-center rounded-xl border border-ink/5 bg-white p-7 shadow-card sm:w-[46%] lg:w-[31.5%]"
+                data-slide-index={index % count}
+                data-block={block}
+                aria-hidden={block !== 1 ? 'true' : undefined}
+              >
+                <span class="pointer-events-none absolute top-5 right-6 font-display text-6xl leading-none text-accent/10 select-none" aria-hidden="true">&rdquo;</span>
                 <div class="flex items-center gap-3">
                   <span class="flex size-11 items-center justify-center rounded-full bg-accent font-display text-lg font-semibold text-white" aria-hidden="true">
                     {pending ? <Icon name="logopedia" class="size-5" /> : t.author.charAt(0)}
@@ -31,26 +42,25 @@ import { isPending } from '../../data/site';
                     <p class="text-[0.95rem] font-medium text-ink">{pending ? 'Reseña de Google' : t.author}</p>
                     <p class="text-xs text-body">{t.date}</p>
                   </div>
-                  {!pending && <Icon name="google" class="ml-auto size-5 text-ink/70" />}
+                  <Icon name="google" class="ml-auto size-5 text-ink/70" />
                 </div>
-                {!pending && (
-                  <div class="mt-3 flex gap-0.5 text-[#fbbc04]" aria-label={`${t.rating} de 5 estrellas`}>
-                    {Array.from({ length: t.rating }).map(() => (
-                      <Icon name="star" class="size-4" filled />
-                    ))}
-                  </div>
-                )}
+                <div class="mt-3 flex gap-0.5 text-[#fbbc04]" aria-label={`${t.rating} de 5 estrellas`}>
+                  {Array.from({ length: t.rating }).map(() => (
+                    <Icon name="star" class="size-4" filled />
+                  ))}
+                </div>
                 <p class="mt-3 text-[0.95rem] text-body">{t.text}</p>
               </article>
             );
           })
         }
+        <div class="w-[7.5%] shrink-0 sm:w-[27%] lg:w-[34.25%]" aria-hidden="true"></div>
       </div>
 
       <button
         type="button"
         id="testimonials-prev"
-        class="absolute top-1/2 -left-2 hidden size-12 -translate-y-1/2 items-center justify-center rounded-full border border-accent/50 bg-white text-accent shadow-md transition-colors hover:bg-accent hover:text-white md:inline-flex"
+        class="absolute top-[calc(50%-0.5rem)] -left-5 hidden size-12 -translate-y-1/2 items-center justify-center rounded-full border border-accent/50 bg-white text-accent shadow-md transition-colors hover:bg-accent hover:text-white md:inline-flex"
         aria-label="Reseñas anteriores"
       >
         <Icon name="arrow-right" class="size-5 rotate-180" />
@@ -58,7 +68,7 @@ import { isPending } from '../../data/site';
       <button
         type="button"
         id="testimonials-next"
-        class="absolute top-1/2 -right-2 hidden size-12 -translate-y-1/2 items-center justify-center rounded-full border border-accent/50 bg-white text-accent shadow-md transition-colors hover:bg-accent hover:text-white md:inline-flex"
+        class="absolute top-[calc(50%-0.5rem)] -right-5 hidden size-12 -translate-y-1/2 items-center justify-center rounded-full border border-accent/50 bg-white text-accent shadow-md transition-colors hover:bg-accent hover:text-white md:inline-flex"
         aria-label="Reseñas siguientes"
       >
         <Icon name="arrow-right" class="size-5" />
@@ -69,14 +79,69 @@ import { isPending } from '../../data/site';
 
 <script>
   const track = document.getElementById('testimonials-track');
-  const step = () => {
-    const card = track?.querySelector('article');
-    return card ? card.getBoundingClientRect().width + 24 : 320;
+  const cards = track ? Array.from(track.querySelectorAll('article')) : [];
+  const count = cards.length / 3 || 0;
+
+  const centerCard = (card: Element, smooth = true) => {
+    if (!track) return;
+    const trackRect = track.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    const delta = cardRect.left + cardRect.width / 2 - (trackRect.left + trackRect.width / 2);
+    track.scrollBy({ left: delta, behavior: smooth ? 'smooth' : ('instant' as ScrollBehavior) });
   };
+
+  const currentIndex = () => {
+    if (!track || cards.length === 0) return 0;
+    const trackRect = track.getBoundingClientRect();
+    const mid = trackRect.left + trackRect.width / 2;
+    let best = 0;
+    let bestDist = Infinity;
+    cards.forEach((card, i) => {
+      const r = card.getBoundingClientRect();
+      const d = Math.abs(r.left + r.width / 2 - mid);
+      if (d < bestDist) {
+        bestDist = d;
+        best = i;
+      }
+    });
+    return best;
+  };
+
+  const cardByBlock = (realIndex: number, block: number) =>
+    cards[block * count + realIndex];
+
+  const fixBlock = () => {
+    const i = currentIndex();
+    const block = Number(cards[i]?.getAttribute('data-block'));
+    if (block !== 1 && cards[i]) {
+      const realIndex = Number(cards[i].getAttribute('data-slide-index'));
+      centerCard(cardByBlock(realIndex, 1), false);
+    }
+  };
+
+  let fixTimer: ReturnType<typeof setTimeout> | undefined;
+  const scheduleFix = () => {
+    clearTimeout(fixTimer);
+    fixTimer = setTimeout(fixBlock, 450);
+  };
+
   document.getElementById('testimonials-prev')?.addEventListener('click', () => {
-    track?.scrollBy({ left: -step(), behavior: 'smooth' });
+    const i = currentIndex();
+    if (i <= 0) return;
+    centerCard(cards[i - 1]);
+    scheduleFix();
   });
   document.getElementById('testimonials-next')?.addEventListener('click', () => {
-    track?.scrollBy({ left: step(), behavior: 'smooth' });
+    const i = currentIndex();
+    if (i >= cards.length - 1) return;
+    centerCard(cards[i + 1]);
+    scheduleFix();
   });
+
+  const centerInitial = () => {
+    if (!track || cards.length < 2) return;
+    centerCard(cards[count], false);
+  };
+  centerInitial();
+  window.addEventListener('resize', centerInitial);
 </script>

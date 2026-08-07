@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/sections/Hero.astro';
+import TwoColumn from '../../components/sections/TwoColumn.astro';
+import TreatmentGrid from '../../components/sections/TreatmentGrid.astro';
+import ProcessList from '../../components/sections/ProcessList.astro';
+import ContactSection from '../../components/sections/ContactSection.astro';
+
+import { psicologiaAdultosTreatments } from '../../data/treatments';
+import { psicologiaAdultosProcess } from '../../data/process';
+import { site, isPending } from '../../data/site';
+import heroPsicologia from '../../assets/images/hero-psicologia.jpg';
+import materials from '../../assets/images/materials.jpg';
+
+const city = isPending(site.city) ? '' : ` en ${site.city}`;
+---
+
+<BaseLayout
+  title={`Psicología para adultos${city} | Clínica LAUVEL`}
+  description="Psicología para adultos: ansiedad, depresión, autoestima, perfeccionismo, psicosomática, dependencia emocional, duelo y terapia de pareja. Pide tu valoración."
+>
+  <Hero
+    title={`Psicología adultos${city}`}
+    image={heroPsicologia}
+    imageAlt="Consulta de psicología para adultos en Clínica LAUVEL"
+  />
+
+  <TwoColumn
+    title="Un espacio para ti: bienestar emocional en la edad adulta"
+    image={materials}
+    imageAlt="Espacio tranquilo de consulta de psicología en Clínica LAUVEL"
+  >
+    <p>
+      Ofrecemos un <strong>espacio de confianza</strong> donde trabajar aquello que te preocupa: desde la ansiedad o el
+      estrés hasta los procesos de duelo, las dificultades de pareja o el crecimiento personal.
+    </p>
+    <p>
+      Cada intervención comienza con una entrevista de evaluación y se diseña de forma personalizada, combinando técnicas
+      <strong>cognitivo-conductuales, psicodinámicas y mindfulness</strong> según tus necesidades.
+    </p>
+  </TwoColumn>
+
+  <section class="bg-soft">
+    <TreatmentGrid
+      eyebrow="Psicología para adultos"
+      title="Bienestar emocional en la edad adulta"
+      sideText="Comenzamos con una entrevista de evaluación para conocer tus necesidades y, a partir de ahí, diseñamos una intervención personalizada. Tú eres el protagonista de tu proceso."
+      treatments={psicologiaAdultosTreatments}
+    />
+  </section>
+
+  <ProcessList
+    eyebrow="Cómo trabajamos"
+    title="Acompañamiento en adultos, paso a paso"
+    steps={psicologiaAdultosProcess}
+  />
+
+  <div class="bg-soft">
+    <div class="container-site py-12 text-center md:py-16">
+      <p class="mx-auto max-w-3xl text-[1.05rem] text-body">
+        Cada persona y sus circunstancias son diferentes: por eso adaptamos siempre el tratamiento a tus necesidades,
+        con la posibilidad de coordinarnos con el resto de profesionales del centro (logopedia, pedagogía y fisioterapia)
+        para una atención verdaderamente integral.
+      </p>
+    </div>
+  </div>
+
+  <ContactSection />
+</BaseLayout>

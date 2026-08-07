@@ -1,7 +1,7 @@
 export const site = {
   name: 'Clínica LAUVEL',
   shortName: 'LAUVEL',
-  domain: 'https://albertomoya-dev.github.io/clinica-lauvel-web',
+  domain: 'https://albertomoya-dev.github.io',
   tagline: 'Logopedia · Psicología · Pedagogía · Fisioterapia',
   disciplines: ['Logopedia', 'Psicología', 'Pedagogía', 'Fisioterapia'] as const,
   population: 'bebés, niños, adolescentes y adultos',

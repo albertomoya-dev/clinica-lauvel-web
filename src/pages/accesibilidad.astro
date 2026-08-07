@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { site } from '../data/site';
+import { withBase } from '../utils/url';
+
+const contactHref = withBase('/contacto/');
 ---
 
 <BaseLayout
@@ -39,7 +42,7 @@ import { site } from '../data/site';
         <p>
           A pesar de nuestros esfuerzos, es posible que algunos contenidos incrustados de terceros (por ejemplo, el
           mapa de Google Maps) no sean plenamente accesibles. Trabajamos para ofrecer alternativas: la dirección
-          completa del centro está disponible siempre en formato texto en la página de <a href="/contacto/">contacto</a>.
+          completa del centro está disponible siempre en formato texto en la página de         <a href={contactHref}>contacto</a>.
         </p>
 
         <h2>Comunicaciones y sugerencias</h2>

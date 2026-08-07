@@ -1,28 +1,27 @@
 ---
+import { Image } from 'astro:assets';
+import { withBase } from '../../utils/url';
+import logoIcon from '../../assets/images/logo-icon.png';
+import logoMain from '../../assets/images/logo-main.png';
+
 interface Props {
-  variant?: 'dark' | 'light';
+  type?: 'icon' | 'main';
   class?: string;
 }
 
-const { variant = 'dark', class: className = '' } = Astro.props;
+const { type = 'icon', class: className = '' } = Astro.props;
+const image = type === 'main' ? logoMain : logoIcon;
+const alt = type === 'main' ? 'Clínica LAUVEL' : 'Clínica LAUVEL — Icono';
 ---
 
-<a href="/" class:list={['group inline-flex flex-col items-center leading-none', className]} aria-label="Clínica LAUVEL — Inicio">
-  <span
-    class:list={[
-      'font-sans text-[0.62rem] font-medium tracking-[0.42em] uppercase transition-colors',
-      variant === 'light' ? 'text-white/80' : 'text-body',
-    ]}
-  >
-    Clínica
-  </span>
-  <span
-    class:list={[
-      'font-display text-[1.75rem] font-semibold tracking-[0.18em] transition-colors',
-      variant === 'light' ? 'text-white' : 'text-accent',
-      'group-hover:text-accent',
-    ]}
-  >
-    LAUVEL
-  </span>
+<a href={withBase('/')} class:list={['inline-flex items-center', className]} aria-label="Clínica LAUVEL — Inicio">
+  <Image
+    src={image}
+    alt={alt}
+    width={type === 'main' ? 512 : 256}
+    height={type === 'main' ? 512 : 256}
+    class="h-full w-auto object-contain"
+    loading="eager"
+    decoding="async"
+  />
 </a>

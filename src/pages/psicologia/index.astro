@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/sections/Hero.astro';
+import PsychologyIndex from '../../components/sections/PsychologyIndex.astro';
+import ContactSection from '../../components/sections/ContactSection.astro';
+
+import { site, isPending } from '../../data/site';
+import { withBase } from '../../utils/url';
+import heroPsicologia from '../../assets/images/hero-psicologia.jpg';
+
+const city = isPending(site.city) ? '' : ` en ${site.city}`;
+---
+
+<BaseLayout
+  title={`Psicólogos${city} | Terapia infantil, adolescentes y adultos`}
+  description="Psicología para niños, adolescentes y adultos: ansiedad, gestión emocional, autoestima, neurodesarrollo, terapia familiar y bienestar emocional. Pide tu valoración."
+>
+  <Hero title={`Psicología${city}`} image={heroPsicologia} imageAlt="Consulta de psicología en Clínica LAUVEL" />
+
+  <PsychologyIndex
+    eyebrow="Nuestros servicios"
+    title="Psicología en todas las etapas"
+    cards={[
+      {
+        label: 'Infancia y adolescencia',
+        description: 'Psicología infantil, adolescentes, neurodesarrollo y terapia familiar.',
+        href: withBase('/psicologia/infantil/'),
+      },
+      {
+        label: 'Adultos',
+        description: 'Ansiedad, depresión, autoestima, relaciones, duelo, terapia de pareja y familiar.',
+        href: withBase('/psicologia/adultos/'),
+      },
+    ]}
+  />
+
+  <ContactSection />
+</BaseLayout>

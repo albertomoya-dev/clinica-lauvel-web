@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/sections/Hero.astro';
+import TwoColumn from '../../components/sections/TwoColumn.astro';
+import TreatmentGrid from '../../components/sections/TreatmentGrid.astro';
+import NeaeCta from '../../components/sections/NeaeCta.astro';
+import ContactSection from '../../components/sections/ContactSection.astro';
+
+import { psicologiaInfantilTreatments } from '../../data/treatments';
+import { neaePsicologia } from '../../data/neae';
+import { site, isPending } from '../../data/site';
+import heroPsicologia from '../../assets/images/hero-psicologia.jpg';
+import materials from '../../assets/images/materials.jpg';
+
+const city = isPending(site.city) ? '' : ` en ${site.city}`;
+---
+
+<BaseLayout
+  title={`Psicología infantil y adolescentes${city} | Clínica LAUVEL`}
+  description="Psicología para niños y adolescentes: ansiedad, gestión emocional, autoestima, neurodesarrollo y terapia familiar. Valoración personalizada."
+>
+  <Hero
+    title={`Psicología infantil${city}`}
+    image={heroPsicologia}
+    imageAlt="Consulta de psicología infantil en Clínica LAUVEL"
+  />
+
+  <TwoColumn
+    title="Un espacio de confianza para cada etapa de la vida"
+    image={materials}
+    imageAlt="Tarjetas didácticas de animales utilizadas en la consulta de psicología"
+  >
+    <p>
+      En LAUVEL ofrecemos un espacio de confianza donde <strong>niños y adolescentes</strong> pueden comprender lo
+      que les ocurre y desarrollar herramientas para afrontar las dificultades del día a día.
+    </p>
+    <p>
+      Cada intervención se adapta a las necesidades de la persona, respetando sus tiempos y objetivos, desde un enfoque
+      <strong>cercano, profesional y basado en la evidencia científica</strong>.
+    </p>
+  </TwoColumn>
+
+  <TreatmentGrid
+    eyebrow="Psicología infantil y de adolescentes"
+    title="Acompañamos a los más pequeños (y a sus familias)"
+    sideText="La infancia y la adolescencia son etapas de cambios constantes. Trabajamos las dificultades emocionales, de conducta y del neurodesarrollo en coordinación con las familias y los centros educativos."
+    treatments={psicologiaInfantilTreatments}
+  />
+
+  <NeaeCta block={neaePsicologia} />
+
+  <ContactSection />
+</BaseLayout>

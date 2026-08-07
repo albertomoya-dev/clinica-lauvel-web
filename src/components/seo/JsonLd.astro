@@ -1,11 +1,12 @@
 ---
 import { site, isPending } from '../../data/site';
+import { withBase } from '../../utils/url';
 
 const data: Record<string, unknown> = {
   '@context': 'https://schema.org',
   '@type': 'MedicalClinic',
   name: site.name,
-  url: site.domain,
+  url: new URL(withBase('/'), site.domain).href,
   description:
     'Centro multidisciplinar de logopedia, psicología, pedagogía y fisioterapia para bebés, niños, adolescentes y adultos.',
   medicalSpecialty: ['Logopedia', 'Psicología', 'Pedagogía', 'Fisioterapia'],

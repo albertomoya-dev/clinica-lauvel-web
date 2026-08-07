@@ -9,3 +9,5 @@ Thumbs.db
 *.log
 .vercel/
 .netlify/
+.agents/skills/
+skills-lock.json
