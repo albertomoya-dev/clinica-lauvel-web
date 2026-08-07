@@ -23,12 +23,14 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-white font-sans text-body antialiased;
     font-size: 1.0625rem;
     line-height: 1.6;
+    overflow-x: hidden;
   }
 
   h1,

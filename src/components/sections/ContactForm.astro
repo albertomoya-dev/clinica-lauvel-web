@@ -7,7 +7,7 @@ interface Props {
   showNeae?: boolean;
 }
 
-const { showNeae = false } = Astro.props;
+const { showNeae = true } = Astro.props;
 const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
 const privacyHref = withBase('/politica-de-privacidad/');
 ---
