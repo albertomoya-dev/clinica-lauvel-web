@@ -3,10 +3,12 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
-// URL provisional en GitHub Pages; sustituir site/base cuando el cliente confirme dominio propio (spec §15)
+// Dominio configurable vía env; por defecto apunta a Vercel hasta que se confirme dominio propio (spec §15)
+const siteUrl = process.env.PUBLIC_SITE_URL || 'https://clinica-lauvel.vercel.app';
+
 export default defineConfig({
-  site: 'https://albertomoya-dev.github.io',
-  base: '/clinica-lauvel-web',
+  site: siteUrl,
+  base: '/',
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
