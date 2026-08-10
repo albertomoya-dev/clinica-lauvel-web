@@ -330,36 +330,86 @@ const servicesActive = servicesNav.some((s) => isActive(s.href));
 </style>
 
 <script>
-  const header = document.getElementById('site-header');
-  const menu = document.getElementById('mobile-menu');
   let lastScrollY = window.scrollY;
 
   const updateHeader = () => {
-    const h = header;
-    if (!h) return;
-    const scrollY = window.scrollY;
+    const header = document.getElementById('site-header');
+    const menu = document.getElementById('mobile-menu');
+    if (!header) return;
 
-    if (scrollY > 40) h.setAttribute('data-scrolled', '');
-    else h.removeAttribute('data-scrolled');
+    const scrollY = window.scrollY;
+    if (scrollY > 40) header.setAttribute('data-scrolled', '');
+    else header.removeAttribute('data-scrolled');
 
     if (window.matchMedia('(max-width: 1023px)').matches) {
       const menuOpen = menu && !menu.hasAttribute('hidden');
       if (!menuOpen && scrollY > 80 && scrollY > lastScrollY) {
-        h.setAttribute('data-hidden', '');
+        header.setAttribute('data-hidden', '');
       } else {
-        h.removeAttribute('data-hidden');
+        header.removeAttribute('data-hidden');
       }
     } else {
-      h.removeAttribute('data-hidden');
+      header.removeAttribute('data-hidden');
     }
 
     lastScrollY = scrollY;
   };
 
-  updateHeader();
+  const initHeader = () => {
+    const menu = document.getElementById('mobile-menu');
+    const openBtn = document.getElementById('menu-open');
+    const closeBtn = document.getElementById('menu-close');
+    const servicesTrigger = document.querySelector('[data-mobile-services-trigger]');
+    const servicesPanel = document.getElementById('mobile-services');
+    const dropdown = document.querySelector('[data-dropdown]');
+    const trigger = dropdown?.querySelector('[data-dropdown-trigger]') as HTMLButtonElement | null;
+    const panel = dropdown?.querySelector('[data-dropdown-panel]');
 
-  if (!(window as any).__lauvelHeaderBound) {
-    (window as any).__lauvelHeaderBound = true;
+    const openMenu = () => {
+      servicesPanel?.classList.remove('is-open');
+      servicesTrigger?.setAttribute('aria-expanded', 'false');
+      servicesTrigger?.querySelector('svg')?.classList.remove('rotate-180');
+      menu?.removeAttribute('hidden');
+      document.body.style.overflow = 'hidden';
+      openBtn?.setAttribute('aria-expanded', 'true');
+      updateHeader();
+    };
+
+    const closeMenu = () => {
+      menu?.setAttribute('hidden', '');
+      document.body.style.overflow = '';
+      openBtn?.setAttribute('aria-expanded', 'false');
+      updateHeader();
+    };
+
+    openBtn?.addEventListener('click', openMenu);
+    closeBtn?.addEventListener('click', closeMenu);
+    menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
+
+    trigger?.addEventListener('click', () => {
+      const open = panel?.hasAttribute('data-open');
+      if (open) {
+        panel?.removeAttribute('data-open');
+        trigger.setAttribute('aria-expanded', 'false');
+      } else {
+        panel?.setAttribute('data-open', '');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    servicesTrigger?.addEventListener('click', () => {
+      const open = servicesPanel?.classList.contains('is-open');
+      servicesTrigger.setAttribute('aria-expanded', String(!open));
+      servicesTrigger.querySelector('svg')?.classList.toggle('rotate-180', !open);
+      if (open) servicesPanel?.classList.remove('is-open');
+      else servicesPanel?.classList.add('is-open');
+    });
+
+    updateHeader();
+  };
+
+  if (!(window as any).__lauvelHeaderScrollBound) {
+    (window as any).__lauvelHeaderScrollBound = true;
     window.addEventListener('scroll', updateHeader, { passive: true });
     window.addEventListener('resize', updateHeader, { passive: true });
   }
@@ -373,57 +423,18 @@ const servicesActive = servicesNav.some((s) => isActive(s.href));
   });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && menu && !menu.hasAttribute('hidden')) {
-      menu.setAttribute('hidden', '');
-      document.body.style.overflow = '';
-      document.getElementById('menu-open')?.setAttribute('aria-expanded', 'false');
-      updateHeader();
+    if (e.key === 'Escape') {
+      const menu = document.getElementById('mobile-menu');
+      const openBtn = document.getElementById('menu-open');
+      if (menu && !menu.hasAttribute('hidden')) {
+        menu.setAttribute('hidden', '');
+        document.body.style.overflow = '';
+        openBtn?.setAttribute('aria-expanded', 'false');
+        updateHeader();
+      }
     }
   });
 
-  const dropdown = document.querySelector('[data-dropdown]');
-  const trigger = dropdown?.querySelector('[data-dropdown-trigger]');
-  const panel = dropdown?.querySelector('[data-dropdown-panel]');
-  trigger?.addEventListener('click', () => {
-    const open = panel?.hasAttribute('data-open');
-    if (open) {
-      panel?.removeAttribute('data-open');
-      trigger.setAttribute('aria-expanded', 'false');
-    } else {
-      panel?.setAttribute('data-open', '');
-      trigger.setAttribute('aria-expanded', 'true');
-    }
-  });
-
-  const openBtn = document.getElementById('menu-open');
-  const closeBtn = document.getElementById('menu-close');
-  const servicesTrigger = document.querySelector('[data-mobile-services-trigger]');
-  const servicesPanel = document.getElementById('mobile-services');
-
-  const openMenu = () => {
-    servicesPanel?.classList.remove('is-open');
-    servicesTrigger?.setAttribute('aria-expanded', 'false');
-    servicesTrigger?.querySelector('svg')?.classList.remove('rotate-180');
-    menu?.removeAttribute('hidden');
-    document.body.style.overflow = 'hidden';
-    openBtn?.setAttribute('aria-expanded', 'true');
-    updateHeader();
-  };
-  const closeMenu = () => {
-    menu?.setAttribute('hidden', '');
-    document.body.style.overflow = '';
-    openBtn?.setAttribute('aria-expanded', 'false');
-    updateHeader();
-  };
-  openBtn?.addEventListener('click', openMenu);
-  closeBtn?.addEventListener('click', closeMenu);
-  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
-
-  servicesTrigger?.addEventListener('click', () => {
-    const open = servicesPanel?.classList.contains('is-open');
-    servicesTrigger.setAttribute('aria-expanded', String(!open));
-    servicesTrigger.querySelector('svg')?.classList.toggle('rotate-180', !open);
-    if (open) servicesPanel?.classList.remove('is-open');
-    else servicesPanel?.classList.add('is-open');
-  });
+  initHeader();
+  document.addEventListener('astro:page-load', initHeader);
 </script>
