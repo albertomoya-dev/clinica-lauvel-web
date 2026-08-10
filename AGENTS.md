@@ -41,7 +41,7 @@ npm run check     # astro check (tipos)
 |---|---|---|
 | `accent` | `#49523B` | botones, enlaces, iconos, títulos de tarjetas de tratamiento, subrayado activo |
 | `accent-hover` | `#3A442E` | hover de botones/enlaces con fondo de acento |
-| `gold` | `#B59A55` | eyebrows, detalles decorativos y hover en superficies oscuras |
+| `gold` | `#B59A55` | detalles decorativos y hover en superficies oscuras (eyebrows usan `accent`) |
 | `ink` | `#2E3626` | titulares, footer, desplegables |
 | `body` | `#5D5D5C` | texto de cuerpo |
 | `bg` | `#FFFFFF` | fondo base |

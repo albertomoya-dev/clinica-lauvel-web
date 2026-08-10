@@ -54,7 +54,7 @@ Se hereda por completo del documento de especificaciones de referencia:
 - **Paleta**: acento verde oliva `#49523B` (botones, enlaces, iconos, títulos de tarjetas de tratamiento, subrayado activo); dorado `#B59A55` (eyebrows y detalles decorativos); verde muy oscuro `#2E3626` (titulares, footer, desplegables); gris `#5D5D5C` (cuerpo); blanco `#FFFFFF`; fondos alternos crema `#F8F5F0` y `#FBF9F5`; overlay de heroes `rgba(0,0,0,0.35–0.45)`.
 - **Tipografía**: display redondeada para titulares (Aloevera Display; sustitutas libres: Quicksand Bold, Comfortaa, Baloo 2) + DM Sans 400/500 para cuerpo, eyebrow labels y botones.
 - **Botones**: primario verde oliva con texto blanco (radio ~4–6 px) y botón circular con borde verde oliva y flecha `→` (enlaces y acordeones).
-- **Eyebrow labels**: mayúsculas, dorado, letter-spacing amplio, sobre cada H2.
+- **Eyebrow labels**: mayúsculas, verde oliva, letter-spacing amplio, sobre cada H2.
 - **Componentes reutilizables**: hero de página, tarjeta de servicio, tarjeta numerada con acordeón "Qué tratamos", lista numerada horizontal, tarjeta de persona, carrusel de testimonios, bloque dos columnas texto+imagen, sección formulario, botones flotantes (WhatsApp y accesibilidad), banner de cookies.
 - **Responsive y animaciones**: según §13 del documento de referencia (grids 3→2→1 columnas, animaciones fade/slide al hacer scroll, menú hamburguesa en móvil).
 
