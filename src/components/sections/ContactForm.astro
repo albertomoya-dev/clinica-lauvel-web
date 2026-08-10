@@ -25,6 +25,7 @@ const privacyHref = withBase('/politica-de-privacidad/');
     <input type="hidden" name="access_key" value={accessKey} />
     <input type="hidden" name="subject" value="Nuevo mensaje desde la web de Clínica LAUVEL" />
     <input type="hidden" name="from_name" value="Web Clínica LAUVEL" />
+    <input type="hidden" name="redirect" value={Astro.url.href} />
     <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
     <div>
@@ -97,7 +98,7 @@ const privacyHref = withBase('/politica-de-privacidad/');
     </script>
 
     <div>
-      <button type="submit" class="btn-primary">Enviar</button>
+      <button type="submit" class="btn-primary" disabled>Enviar</button>
     </div>
 
     <p class="form-status hidden rounded-md px-4 py-3 text-sm" role="status" aria-live="polite"></p>
@@ -190,6 +191,10 @@ const privacyHref = withBase('/politica-de-privacidad/');
 <script>
   const form = document.querySelector('[data-contact-form]');
   const status = form?.querySelector('.form-status');
+  const submitBtn = form?.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+
+  // Activar el botón solo cuando JS está listo para interceptar el envío
+  submitBtn?.removeAttribute('disabled');
 
   const showStatus = (type: 'success' | 'error', message: string) => {
     if (!status) return;
@@ -207,7 +212,6 @@ const privacyHref = withBase('/politica-de-privacidad/');
       return;
     }
 
-    const submitBtn = formEl.querySelector('button[type="submit"]') as HTMLButtonElement | null;
     if (submitBtn) {
       submitBtn.disabled = true;
       submitBtn.textContent = 'Enviando…';
