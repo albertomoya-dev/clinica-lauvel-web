@@ -31,6 +31,12 @@ jobs:
         run: npm ci
 
       - name: Build
+        env:
+          PUBLIC_WEB3FORMS_KEY: ${{ secrets.PUBLIC_WEB3FORMS_KEY }}
+          PUBLIC_CONTACT_EMAIL: ${{ vars.PUBLIC_CONTACT_EMAIL }}
+          PUBLIC_CONTACT_PHONE: ${{ vars.PUBLIC_CONTACT_PHONE }}
+          PUBLIC_CONTACT_PHONE_HREF: ${{ vars.PUBLIC_CONTACT_PHONE_HREF }}
+          PUBLIC_CONTACT_WHATSAPP: ${{ vars.PUBLIC_CONTACT_WHATSAPP }}
         run: npm run build
 
       - name: Setup Pages
