@@ -51,14 +51,14 @@ El resto de la estructura (hero, bloques dos columnas, tarjetas numeradas con ac
 
 Se hereda por completo del documento de especificaciones de referencia:
 
-- **Paleta**: acento `#AC9687`; negro suave `#161615` (titulares, footer, desplegables); gris `#5D5D5C` (cuerpo); blanco `#FFFFFF`; fondos alternos beige pálido `#F5F0EB` y `#FAF8F5`; overlay de heroes `rgba(0,0,0,0.35–0.45)`.
+- **Paleta**: acento verde oliva `#49523B` (botones, enlaces, iconos, títulos de tarjetas de tratamiento, subrayado activo); dorado `#B59A55` (eyebrows y detalles decorativos); verde muy oscuro `#2E3626` (titulares, footer, desplegables); gris `#5D5D5C` (cuerpo); blanco `#FFFFFF`; fondos alternos crema `#F8F5F0` y `#FBF9F5`; overlay de heroes `rgba(0,0,0,0.35–0.45)`.
 - **Tipografía**: display redondeada para titulares (Aloevera Display; sustitutas libres: Quicksand Bold, Comfortaa, Baloo 2) + DM Sans 400/500 para cuerpo, eyebrow labels y botones.
-- **Botones**: primario rosa con texto blanco (radio ~4–6 px) y botón circular con borde rosa y flecha `→` (enlaces y acordeones).
-- **Eyebrow labels**: mayúsculas, rosa, letter-spacing amplio, sobre cada H2.
+- **Botones**: primario verde oliva con texto blanco (radio ~4–6 px) y botón circular con borde verde oliva y flecha `→` (enlaces y acordeones).
+- **Eyebrow labels**: mayúsculas, dorado, letter-spacing amplio, sobre cada H2.
 - **Componentes reutilizables**: hero de página, tarjeta de servicio, tarjeta numerada con acordeón "Qué tratamos", lista numerada horizontal, tarjeta de persona, carrusel de testimonios, bloque dos columnas texto+imagen, sección formulario, botones flotantes (WhatsApp y accesibilidad), banner de cookies.
 - **Responsive y animaciones**: según §13 del documento de referencia (grids 3→2→1 columnas, animaciones fade/slide al hacer scroll, menú hamburguesa en móvil).
 
-> Nota de marca: el color corporativo definitivo de LAUVEL ha sido confirmado como `#AC9687`. El logo debe mantenerse con la identidad recibida del cliente. Ver §15.
+> Nota de marca: la paleta corporativa definitiva de LAUVEL se extrae de la tarjeta de visita: verde oliva `#49523B`, dorado `#B59A55` y crema `#F8F5F0`. El logo debe mantenerse con la identidad recibida del cliente. Ver §15.
 
 ---
 
@@ -82,7 +82,7 @@ Se hereda por completo del documento de especificaciones de referencia:
 
 **Menú principal (cabecera)**: `Home` · `Quiénes somos` · **[LOGO LAUVEL centrado]** · `Servicios ▾` · `Contacto`
 
-**Desplegable "Servicios"** (fondo `#161615`, texto blanco, 4 enlaces):
+**Desplegable "Servicios"** (fondo `#2E3626`, texto blanco, 4 enlaces):
 1. Logopedia → `/logopedia/`
 2. Pedagogía → `/pedagogia/`
 3. Psicología → `/psicologia/`
@@ -97,10 +97,10 @@ Se hereda por completo del documento de especificaciones de referencia:
 Idénticos a la referencia (§4 del documento Monro), con estos contenidos propios:
 
 ### 4.1. Cabecera
-- Barra transparente sobre el hero, menú blanco, item activo con subrayado rosa, logo LAUVEL centrado, desplegable de Servicios (4 items), sticky al scroll, hamburguesa en móvil.
+- Barra transparente sobre el hero, menú blanco, item activo con subrayado verde oliva, logo LAUVEL centrado, desplegable de Servicios (4 items), sticky al scroll, hamburguesa en móvil.
 
 ### 4.2. Footer
-Fondo `#161615`, columna centrada:
+Fondo `#2E3626`, columna centrada:
 1. Logotipo LAUVEL grande (versión clara sobre negro).
 2. Selector de idioma (Español/English) — opcional, según cliente (ver §15).
 3. Menú secundario: `Home` · `Quiénes somos` · `Servicios ▾` · `Contacto`.
@@ -113,11 +113,11 @@ Aparece al final de **Home, Quiénes somos y las 4 páginas de servicios**. Estr
 - Columna izquierda sobre foto con overlay: eyebrow `¿NECESITAS MÁS INFORMACIÓN?`, H2 **"Estamos aquí para ayudarte"**, párrafos:
   - "Si quieres resolver dudas, solicitar una valoración o conocer mejor cómo trabajamos, nuestro equipo te atenderá con total cercanía y profesionalidad."
   - "Déjanos tus datos y nos pondremos en contacto contigo lo antes posible."
-  - Botón rosa: **"Primera consulta gratuita"** → `/contacto/` *(confirmar con el cliente si la primera consulta/valoración es gratuita; si no, cambiar el CTA a "Pide tu valoración" o "Contacta" — ver §15)*.
+  - Botón verde oliva: **"Primera consulta gratuita"** → `/contacto/` *(confirmar con el cliente si la primera consulta/valoración es gratuita; si no, cambiar el CTA a "Pide tu valoración" o "Contacta" — ver §15)*.
 - Columna derecha: tarjeta blanca con formulario: `RELLENA EL FORMULARIO` + Nombre completo + Correo electrónico + Teléfono + Mensaje + checkbox "He leído y acepto la **Política de privacidad**" + botón `Enviar` + desplegable legal "Información sobre protección de datos" (Responsable: [titular de LAUVEL], Finalidad, Legitimación, Destinatarios, Derechos).
 
 ### 4.4. Elementos flotantes
-- Botón **WhatsApp** (inferior derecha, círculo rosa) → chat con el número de la clínica.
+- Botón **WhatsApp** (inferior derecha, círculo verde oliva) → chat con el número de la clínica.
 - Botón **accesibilidad** (borde izquierdo centrado).
 - **Banner de cookies** con Aceptar/Rechazar/Ajustes + enlace a política de cookies.
 
@@ -128,13 +128,13 @@ Aparece al final de **Home, Quiénes somos y las 4 páginas de servicios**. Estr
 ### Sección 1 — Hero
 - Imagen a ancho completo (equipo o consulta de LAUVEL), overlay oscuro.
 - H1 blanco: **"Centro multidisciplinar de logopedia, psicología, pedagogía y fisioterapia"** *(añadir ciudad cuando se confirme: "…en [Ciudad]")*.
-- Botón rosa: **"Primera consulta gratuita"** → `/contacto/`
+- Botón verde oliva: **"Primera consulta gratuita"** → `/contacto/`
 
 ### Sección 2 — Servicios destacados
 - Eyebrow centrado: `NUESTROS SERVICIOS`
 - H2 centrado: **"Atención integral para todas las etapas de la vida"**
 - Párrafo centrado introductorio: "En LAUVEL ofrecemos una atención individualizada para bebés, niños, adolescentes y adultos. Somos un centro multidisciplinar donde la logopedia, la psicología, la pedagogía y la fisioterapia trabajan de forma coordinada, siempre desde un enfoque basado en la evidencia científica."
-- **6 tarjetas de servicio** (grid 3 columnas × 2 filas; componente "tarjeta de servicio": icono lineal rosa, título, descripción, botón circular con flecha):
+- **6 tarjetas de servicio** (grid 3 columnas × 2 filas; componente "tarjeta de servicio": icono lineal verde oliva, título, descripción, botón circular con flecha):
   1. **Terapia de Motricidad Orofacial** — "Una de nuestras áreas de especialización: tratamos las alteraciones de la musculatura orofacial para mejorar funciones como respirar, masticar, deglutir y hablar." → `/logopedia/` *(ancla a su bloque)*
   2. **Logopedia infantil y de adultos** — "Prevención, evaluación e intervención en las alteraciones del lenguaje, el habla, la comunicación, la voz y la deglución, para todas las edades." → `/logopedia/`
   3. **Psicología infantil, adolescentes y adultos** — "Un espacio de confianza para comprender lo que ocurre y desarrollar herramientas para afrontar el día a día." → `/psicologia/`
@@ -143,7 +143,7 @@ Aparece al final de **Home, Quiénes somos y las 4 páginas de servicios**. Estr
   6. **Atención integral infantil** — "Trabajo coordinado entre logopedia, psicología, pedagogía y fisioterapia para ofrecer a cada niño una atención completa." → `/quienes-somos/` *(o a la sección "Cómo trabajamos")*
 
 ### Sección 3 — Tu clínica de referencia (dos columnas)
-- **Izquierda**: eyebrow `LOGOPEDIA · PSICOLOGÍA · PEDAGOGÍA · FISIOTERAPIA` → H2 **"Un centro multidisciplinar, un único objetivo: tu bienestar"** → párrafo: "En LAUVEL creemos en una atención integral y personalizada. La coordinación entre nuestros profesionales y la colaboración con las familias, centros educativos y otros especialistas nos permite ofrecer una atención completa, cercana y de calidad, acompañando a cada persona durante todo el proceso." → botón rosa **"Sobre nosotros"** → `/quienes-somos/` → imagen pequeña debajo.
+- **Izquierda**: eyebrow `LOGOPEDIA · PSICOLOGÍA · PEDAGOGÍA · FISIOTERAPIA` → H2 **"Un centro multidisciplinar, un único objetivo: tu bienestar"** → párrafo: "En LAUVEL creemos en una atención integral y personalizada. La coordinación entre nuestros profesionales y la colaboración con las familias, centros educativos y otros especialistas nos permite ofrecer una atención completa, cercana y de calidad, acompañando a cada persona durante todo el proceso." → botón verde oliva **"Sobre nosotros"** → `/quienes-somos/` → imagen pequeña debajo.
 - **Derecha**: imagen grande vertical (sesión con paciente).
 
 ### Sección 4 — Cómo trabajamos (lista numerada)
@@ -161,7 +161,7 @@ Adapta el componente "Qué ofrecemos / lista numerada" de la referencia:
 - Eyebrow centrado: `NUESTRO EQUIPO`
 - H2: **"Especialistas en logopedia, psicología, pedagogía y fisioterapia"**
 - Párrafo: "En LAUVEL contamos con un equipo multidisciplinar especializado y en constante formación. Nuestra forma de trabajar se basa en la evidencia científica, la personalización de cada intervención y un trato cercano que genera confianza desde el primer día."
-- Fotos de equipo en fila (nº según plantilla real) + botón rosa **"Conócenos"** → `/quienes-somos/`
+- Fotos de equipo en fila (nº según plantilla real) + botón verde oliva **"Conócenos"** → `/quienes-somos/`
 
 ### Sección 6 — Testimonios
 - Eyebrow: `TESTIMONIOS` + H2 **"Lo que nuestros pacientes destacan"** + carrusel de reseñas de Google (mismo componente).
@@ -169,7 +169,7 @@ Adapta el componente "Qué ofrecemos / lista numerada" de la referencia:
 ### Sección 7 — CTA Becas NEAE (bloque destacado)
 **Este bloque sustituye al de "Adeslas/Beca NEAE" de la referencia y tiene máxima prioridad visual** (petición expresa del cliente):
 - Dos columnas.
-- **Izquierda**: H2 **"Centro de intervención para alumnado con Beca NEAE"** → párrafo: "Realizamos tratamientos para el alumnado beneficiario de las **Becas de Necesidades Específicas de Apoyo Educativo (NEAE)** del Ministerio de Educación." → párrafo: "Te asesoramos sobre la ayuda y diseñamos el plan de intervención que exige la convocatoria." → negrita: "¡Consúltanos sin compromiso!" → botón rosa **"Contacta"** → `/contacto/`
+- **Izquierda**: H2 **"Centro de intervención para alumnado con Beca NEAE"** → párrafo: "Realizamos tratamientos para el alumnado beneficiario de las **Becas de Necesidades Específicas de Apoyo Educativo (NEAE)** del Ministerio de Educación." → párrafo: "Te asesoramos sobre la ayuda y diseñamos el plan de intervención que exige la convocatoria." → negrita: "¡Consúltanos sin compromiso!" → botón verde oliva **"Contacta"** → `/contacto/`
 - **Derecha**: imagen (material didáctico, aula o sesión infantil).
 
 ### Sección 8 — Formulario compartido (§4.3)
@@ -406,7 +406,7 @@ Cuatro páginas de texto legal con cabecera y footer globales: **Aviso legal**, 
 | 2 | **Dirección, teléfono, email, WhatsApp** | Contacto, footer, botón flotante |
 | 3 | **Redes sociales** (URLs) | Footer y página de contacto |
 | 4 | **Equipo**: nombres, roles, fotos y bios | Home §5 y Quiénes somos §4 |
-| 5 | **Logo e identidad de LAUVEL** (logo ya recibido; acento confirmado `#AC9687`) | Mantener logo del cliente; acento ya aplicado en web |
+| 5 | **Logo e identidad de LAUVEL** (logo ya recibido; paleta corporativa extraída de la tarjeta: verde oliva `#49523B`, dorado `#B59A55`, crema `#F8F5F0`) | Mantener logo del cliente; paleta ya aplicada en web |
 | 6 | **¿Primera consulta/valoración gratuita?** | Texto del CTA principal |
 | 7 | **Titular RGPD** (nombre del responsable) | Formularios y política de privacidad |
 | 8 | **¿Selector de idioma?** | Footer |

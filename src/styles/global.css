@@ -1,13 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --color-accent: #ac9687;
-  --color-accent-hover: #8a7b6e;
-  --color-ink: #161615;
+  --color-accent: #49523b;
+  --color-accent-hover: #3a442e;
+  --color-gold: #b59a55;
+  --color-ink: #2e3626;
   --color-body: #5d5d5c;
-  --color-soft: #f5f0eb;
-  --color-softer: #faf8f5;
-  --color-card-number: #eaddd3;
+  --color-soft: #f8f5f0;
+  --color-softer: #fbf9f5;
+  --color-card-number: #e5dfc9;
 
   --font-display: "Baloo 2", "Quicksand", system-ui, sans-serif;
   --font-sans: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -64,7 +65,7 @@
   }
 
   .eyebrow {
-    @apply font-sans text-sm font-medium tracking-[0.12em] text-accent uppercase;
+    @apply font-sans text-sm font-medium tracking-[0.12em] text-gold uppercase;
   }
 
   .hero-overlay {

@@ -28,7 +28,7 @@ const isActive = (href: string) => (href === homeHref ? path === homeHref : path
         {
           mainNavLeft.map((item) => (
             <li>
-              <a href={item.href} class="transition-colors hover:text-accent" data-active={isActive(item.href) ? 'true' : undefined}>
+              <a href={item.href} class="transition-colors hover:text-gold" data-active={isActive(item.href) ? 'true' : undefined}>
                 {item.label}
               </a>
             </li>
@@ -36,7 +36,7 @@ const isActive = (href: string) => (href === homeHref ? path === homeHref : path
         }
         <li class="relative">
           <details class="group">
-            <summary class="flex cursor-pointer list-none items-center gap-1.5 transition-colors hover:text-accent [&::-webkit-details-marker]:hidden">
+            <summary class="flex cursor-pointer list-none items-center gap-1.5 transition-colors hover:text-gold [&::-webkit-details-marker]:hidden">
               Servicios
               <Icon name="chevron-down" class="size-4 transition-transform duration-300 group-open:rotate-180" />
             </summary>
@@ -44,7 +44,7 @@ const isActive = (href: string) => (href === homeHref ? path === homeHref : path
               {
                 servicesNav.map((item) => (
                   <li>
-                    <a href={item.href} class="block px-5 py-2.5 text-sm transition-colors hover:text-accent">
+                    <a href={item.href} class="block px-5 py-2.5 text-sm transition-colors hover:text-gold">
                       {item.label}
                     </a>
                   </li>
@@ -56,7 +56,7 @@ const isActive = (href: string) => (href === homeHref ? path === homeHref : path
         {
           mainNavRight.map((item) => (
             <li>
-              <a href={item.href} class="transition-colors hover:text-accent" data-active={isActive(item.href) ? 'true' : undefined}>
+              <a href={item.href} class="transition-colors hover:text-gold" data-active={isActive(item.href) ? 'true' : undefined}>
                 {item.label}
               </a>
             </li>
@@ -66,7 +66,7 @@ const isActive = (href: string) => (href === homeHref ? path === homeHref : path
     </nav>
 
     {!isPending(site.instagramUrl) && (
-      <a href={site.instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram de Clínica LAUVEL" class="text-white transition-colors hover:text-accent">
+      <a href={site.instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram de Clínica LAUVEL" class="text-white transition-colors hover:text-gold">
         <Icon name="instagram" class="size-6" />
       </a>
     )}
@@ -79,7 +79,7 @@ const isActive = (href: string) => (href === homeHref ? path === homeHref : path
               href={site.mapUrl}
               target="_blank"
               rel="noopener noreferrer"
-              class="transition-colors hover:text-accent"
+              class="transition-colors hover:text-gold"
             >
               {site.address}
             </a>
@@ -87,7 +87,7 @@ const isActive = (href: string) => (href === homeHref ? path === homeHref : path
           <span>
             {!isPending(site.phone) && <>Tel. {site.phone}</>}
             {!isPending(site.phone) && !isPending(site.email) && <> · </>}
-            {!isPending(site.email) && <a href={`mailto:${site.email}`} class="transition-colors hover:text-accent">{site.email}</a>}
+            {!isPending(site.email) && <a href={`mailto:${site.email}`} class="transition-colors hover:text-gold">{site.email}</a>}
           </span>
         </address>
       )
@@ -108,7 +108,7 @@ const isActive = (href: string) => (href === homeHref ? path === homeHref : path
       {
         legalNav.map((item, i) => (
           <>
-            <a href={item.href} class="transition-colors hover:text-accent">{item.label}</a>
+            <a href={item.href} class="transition-colors hover:text-gold">{item.label}</a>
             {i < legalNav.length - 1 && <span aria-hidden="true"> · </span>}
           </>
         ))
@@ -119,7 +119,7 @@ const isActive = (href: string) => (href === homeHref ? path === homeHref : path
 
 <style>
   footer a[data-active] {
-    color: var(--color-accent);
+    color: var(--color-gold);
   }
 
   :global(.footer-logo img) {

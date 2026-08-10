@@ -39,12 +39,15 @@ npm run check     # astro check (tipos)
 
 | Token | Valor | Uso |
 |---|---|---|
-| `accent` | `#AC9687` | botones, enlaces, eyebrows, iconos, títulos de tarjetas de tratamiento, subrayado activo |
-| `ink` | `#161615` | titulares, footer, desplegables |
+| `accent` | `#49523B` | botones, enlaces, iconos, títulos de tarjetas de tratamiento, subrayado activo |
+| `accent-hover` | `#3A442E` | hover de botones/enlaces con fondo de acento |
+| `gold` | `#B59A55` | eyebrows, detalles decorativos y hover en superficies oscuras |
+| `ink` | `#2E3626` | titulares, footer, desplegables |
 | `body` | `#5D5D5C` | texto de cuerpo |
 | `bg` | `#FFFFFF` | fondo base |
-| `soft` | `#FDF2F7` | tarjetas de tratamiento, secciones alternas |
-| `softer` | `#FEFAFC` | variante de fondo |
+| `soft` | `#F8F5F0` | tarjetas de tratamiento, secciones alternas |
+| `softer` | `#FBF9F5` | variante de fondo |
+| `card-number` | `#E5DFC9` | números decorativos grandes de tarjetas |
 | overlay heroes | `rgba(0,0,0,.35–.45)` | legibilidad de H1 blanco |
 
 - H1 hero ~64–72px (móvil 36–40), H2 ~42–48px (móvil 28–32), títulos tarjeta 20–24px, eyebrow ~14px mayúsculas tracking amplio, cuerpo 16–17px / line-height 1.6
