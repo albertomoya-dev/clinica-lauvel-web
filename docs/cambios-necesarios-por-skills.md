@@ -15,11 +15,11 @@
 | 1.2 | ~~El banner de cookies tiene `role="dialog"` pero **no trae el foco** al abrirse, ni **restaura el foco** al cerrarse ni cierra con `Escape`.~~ | `src/components/widgets/CookieBanner.astro` | ~~Alta~~ | ✅ Resuelto: focus inicial, Escape y restauración de foco implementados. |
 | 1.3 | ~~El menú móvil abre un panel fullscreen pero **no mueve el foco** al panel ni al cerrar. Tampoco hay foco atrapado.~~ | `src/components/layout/Header.astro` | ~~Alta~~ | ✅ Resuelto: focus trap, foco inicial y Escape implementados. |
 | 1.4 | ~~El carrusel de testimonios **triplica las tarjetas** en el DOM (3 bloques). Aunque los bloques 0 y 2 tienen `aria-hidden="true"`, la duplicación de contenido puede generar ruido en lectores de pantalla.~~ | `src/components/sections/Testimonials.astro` | ~~Media~~ | ✅ Resuelto: carrusel simplificado a una sola lista de tarjetas. |
-| 1.5 | El acordeón del footer usa `<details>` nativo (bien), pero la lista desplegable aparece **encima** del botón (`bottom-full`) sin anuncio de expansión. | `src/components/layout/Footer.astro` | Media | Pendiente |
+| 1.5 | ~~El acordeón del footer usa `<details>` nativo (bien), pero la lista desplegable aparece **encima** del botón (`bottom-full`) sin anuncio de expansión.~~ | `src/components/layout/Footer.astro` | ~~Media~~ | ✅ Resuelto: añadidos `aria-label`, `aria-controls`, Escape y cierre al hacer click fuera. |
 
 ### Cambios necesarios (pendientes)
 
-1. Revisar el acordeón del footer para asegurar que el despliegue hacia arriba es accesible y se anuncia correctamente.
+1. ~~Revisar el acordeón del footer para asegurar que el despliegue hacia arriba es accesible y se anuncia correctamente.~~ ✅ Resuelto.
 2. Añadir `@media (prefers-reduced-motion: reduce)` más exhaustivo si hay animaciones de scroll u otras transiciones no cubiertas.
 
 ---
@@ -292,7 +292,7 @@ Esta skill requiere fetch de `https://raw.githubusercontent.com/vercel-labs/web-
 
 4. ~~Añadir tests (al menos unitarios para utilidades y datos).~~ ✅ Resuelto.
 5. Revisar permisos/consentimiento de cookies: actualmente no carga ningún script de analítica.
-6. Revisar acordeón del footer (despliegue hacia arriba sin anuncio).
+6. ~~Revisar acordeón del footer (despliegue hacia arriba sin anuncio).~~ ✅ Resuelto.
 
 ### Medio
 

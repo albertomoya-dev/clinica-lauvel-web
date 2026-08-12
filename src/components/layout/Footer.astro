@@ -35,12 +35,19 @@ const isActive = (href: string) => (href === homeHref ? path === homeHref : path
           ))
         }
         <li class="relative">
-          <details class="group">
-            <summary class="flex cursor-pointer list-none items-center gap-1.5 transition-colors hover:text-gold [&::-webkit-details-marker]:hidden">
+          <details class="group" id="footer-services">
+            <summary
+              class="flex cursor-pointer list-none items-center gap-1.5 transition-colors hover:text-gold [&::-webkit-details-marker]:hidden"
+              aria-label="Mostrar u ocultar servicios"
+              aria-controls="footer-services-list"
+            >
               Servicios
-              <Icon name="chevron-down" class="size-4 transition-transform duration-300 group-open:rotate-180" />
+              <Icon name="chevron-down" class="size-4 transition-transform duration-300 group-open:rotate-180" aria-hidden="true" />
             </summary>
-            <ul class="absolute bottom-full left-1/2 mb-3 flex w-56 -translate-x-1/2 flex-col rounded-xl bg-white/5 py-2 text-left backdrop-blur">
+            <ul
+              id="footer-services-list"
+              class="absolute bottom-full left-1/2 mb-3 flex w-56 -translate-x-1/2 flex-col rounded-xl bg-white/5 py-2 text-left backdrop-blur"
+            >
               {
                 servicesNav.map((item) => (
                   <li>
@@ -144,3 +151,27 @@ const isActive = (href: string) => (href === homeHref ? path === homeHref : path
     pointer-events: auto;
   }
 </style>
+
+<script>
+  const details = document.getElementById('footer-services') as HTMLDetailsElement | null;
+  if (details) {
+    const close = () => {
+      details.removeAttribute('open');
+    };
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && details.open) {
+        e.preventDefault();
+        close();
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!details.open) return;
+      const target = e.target as Node;
+      if (!details.contains(target)) {
+        close();
+      }
+    });
+  }
+</script>
