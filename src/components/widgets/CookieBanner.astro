@@ -45,6 +45,25 @@ const cookiesHref = withBase('/politica-de-cookies/');
   const closeBtn = document.getElementById('cookie-close');
   let previousActiveElement: Element | null = null;
 
+  const getConsent = (): string | null => {
+    try {
+      return localStorage.getItem(storageKey);
+    } catch {
+      return null;
+    }
+  };
+
+  const hasConsent = () => getConsent() === 'accepted';
+  const hasDismissed = () => getConsent() === 'dismissed';
+
+  const setConsent = (value: string) => {
+    try {
+      localStorage.setItem(storageKey, value);
+    } catch {
+      /* noop */
+    }
+  };
+
   const hideBanner = () => {
     banner?.setAttribute('hidden', '');
     document.removeEventListener('keydown', handleKeyDown);
@@ -53,27 +72,20 @@ const cookiesHref = withBase('/politica-de-cookies/');
     }
   };
 
-  const hasConsent = () => {
-    try {
-      return localStorage.getItem(storageKey) === 'accepted';
-    } catch {
-      return false;
-    }
+  const accept = () => {
+    setConsent('accepted');
+    hideBanner();
   };
 
-  const accept = () => {
-    try {
-      localStorage.setItem(storageKey, 'accepted');
-    } catch {
-      /* noop */
-    }
+  const dismiss = () => {
+    setConsent('dismissed');
     hideBanner();
   };
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
       e.preventDefault();
-      hideBanner();
+      dismiss();
     }
   };
 
@@ -84,10 +96,10 @@ const cookiesHref = withBase('/politica-de-cookies/');
     document.addEventListener('keydown', handleKeyDown);
   };
 
-  if (!hasConsent()) {
+  if (!hasConsent() && !hasDismissed()) {
     showBanner();
   }
 
   acceptBtn?.addEventListener('click', accept);
-  closeBtn?.addEventListener('click', hideBanner);
+  closeBtn?.addEventListener('click', dismiss);
 </script>

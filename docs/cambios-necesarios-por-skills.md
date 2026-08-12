@@ -291,7 +291,7 @@ Esta skill requiere fetch de `https://raw.githubusercontent.com/vercel-labs/web-
 ### Alto
 
 4. ~~Añadir tests (al menos unitarios para utilidades y datos).~~ ✅ Resuelto.
-5. Revisar permisos/consentimiento de cookies: actualmente no carga ningún script de analítica.
+5. ~~Revisar permisos/consentimiento de cookies: actualmente no carga ningún script de analítica.~~ ✅ Revisado: el banner y la política reflejan correctamente que solo se usan cookies técnicas/localStorage; se añadió estado `dismissed` para no repetir el aviso tras cerrar.
 6. ~~Revisar acordeón del footer (despliegue hacia arriba sin anuncio).~~ ✅ Resuelto.
 
 ### Medio
