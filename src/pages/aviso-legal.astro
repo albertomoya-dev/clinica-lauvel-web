@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { site } from '../data/site';
+import { site, isPending } from '../data/site';
 ---
 
 <BaseLayout title="Aviso legal | Clínica LAUVEL" description="Aviso legal de Clínica LAUVEL: datos identificativos del titular, objeto y condiciones de uso del sitio web." solidHeader>
@@ -16,12 +16,12 @@ import { site } from '../data/site';
           Información y de Comercio Electrónico (LSSI-CE), se informa de los siguientes datos:
         </p>
         <ul>
-          <li><strong>Titular:</strong> {site.legalName}</li>
+          {!isPending(site.legalName) && <li><strong>Titular:</strong> {site.legalName}</li>}
           <li><strong>Nombre comercial:</strong> {site.name}</li>
-          <li><strong>CIF/NIF:</strong> {site.cif}</li>
-          <li><strong>Domicilio:</strong> {site.address}</li>
-          <li><strong>Teléfono:</strong> {site.phone}</li>
-          <li><strong>Correo electrónico:</strong> {site.email}</li>
+          {!isPending(site.cif) && <li><strong>CIF/NIF:</strong> {site.cif}</li>}
+          {!isPending(site.address) && <li><strong>Domicilio:</strong> {site.address}</li>}
+          {!isPending(site.phone) && <li><strong>Teléfono:</strong> {site.phone}</li>}
+          {!isPending(site.email) && <li><strong>Correo electrónico:</strong> {site.email}</li>}
           <li><strong>Sitio web:</strong> {site.domain}</li>
         </ul>
 

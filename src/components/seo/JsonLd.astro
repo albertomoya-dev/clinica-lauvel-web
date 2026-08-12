@@ -2,27 +2,86 @@
 import { site, isPending } from '../../data/site';
 import { withBase } from '../../utils/url';
 
-const data: Record<string, unknown> = {
-  '@context': 'https://schema.org',
+const homeUrl = new URL(withBase('/'), site.domain).href;
+
+const medicalClinic: Record<string, unknown> = {
   '@type': 'MedicalClinic',
+  '@id': `${homeUrl}#medicalclinic`,
   name: site.name,
-  url: new URL(withBase('/'), site.domain).href,
+  url: homeUrl,
   description:
     'Centro multidisciplinar de logopedia, psicología, pedagogía y fisioterapia para bebés, niños, adolescentes y adultos.',
   medicalSpecialty: ['Logopedia', 'Psicología', 'Pedagogía', 'Fisioterapia'],
 };
 
 if (!isPending(site.address)) {
-  data.address = {
+  medicalClinic.address = {
     '@type': 'PostalAddress',
     streetAddress: site.address,
     addressLocality: isPending(site.city) ? undefined : site.city,
     addressCountry: 'ES',
   };
 }
-if (!isPending(site.phone)) data.telephone = site.phone;
-if (!isPending(site.email)) data.email = site.email;
-if (!isPending(site.instagramUrl)) data.sameAs = [site.instagramUrl];
+if (!isPending(site.phone)) medicalClinic.telephone = site.phone;
+if (!isPending(site.email)) medicalClinic.email = site.email;
+if (!isPending(site.instagramUrl)) medicalClinic.sameAs = [site.instagramUrl];
+
+const organization: Record<string, unknown> = {
+  '@type': 'Organization',
+  '@id': `${homeUrl}#organization`,
+  name: site.name,
+  url: homeUrl,
+};
+if (!isPending(site.instagramUrl)) organization.sameAs = [site.instagramUrl];
+
+const path = Astro.url.pathname.replace(withBase('/'), '/').replace(/^\//, '').replace(/\/$/, '');
+const segments = path ? path.split('/') : [];
+
+const breadcrumbNames: Record<string, string> = {
+  'quienes-somos': 'Quiénes somos',
+  logopedia: 'Logopedia',
+  pedagogia: 'Pedagogía',
+  psicologia: 'Psicología',
+  infantil: 'Psicología infantil',
+  adultos: 'Psicología adultos',
+  fisioterapia: 'Fisioterapia',
+  contacto: 'Contacto',
+  'aviso-legal': 'Aviso legal',
+  'politica-de-privacidad': 'Política de privacidad',
+  'politica-de-cookies': 'Política de cookies',
+  accesibilidad: 'Accesibilidad',
+};
+
+const breadcrumbItems = [
+  { position: 1, name: 'Home', item: homeUrl },
+  ...segments.map((segment, i) => {
+    const slug = segments.slice(0, i + 1).join('/');
+    return {
+      position: i + 2,
+      name: breadcrumbNames[segment] || segment,
+      item: new URL(withBase(`/${slug}/`), site.domain).href,
+    };
+  }),
+];
+
+const breadcrumbList = {
+  '@type': 'BreadcrumbList',
+  '@id': `${new URL(Astro.url.pathname, site.domain).href}#breadcrumb`,
+  itemListElement: breadcrumbItems.map(({ position, name, item }) => ({
+    '@type': 'ListItem',
+    position,
+    name,
+    item,
+  })),
+};
+
+const graph = [organization, medicalClinic];
+if (segments.length > 0) graph.push(breadcrumbList);
+
+const data = {
+  '@context': 'https://schema.org',
+  '@graph': graph,
+};
 ---
 
 <script is:inline type="application/ld+json" set:html={JSON.stringify(data)} />

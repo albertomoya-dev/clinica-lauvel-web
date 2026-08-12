@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { site } from '../data/site';
+import { site, isPending } from '../data/site';
 import { withBase } from '../utils/url';
 
 const contactHref = withBase('/contacto/');
@@ -31,10 +31,6 @@ const contactHref = withBase('/contacto/');
           <li>Contraste de color suficiente entre texto y fondo.</li>
           <li>Navegación completa mediante teclado, con foco visible.</li>
           <li>Etiquetas asociadas a todos los campos de formulario.</li>
-          <li>
-            Widget de accesibilidad disponible en todas las páginas (botón en el lateral izquierdo) que permite
-            aumentar el tamaño del texto, activar el alto contraste y la escala de grises.
-          </li>
           <li>Respeto de la preferencia de reducción de movimiento del sistema.</li>
         </ul>
 
@@ -51,8 +47,12 @@ const contactHref = withBase('/contacto/');
           comunicárnoslo a través de:
         </p>
         <ul>
-          <li><strong>Correo electrónico:</strong> {site.email}</li>
-          <li><strong>Teléfono:</strong> {site.phone}</li>
+          {!isPending(site.email) && (
+            <li><strong>Correo electrónico:</strong> {site.email}</li>
+          )}
+          {!isPending(site.phone) && (
+            <li><strong>Teléfono:</strong> {site.phone}</li>
+          )}
         </ul>
         <p>Atenderemos tu solicitud a la mayor brevedad posible.</p>
       </article>

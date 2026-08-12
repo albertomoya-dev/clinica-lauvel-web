@@ -3,8 +3,8 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
-// Dominio configurable vía env; por defecto apunta a Vercel hasta que se confirme dominio propio (spec §15)
-const siteUrl = process.env.PUBLIC_SITE_URL || 'https://clinica-lauvel.vercel.app';
+// Dominio configurable vía env; por defecto apunta al dominio propio (spec §15)
+const siteUrl = process.env.PUBLIC_SITE_URL || 'https://www.clinicalauvel.es';
 
 export default defineConfig({
   site: siteUrl,

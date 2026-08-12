@@ -12,7 +12,7 @@ const phoneHref = getEnv(
 export const site = {
   name: 'Clínica LAUVEL',
   shortName: 'LAUVEL',
-  domain: getEnv('PUBLIC_SITE_URL', 'https://clinica-lauvel.vercel.app'),
+  domain: getEnv('PUBLIC_SITE_URL', 'https://www.clinicalauvel.es'),
   tagline: 'Logopedia · Psicología · Pedagogía · Fisioterapia',
   disciplines: ['Logopedia', 'Psicología', 'Pedagogía', 'Fisioterapia'] as const,
   population: 'bebés, niños, adolescentes y adultos',
