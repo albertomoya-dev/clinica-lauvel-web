@@ -14,11 +14,11 @@ import team3 from '../assets/images/team-3.png';
 
 export const team: TeamMember[] = [
   {
-    name: 'PENDIENTE_NOMBRE_1',
-    role: 'Logopeda',
-    bio: 'PENDIENTE_BIO — La información del equipo se incorporará cuando el cliente la confirme (spec §15).',
+    name: 'Laura Velasco Zambrano',
+    role: 'Logopeda y directora',
+    bio: 'Soy Laura Velasco Zambrano, logopeda y directora de Clínica LAUVEL. Cuento con formación en Atención Temprana y múltiples especializaciones en diferentes áreas de la logopedia, manteniendo una formación continua para ofrecer una atención personalizada y de calidad. Mi objetivo es crear un espacio cercano y profesional donde cada paciente y su familia se sientan acompañados, escuchados y atendidos de forma individualizada.',
     photo: team1,
-    photoAlt: 'Logopeda de Clínica LAUVEL',
+    photoAlt: 'Laura Velasco Zambrano, logopeda y directora de Clínica LAUVEL',
   },
   {
     name: 'PENDIENTE_NOMBRE_2',
