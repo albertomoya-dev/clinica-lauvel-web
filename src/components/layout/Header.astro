@@ -342,6 +342,12 @@ const servicesActive = servicesNav.some((s) => isActive(s.href));
 </style>
 
 <script>
+  declare global {
+    interface Window {
+      __lauvelHeaderScrollBound?: boolean;
+    }
+  }
+
   let lastScrollY = window.scrollY;
 
   const updateHeader = () => {
@@ -367,6 +373,13 @@ const servicesActive = servicesNav.some((s) => isActive(s.href));
     lastScrollY = scrollY;
   };
 
+  const getFocusables = (container: HTMLElement) =>
+    Array.from(
+      container.querySelectorAll<HTMLElement>(
+        'a[href], button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])',
+      ),
+    ).filter((el) => !el.hasAttribute('disabled') && !el.getAttribute('aria-hidden'));
+
   const initHeader = () => {
     const menu = document.getElementById('mobile-menu');
     const openBtn = document.getElementById('menu-open');
@@ -377,20 +390,65 @@ const servicesActive = servicesNav.some((s) => isActive(s.href));
     const trigger = dropdown?.querySelector('[data-dropdown-trigger]') as HTMLButtonElement | null;
     const panel = dropdown?.querySelector('[data-dropdown-panel]');
 
-    const openMenu = () => {
-      servicesPanel?.classList.remove('is-open');
-      servicesTrigger?.setAttribute('aria-expanded', 'false');
-      servicesTrigger?.querySelector('svg')?.classList.remove('rotate-180');
-      menu?.removeAttribute('hidden');
-      document.body.style.overflow = 'hidden';
-      openBtn?.setAttribute('aria-expanded', 'true');
-      updateHeader();
+    let previousActiveElement: Element | null = null;
+    let keydownHandler: ((e: KeyboardEvent) => void) | null = null;
+
+    const restoreFocus = () => {
+      if (previousActiveElement instanceof HTMLElement) {
+        previousActiveElement.focus();
+      }
     };
 
     const closeMenu = () => {
-      menu?.setAttribute('hidden', '');
+      if (!menu) return;
+      menu.setAttribute('hidden', '');
       document.body.style.overflow = '';
       openBtn?.setAttribute('aria-expanded', 'false');
+      if (keydownHandler) {
+        menu.removeEventListener('keydown', keydownHandler);
+        document.removeEventListener('keydown', keydownHandler);
+        keydownHandler = null;
+      }
+      restoreFocus();
+      updateHeader();
+    };
+
+    const openMenu = () => {
+      if (!menu) return;
+      previousActiveElement = document.activeElement;
+      servicesPanel?.classList.remove('is-open');
+      servicesTrigger?.setAttribute('aria-expanded', 'false');
+      servicesTrigger?.querySelector('svg')?.classList.remove('rotate-180');
+      menu.removeAttribute('hidden');
+      document.body.style.overflow = 'hidden';
+      openBtn?.setAttribute('aria-expanded', 'true');
+
+      keydownHandler = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          closeMenu();
+          return;
+        }
+        if (e.key !== 'Tab' || !menu) return;
+
+        const focusables = getFocusables(menu);
+        if (focusables.length === 0) return;
+
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      };
+
+      menu.addEventListener('keydown', keydownHandler);
+      document.addEventListener('keydown', keydownHandler);
+      closeBtn?.focus();
       updateHeader();
     };
 
@@ -420,8 +478,8 @@ const servicesActive = servicesNav.some((s) => isActive(s.href));
     updateHeader();
   };
 
-  if (!(window as any).__lauvelHeaderScrollBound) {
-    (window as any).__lauvelHeaderScrollBound = true;
+  if (!window.__lauvelHeaderScrollBound) {
+    window.__lauvelHeaderScrollBound = true;
     window.addEventListener('scroll', updateHeader, { passive: true });
     window.addEventListener('resize', updateHeader, { passive: true });
   }
@@ -431,19 +489,6 @@ const servicesActive = servicesNav.some((s) => isActive(s.href));
     if (dropdown && !dropdown.contains(e.target as Node)) {
       document.querySelector('[data-dropdown-panel]')?.removeAttribute('data-open');
       document.querySelector('[data-dropdown-trigger]')?.setAttribute('aria-expanded', 'false');
-    }
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      const menu = document.getElementById('mobile-menu');
-      const openBtn = document.getElementById('menu-open');
-      if (menu && !menu.hasAttribute('hidden')) {
-        menu.setAttribute('hidden', '');
-        document.body.style.overflow = '';
-        openBtn?.setAttribute('aria-expanded', 'false');
-        updateHeader();
-      }
     }
   });
 

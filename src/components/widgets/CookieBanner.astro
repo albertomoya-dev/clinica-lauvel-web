@@ -41,8 +41,17 @@ const cookiesHref = withBase('/politica-de-cookies/');
 <script>
   const storageKey = 'lauvel-cookie-consent';
   const banner = document.getElementById('cookie-banner');
+  const acceptBtn = document.getElementById('cookie-accept');
+  const closeBtn = document.getElementById('cookie-close');
+  let previousActiveElement: Element | null = null;
 
-  const hideBanner = () => banner?.setAttribute('hidden', '');
+  const hideBanner = () => {
+    banner?.setAttribute('hidden', '');
+    document.removeEventListener('keydown', handleKeyDown);
+    if (previousActiveElement instanceof HTMLElement) {
+      previousActiveElement.focus();
+    }
+  };
 
   const hasConsent = () => {
     try {
@@ -61,10 +70,24 @@ const cookiesHref = withBase('/politica-de-cookies/');
     hideBanner();
   };
 
-  if (!hasConsent()) {
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      hideBanner();
+    }
+  };
+
+  const showBanner = () => {
     banner?.removeAttribute('hidden');
+    previousActiveElement = document.activeElement;
+    acceptBtn?.focus();
+    document.addEventListener('keydown', handleKeyDown);
+  };
+
+  if (!hasConsent()) {
+    showBanner();
   }
 
-  document.getElementById('cookie-accept')?.addEventListener('click', accept);
-  document.getElementById('cookie-close')?.addEventListener('click', hideBanner);
+  acceptBtn?.addEventListener('click', accept);
+  closeBtn?.addEventListener('click', hideBanner);
 </script>
