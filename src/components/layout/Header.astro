@@ -43,7 +43,10 @@ const servicesActive = servicesNav.some((s) => isActive(s.href));
         <Icon name="menu" class="size-6" />
       </button>
 
-      <Logo type="icon" class="header-logo h-16 justify-self-center lg:h-20" />
+      <div class="logo-wrapper relative h-16 justify-self-center lg:h-20">
+        <Logo type="icon" class="header-logo absolute inset-0 h-full w-auto" />
+        <Logo type="icon" variant="green" class="header-logo-green absolute inset-0 h-full w-auto opacity-0" />
+      </div>
 
       <ul class="hidden items-center justify-start gap-6 justify-self-start lg:flex">
         <li class="relative" data-dropdown>
@@ -185,14 +188,23 @@ const servicesActive = servicesNav.some((s) => isActive(s.href));
     color: var(--color-accent);
   }
 
-  :global(.header-logo img) {
-    filter: brightness(0) invert(1);
-    transition: filter 0.35s ease;
+  :global(.header-logo),
+  :global(.header-logo-green) {
+    transition: opacity 0.35s ease;
   }
 
-  #site-header[data-scrolled] :global(.header-logo img),
-  #site-header[data-solid] :global(.header-logo img) {
-    filter: brightness(0) sepia(1) hue-rotate(44deg) saturate(0.3) brightness(0.55);
+  :global(.header-logo img) {
+    filter: brightness(0) invert(1);
+  }
+
+  #site-header[data-scrolled] :global(.header-logo),
+  #site-header[data-solid] :global(.header-logo) {
+    opacity: 0;
+  }
+
+  #site-header[data-scrolled] :global(.header-logo-green),
+  #site-header[data-solid] :global(.header-logo-green) {
+    opacity: 1;
   }
 
   :global(.mobile-logo img) {

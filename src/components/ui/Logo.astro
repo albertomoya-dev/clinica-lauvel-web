@@ -2,15 +2,21 @@
 import { Image } from 'astro:assets';
 import { withBase } from '../../utils/url';
 import logoIcon from '../../assets/images/logo-icon.png';
+import logoIconGreen from '../../assets/images/logo-icon-green.png';
 import logoMain from '../../assets/images/logo-main.png';
 
 interface Props {
   type?: 'icon' | 'main';
+  variant?: 'default' | 'green';
   class?: string;
 }
 
-const { type = 'icon', class: className = '' } = Astro.props;
-const image = type === 'main' ? logoMain : logoIcon;
+const { type = 'icon', variant = 'default', class: className = '' } = Astro.props;
+const image = type === 'main'
+  ? logoMain
+  : variant === 'green'
+    ? logoIconGreen
+    : logoIcon;
 const alt = type === 'main' ? 'Clínica LAUVEL' : 'Clínica LAUVEL — Icono';
 ---
 
