@@ -1,7 +1,7 @@
 # Cambios necesarios según las Skills del proyecto
 
 > Revisión de todas las skills disponibles aplicadas al estado actual del proyecto.  
-> **Solo análisis — aún no se han realizado cambios de código.**
+> **Actualizado:** los ítems marcados con ✅ ya se han implementado; el resto sigue pendiente o depende del cliente.
 
 ---
 
@@ -9,29 +9,18 @@
 
 ### Problemas detectados
 
-| # | Problema | Archivo(s) afectado(s) | Severidad |
-|---|---|---|---|
-| 1.1 | La página de accesibilidad declara un **widget de accesibilidad** (tamaño de texto, alto contraste, escala de grises) que **no existe** en el código. Es una declaración falsa. | `src/pages/accesibilidad.astro` | Crítica |
-| 1.2 | El banner de cookies tiene `role="dialog"` pero **no trae el foco** al abrirse, ni **restaura el foco** al cerrarse ni cierra con `Escape`. | `src/components/widgets/CookieBanner.astro` | Alta |
-| 1.3 | El menú móvil abre un panel fullscreen pero **no mueve el foco** al panel ni al cerrar. Tampoco hay foco atrapado. | `src/components/layout/Header.astro` | Alta |
-| 1.4 | El carrusel de testimonios **triplica las tarjetas** en el DOM (3 bloques). Aunque los bloques 0 y 2 tienen `aria-hidden="true"`, la duplicación de contenido puede generar ruido en lectores de pantalla. | `src/components/sections/Testimonials.astro` | Media |
-| 1.5 | El acordeón del footer usa `<details>` nativo (bien), pero la lista desplegable aparece **encima** del botón (`bottom-full`) sin anuncio de expansión. | `src/components/layout/Footer.astro` | Media |
+| # | Problema | Archivo(s) afectado(s) | Severidad | Estado |
+|---|---|---|---|---|
+| 1.1 | ~~La página de accesibilidad declara un **widget de accesibilidad** (tamaño de texto, alto contraste, escala de grises) que **no existe** en el código. Es una declaración falsa.~~ | `src/pages/accesibilidad.astro` | ~~Crítica~~ | ✅ Resuelto: la página actual ya no menciona el widget. |
+| 1.2 | ~~El banner de cookies tiene `role="dialog"` pero **no trae el foco** al abrirse, ni **restaura el foco** al cerrarse ni cierra con `Escape`.~~ | `src/components/widgets/CookieBanner.astro` | ~~Alta~~ | ✅ Resuelto: focus inicial, Escape y restauración de foco implementados. |
+| 1.3 | ~~El menú móvil abre un panel fullscreen pero **no mueve el foco** al panel ni al cerrar. Tampoco hay foco atrapado.~~ | `src/components/layout/Header.astro` | ~~Alta~~ | ✅ Resuelto: focus trap, foco inicial y Escape implementados. |
+| 1.4 | ~~El carrusel de testimonios **triplica las tarjetas** en el DOM (3 bloques). Aunque los bloques 0 y 2 tienen `aria-hidden="true"`, la duplicación de contenido puede generar ruido en lectores de pantalla.~~ | `src/components/sections/Testimonials.astro` | ~~Media~~ | ✅ Resuelto: carrusel simplificado a una sola lista de tarjetas. |
+| 1.5 | El acordeón del footer usa `<details>` nativo (bien), pero la lista desplegable aparece **encima** del botón (`bottom-full`) sin anuncio de expansión. | `src/components/layout/Footer.astro` | Media | Pendiente |
 
-### Cambios necesarios
+### Cambios necesarios (pendientes)
 
-1. **Eliminar o implementar** el widget de accesibilidad:
-   - Opción A: implementar un botón flotante real con controles de tamaño de texto, contraste y escala de grises.
-   - Opción B: eliminar la mención del widget de la declaración de accesibilidad.
-2. **Mejorar gestión de foco** en `CookieBanner.astro`:
-   - Al mostrarse, mover foco al primer botón interactivo.
-   - Al cerrarse (aceptar/rechazar/guardar), devolver foco al botón que abrió el banner o al `<body>`.
-   - Cerrar con tecla `Escape`.
-3. **Mejorar gestión de foco** en `Header.astro`:
-   - Al abrir menú móvil, mover foco al primer enlace y atraparlo dentro del panel.
-   - Al cerrar, devolver foco al botón hamburguesa.
-   - Cerrar con `Escape`.
-4. **Revisar accesibilidad del carrusel** de testimonios o sustituir por una lista estática con paginación.
-5. Añadir `@media (prefers-reduced-motion: reduce)` más exhaustivo si hay animaciones de scroll u otras transiciones no cubiertas.
+1. Revisar el acordeón del footer para asegurar que el despliegue hacia arriba es accesible y se anuncia correctamente.
+2. Añadir `@media (prefers-reduced-motion: reduce)` más exhaustivo si hay animaciones de scroll u otras transiciones no cubiertas.
 
 ---
 
@@ -44,7 +33,7 @@
 | 2.1 | `@astrojs/vercel` está instalado pero **no configurado** como adapter. El build es estático (`output` por defecto), por lo que la dependencia es innecesaria o debe usarse/configurarse. | `package.json`, `astro.config.mjs` | Media |
 | 2.2 | Los scripts de utilidades (`scripts/*.mjs`) **no están registrados** en `package.json` ni documentados. | `package.json`, `scripts/` | Media |
 | 2.3 | `sharp` se usa en scripts pero **no está declarado** en `dependencies`/`devDependencies`. | `package.json`, `scripts/*.mjs` | Media |
-| 2.4 | El `site` en `astro.config.mjs` usa un fallback (`process.env.PUBLIC_SITE_URL || 'https://clinica-lauvel.vercel.app'`). Cuando se confirme dominio propio debe actualizarse. | `astro.config.mjs` | Baja |
+| 2.4 | ~~El `site` en `astro.config.mjs` usa un fallback (`process.env.PUBLIC_SITE_URL || 'https://clinica-lauvel.vercel.app'`). Cuando se confirme dominio propio debe actualizarse.~~ | `astro.config.mjs` | ~~Baja~~ | ✅ Resuelto: el fallback ahora es `https://www.clinicalauvel.es`. |
 
 ### Cambios necesarios
 
@@ -56,7 +45,7 @@
    - `"generate-og": "node scripts/generate-og.mjs"`
    - Registrar `sharp` como `devDependency`.
 3. Documentar brevemente el uso de los scripts en `AGENTS.md` o README.
-4. Actualizar `site` cuando se confirme el dominio definitivo.
+4. ~~Actualizar `site` cuando se confirme el dominio definitivo.~~ ✅ Resuelto: dominio configurado a `https://www.clinicalauvel.es`.
 
 ---
 
@@ -82,7 +71,7 @@
    - Unitarios para utilidades (`src/utils/url.ts`, `src/data/site.ts`).
    - Tests de componentes Astro si se añade Vitest + `@astrojs/test`.
    - Considerar Playwright para E2E críticos (formulario de contacto, navegación).
-5. Refactorizar `Header.astro` para un manejo más robusto de event listeners con Astro View Transitions (`astro:before-swap`, `astro:page-load`).
+5. ~~Refactorizar `Header.astro` para un manejo más robusto de event listeners con Astro View Transitions (`astro:before-swap`, `astro:page-load`).~~ ✅ Parcialmente resuelto: se eliminó el uso de `window as any` y se añadió tipado global; el listener scroll sigue usando una flag global.
 6. Considerar dividir componentes muy grandes en subcomponentes.
 
 ---
@@ -170,11 +159,11 @@ El proyecto es un **sitio estático generado con Astro (SSG)**. No hay backend p
 
 | # | Problema | Archivo(s) afectado(s) | Severidad |
 |---|---|---|---|
-| 8.1 | Se importan **7 archivos CSS de `@fontsource`**, posiblemente incluyendo subconjuntos no latinos (devanagari, vietnamita). | `src/layouts/BaseLayout.astro` | Media |
-| 8.2 | Todas las imágenes hero tienen `fetchpriority="high"`; en cada página solo el LCP debería tenerlo. | Páginas de servicios, home | Media |
-| 8.3 | `ContactSection.astro` usa una imagen de fondo vía `style="background-image: url(...)"` en lugar de `astro:assets` con `srcset`/formatos optimizados. | `src/components/sections/ContactSection.astro` | Media |
-| 8.4 | El carrusel de testimonios **triplica el DOM** (9 tarjetas × 3 = 27 artículos). | `src/components/sections/Testimonials.astro` | Media |
-| 8.5 | No hay **presupuestos de rendimiento** ni medición de Core Web Vitals en CI. | Todo | Baja |
+| 8.1 | Se importan **7 archivos CSS de `@fontsource`**, posiblemente incluyendo subconjuntos no latinos (devanagari, vietnamita). | `src/layouts/BaseLayout.astro` | Media | Pendiente |
+| 8.2 | Todas las imágenes hero tienen `fetchpriority="high"`; en cada página solo el LCP debería tenerlo. | Páginas de servicios, home | Media | Pendiente |
+| 8.3 | `ContactSection.astro` usa una imagen de fondo vía `style="background-image: url(...)"` en lugar de `astro:assets` con `srcset`/formatos optimizados. | `src/components/sections/ContactSection.astro` | Media | Pendiente |
+| 8.4 | ~~El carrusel de testimonios **triplica el DOM** (9 tarjetas × 3 = 27 artículos).~~ | `src/components/sections/Testimonials.astro` | ~~Media~~ | ✅ Resuelto: carrusel con lista única. |
+| 8.5 | No hay **presupuestos de rendimiento** ni medición de Core Web Vitals en CI. | Todo | Baja | Pendiente |
 
 ### Cambios necesarios
 
@@ -194,11 +183,11 @@ El proyecto es un **sitio estático generado con Astro (SSG)**. No hay backend p
 
 | # | Problema | Archivo(s) afectado(s) | Severidad |
 |---|---|---|---|
-| 9.1 | `public/robots.txt` apunta a `https://www.clinicalauvel.es/sitemap-index.xml`, mientras que `astro.config.mjs` usa `clinica-lauvel.vercel.app` o `PUBLIC_SITE_URL`. | `public/robots.txt` | Alta |
-| 9.2 | No hay `<meta property="og:image:alt">` ni `twitter:site`. | `src/components/seo/Seo.astro` | Media |
-| 9.3 | Las páginas legales no tienen `noindex`. Puede ser intencional, pero conviene revisar. | `src/pages/aviso-legal.astro`, etc. | Baja |
-| 9.4 | No hay datos estructurados de `BreadcrumbList` ni `Organization` con logo. | `src/components/seo/JsonLd.astro` | Media |
-| 9.5 | El sitemap se genera con el dominio configurado en `astro.config.mjs`; si el fallback es vercel, el sitemap de producción final puede quedar desactualizado. | `astro.config.mjs` | Media |
+| 9.1 | ~~`public/robots.txt` apunta a `https://www.clinicalauvel.es/sitemap-index.xml`, mientras que `astro.config.mjs` usa `clinica-lauvel.vercel.app` o `PUBLIC_SITE_URL`.~~ | `public/robots.txt` | ~~Alta~~ | ✅ Resuelto: el fallback de `astro.config.mjs` es `https://www.clinicalauvel.es`, coherente con `robots.txt`. |
+| 9.2 | No hay `<meta property="og:image:alt">` ni `twitter:site`. | `src/components/seo/Seo.astro` | Media | Pendiente |
+| 9.3 | Las páginas legales no tienen `noindex`. Puede ser intencional, pero conviene revisar. | `src/pages/aviso-legal.astro`, etc. | Baja | Pendiente |
+| 9.4 | No hay datos estructurados de `BreadcrumbList` ni `Organization` con logo. | `src/components/seo/JsonLd.astro` | Media | Pendiente |
+| 9.5 | El sitemap se genera con el dominio configurado en `astro.config.mjs`; si el fallback es vercel, el sitemap de producción final puede quedar desactualizado. | `astro.config.mjs` | Media | Pendiente |
 
 ### Cambios necesarios
 
@@ -259,9 +248,9 @@ El proyecto ya cuenta con especificaciones:
 
 | # | Problema | Archivo(s) afectado(s) | Severidad |
 |---|---|---|---|
-| 12.1 | `interface Props` en `SectionHeading.astro` genera hint de no uso. | `src/components/ui/SectionHeading.astro` | Baja |
-| 12.2 | Uso de `(window as any)` en `Header.astro` y otros scripts. | `src/components/layout/Header.astro` | Media |
-| 12.3 | Posibles mejoras tipadas en `navigation.ts`, `site.ts` (por ejemplo, tipos más estrictos para URLs). | `src/data/*.ts` | Baja |
+| 12.1 | `interface Props` en `SectionHeading.astro` genera hint de no uso. | `src/components/ui/SectionHeading.astro` | Baja | Pendiente |
+| 12.2 | ~~Uso de `(window as any)` en `Header.astro` y otros scripts.~~ | `src/components/layout/Header.astro` | ~~Media~~ | ✅ Resuelto en Header: se declaró tipo global para `Window`. |
+| 12.3 | Posibles mejoras tipadas en `navigation.ts`, `site.ts` (por ejemplo, tipos más estrictos para URLs). | `src/data/*.ts` | Baja | Pendiente |
 
 ### Cambios necesarios
 
@@ -295,26 +284,26 @@ Esta skill requiere fetch de `https://raw.githubusercontent.com/vercel-labs/web-
 
 ### Crítico (hacer antes del lanzamiento)
 
-1. Corregir `robots.txt` (domino incorrecto).
-2. Eliminar o implementar el widget de accesibilidad declarado.
-3. Revisar datos pendientes del cliente (`site.ts`, `env`) y evitar publicar placeholders.
+1. ~~Corregir `robots.txt` (domino incorrecto).~~ ✅ Resuelto.
+2. ~~Eliminar o implementar el widget de accesibilidad declarado.~~ ✅ Resuelto.
+3. Revisar datos pendientes del cliente (`site.ts`, `env`) y evitar publicar placeholders: teléfono, email, WhatsApp, Instagram, titular RGPD, razón social, CIF.
 
 ### Alto
 
-4. Mejorar gestión de foco en `CookieBanner.astro` y menú móvil.
-5. Añadir tests (al menos unitarios para utilidades y datos).
-6. Revisar permisos/consentimiento de cookies: actualmente no carga ningún script de analítica.
+4. Añadir tests (al menos unitarios para utilidades y datos).
+5. Revisar permisos/consentimiento de cookies: actualmente no carga ningún script de analítica.
+6. Revisar acordeón del footer (despliegue hacia arriba sin anuncio).
 
 ### Medio
 
 7. Optimizar fuentes, imágenes de fondo y `fetchpriority`.
-8. Refactorizar carrusel de testimonios.
-9. Enriquecer datos estructurados JSON-LD.
-10. Limpiar CSS muerto y dependencias no usadas (`@astrojs/vercel`).
+8. Enriquecer datos estructurados JSON-LD.
+9. Limpiar CSS muerto y dependencias no usadas (`@astrojs/vercel`).
+10. Revisar `set:html` y `interface Props` en `SectionHeading.astro`.
 
 ### Bajo
 
-11. Mejorar tipado TypeScript y eliminar `any`.
+11. Mejorar tipado TypeScript y tipos de datos de navegación/site.
 12. Registrar scripts de utilidades en `package.json`.
 13. Añadir `og:image:alt`, `twitter:site`, etc.
 14. Revisar páginas legales (`noindex`).
