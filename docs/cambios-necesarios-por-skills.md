@@ -30,16 +30,14 @@
 
 | # | Problema | Archivo(s) afectado(s) | Severidad |
 |---|---|---|---|
-| 2.1 | `@astrojs/vercel` está instalado pero **no configurado** como adapter. El build es estático (`output` por defecto), por lo que la dependencia es innecesaria o debe usarse/configurarse. | `package.json`, `astro.config.mjs` | Media |
-| 2.2 | Los scripts de utilidades (`scripts/*.mjs`) **no están registrados** en `package.json` ni documentados. | `package.json`, `scripts/` | Media |
-| 2.3 | `sharp` se usa en scripts pero **no está declarado** en `dependencies`/`devDependencies`. | `package.json`, `scripts/*.mjs` | Media |
+| 2.1 | ~~`@astrojs/vercel` está instalado pero **no configurado** como adapter. El build es estático (`output` por defecto), por lo que la dependencia es innecesaria o debe usarse/configurarse.~~ | `package.json`, `astro.config.mjs` | ~~Media~~ | ✅ Resuelto: eliminada dependencia `@astrojs/vercel`. |
+| 2.2 | Los scripts de utilidades (`scripts/*.mjs`) **no están registrados** en `package.json` ni documentados. | `package.json`, `scripts/` | Media | Pendiente |
+| 2.3 | `sharp` se usa en scripts pero **no está declarado** en `dependencies`/`devDependencies`. | `package.json`, `scripts/*.mjs` | Media | Pendiente |
 | 2.4 | ~~El `site` en `astro.config.mjs` usa un fallback (`process.env.PUBLIC_SITE_URL || 'https://clinica-lauvel.vercel.app'`). Cuando se confirme dominio propio debe actualizarse.~~ | `astro.config.mjs` | ~~Baja~~ | ✅ Resuelto: el fallback ahora es `https://www.clinicalauvel.es`. |
 
 ### Cambios necesarios
 
-1. Decidir si se usa `@astrojs/vercel`:
-   - Si el despliegue seguirá siendo estático en Vercel, eliminar `@astrojs/vercel`.
-   - Si se quiere SSR/edge, configurar `adapter: vercel()` en `astro.config.mjs`.
+1. ~~Decidir si se usa `@astrojs/vercel`:~~ ✅ Resuelto: eliminada la dependencia, el build sigue siendo estático.
 2. Añadir scripts útiles a `package.json`:
    - `"import-images": "node scripts/import-images.mjs"`
    - `"generate-og": "node scripts/generate-og.mjs"`
@@ -159,20 +157,20 @@ El proyecto es un **sitio estático generado con Astro (SSG)**. No hay backend p
 
 | # | Problema | Archivo(s) afectado(s) | Severidad |
 |---|---|---|---|
-| 8.1 | Se importan **7 archivos CSS de `@fontsource`**, posiblemente incluyendo subconjuntos no latinos (devanagari, vietnamita). | `src/layouts/BaseLayout.astro` | Media | Pendiente |
-| 8.2 | Todas las imágenes hero tienen `fetchpriority="high"`; en cada página solo el LCP debería tenerlo. | Páginas de servicios, home | Media | Pendiente |
-| 8.3 | `ContactSection.astro` usa una imagen de fondo vía `style="background-image: url(...)"` en lugar de `astro:assets` con `srcset`/formatos optimizados. | `src/components/sections/ContactSection.astro` | Media | Pendiente |
+| 8.1 | ~~Se importan **7 archivos CSS de `@fontsource`**, posiblemente incluyendo subconjuntos no latinos (devanagari, vietnamita).~~ | `src/layouts/BaseLayout.astro` | ~~Media~~ | ✅ Resuelto: importadas solo variantes `latin-*` para reducir subconjuntos innecesarios. |
+| 8.2 | ~~Todas las imágenes hero tienen `fetchpriority="high"`; en cada página solo el LCP debería tenerlo.~~ | Páginas de servicios, home | ~~Media~~ | ✅ Resuelto: solo el componente `Hero` (único por página) usa `fetchpriority="high"`. |
+| 8.3 | ~~`ContactSection.astro` usa una imagen de fondo vía `style="background-image: url(...)"` en lugar de `astro:assets` con `srcset`/formatos optimizados.~~ | `src/components/sections/ContactSection.astro` | ~~Media~~ | ✅ Resuelto: convertida a `<Image>` de `astro:assets` con `srcset`, formato WebP y `loading="lazy"`. |
 | 8.4 | ~~El carrusel de testimonios **triplica el DOM** (9 tarjetas × 3 = 27 artículos).~~ | `src/components/sections/Testimonials.astro` | ~~Media~~ | ✅ Resuelto: carrusel con lista única. |
 | 8.5 | No hay **presupuestos de rendimiento** ni medición de Core Web Vitals en CI. | Todo | Baja | Pendiente |
 
 ### Cambios necesarios
 
-1. Reducir importaciones de fuentes solo a los pesos/subconjuntos necesarios (latin/latin-ext).
-2. Aplicar `fetchpriority="high"` **solo** a la imagen LCP de cada página.
-3. Optimizar la imagen de fondo del formulario:
-   - Usar `<Image>` de `astro:assets` o generar múltiples tamaños/formatos.
-   - Considerar `loading="lazy"` si está below-the-fold.
-4. Refactorizar el carrusel para no triplicar nodos, o usar una implementación más ligera.
+1. ~~Reducir importaciones de fuentes solo a los pesos/subconjuntos necesarios (latin/latin-ext).~~ ✅ Resuelto: importadas variantes latin.
+2. ~~Aplicar `fetchpriority="high"` **solo** a la imagen LCP de cada página.~~ ✅ Resuelto: solo `Hero` lo usa.
+3. ~~Optimizar la imagen de fondo del formulario~~:
+   - ~~Usar `<Image>` de `astro:assets` o generar múltiples tamaños/formatos.~~ ✅ Hecho.
+   - ~~Considerar `loading="lazy"` si está below-the-fold.~~ ✅ Aplicado.
+4. ~~Refactorizar el carrusel para no triplicar nodos, o usar una implementación más ligera.~~ ✅ Resuelto.
 5. Medir LCP, CLS e INP con Lighthouse/PageSpeed Insights y establecer presupuestos.
 
 ---
@@ -296,10 +294,11 @@ Esta skill requiere fetch de `https://raw.githubusercontent.com/vercel-labs/web-
 
 ### Medio
 
-7. Optimizar fuentes, imágenes de fondo y `fetchpriority`.
-8. ~~Enriquecer datos estructurados JSON-LD.~~ ✅ Resuelto: `Organization` con logo, `BreadcrumbList` y metas OG/Twitter completadas.
-9. Limpiar CSS muerto y dependencias no usadas (`@astrojs/vercel`).
+7. ~~Optimizar fuentes, imágenes de fondo y `fetchpriority`.~~ ✅ Resuelto.
+8. ~~Enriquecer datos estructurados JSON-LD.~~ ✅ Resuelto.
+9. Limpiar CSS muerto en `Header`.
 10. Revisar `set:html` y `interface Props` en `SectionHeading.astro`.
+11. Registrar scripts de utilidades en `package.json` y declarar `sharp`.
 
 ### Bajo
 
