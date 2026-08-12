@@ -26,6 +26,7 @@ export const site = {
   whatsappNumber: getEnv('PUBLIC_CONTACT_WHATSAPP', 'PENDIENTE_WHATSAPP'),
   whatsappMessage: 'Hola, me gustaría pedir información sobre vuestros servicios.',
   instagramUrl: 'PENDIENTE_INSTAGRAM',
+  twitterHandle: 'PENDIENTE_TWITTER',
 
   rgpdOwner: 'PENDIENTE_TITULAR_RGPD',
   legalName: 'PENDIENTE_RAZON_SOCIAL',

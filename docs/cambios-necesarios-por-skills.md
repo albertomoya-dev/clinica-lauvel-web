@@ -184,9 +184,9 @@ El proyecto es un **sitio estático generado con Astro (SSG)**. No hay backend p
 | # | Problema | Archivo(s) afectado(s) | Severidad |
 |---|---|---|---|
 | 9.1 | ~~`public/robots.txt` apunta a `https://www.clinicalauvel.es/sitemap-index.xml`, mientras que `astro.config.mjs` usa `clinica-lauvel.vercel.app` o `PUBLIC_SITE_URL`.~~ | `public/robots.txt` | ~~Alta~~ | ✅ Resuelto: el fallback de `astro.config.mjs` es `https://www.clinicalauvel.es`, coherente con `robots.txt`. |
-| 9.2 | No hay `<meta property="og:image:alt">` ni `twitter:site`. | `src/components/seo/Seo.astro` | Media | Pendiente |
+| 9.2 | ~~No hay `<meta property="og:image:alt">` ni `twitter:site`.~~ | `src/components/seo/Seo.astro` | ~~Media~~ | ✅ Resuelto: añadidos `og:image:alt`, `twitter:image:alt` y `twitter:site` (condicional a dato no pendiente). |
 | 9.3 | Las páginas legales no tienen `noindex`. Puede ser intencional, pero conviene revisar. | `src/pages/aviso-legal.astro`, etc. | Baja | Pendiente |
-| 9.4 | No hay datos estructurados de `BreadcrumbList` ni `Organization` con logo. | `src/components/seo/JsonLd.astro` | Media | Pendiente |
+| 9.4 | ~~No hay datos estructurados de `BreadcrumbList` ni `Organization` con logo.~~ | `src/components/seo/JsonLd.astro` | ~~Media~~ | ✅ Resuelto: `Organization` incluye `logo` y `BreadcrumbList` se renderiza en páginas interiores. |
 | 9.5 | El sitemap se genera con el dominio configurado en `astro.config.mjs`; si el fallback es vercel, el sitemap de producción final puede quedar desactualizado. | `astro.config.mjs` | Media | Pendiente |
 
 ### Cambios necesarios
@@ -297,7 +297,7 @@ Esta skill requiere fetch de `https://raw.githubusercontent.com/vercel-labs/web-
 ### Medio
 
 7. Optimizar fuentes, imágenes de fondo y `fetchpriority`.
-8. Enriquecer datos estructurados JSON-LD.
+8. ~~Enriquecer datos estructurados JSON-LD.~~ ✅ Resuelto: `Organization` con logo, `BreadcrumbList` y metas OG/Twitter completadas.
 9. Limpiar CSS muerto y dependencias no usadas (`@astrojs/vercel`).
 10. Revisar `set:html` y `interface Props` en `SectionHeading.astro`.
 
@@ -305,8 +305,10 @@ Esta skill requiere fetch de `https://raw.githubusercontent.com/vercel-labs/web-
 
 11. Mejorar tipado TypeScript y tipos de datos de navegación/site.
 12. Registrar scripts de utilidades en `package.json`.
-13. Añadir `og:image:alt`, `twitter:site`, etc.
+13. Añadir `og:image:alt`, `twitter:site`, etc. — ✅ Resuelto.
 14. Revisar páginas legales (`noindex`).
+15. Revisar dominio del sitemap en producción (`PUBLIC_SITE_URL`).
+
 
 ---
 

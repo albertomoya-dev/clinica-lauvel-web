@@ -1,8 +1,11 @@
 ---
+import type { ImageMetadata } from 'astro';
 import { site, isPending } from '../../data/site';
 import { withBase } from '../../utils/url';
+import logoMain from '../../assets/images/logo-main.png';
 
 const homeUrl = new URL(withBase('/'), site.domain).href;
+const logoUrl = new URL((logoMain as ImageMetadata).src, site.domain).href;
 
 const medicalClinic: Record<string, unknown> = {
   '@type': 'MedicalClinic',
@@ -31,6 +34,7 @@ const organization: Record<string, unknown> = {
   '@id': `${homeUrl}#organization`,
   name: site.name,
   url: homeUrl,
+  logo: logoUrl,
 };
 if (!isPending(site.instagramUrl)) organization.sameAs = [site.instagramUrl];
 
