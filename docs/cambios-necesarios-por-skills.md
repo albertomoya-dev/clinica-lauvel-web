@@ -58,7 +58,7 @@
 | 3.1 | `SectionHeading.astro` declara `interface Props` pero Astro la infiere automáticamente, generando un **hint** en `astro check`. | `src/components/ui/SectionHeading.astro` | Baja |
 | 3.2 | `Header.astro` contiene **CSS muerto** (selectores `:global(.header-logo span:last-child)` y `:global(.header-logo span:first-child)`) que parecen referirse a un logo anterior basado en texto. | `src/components/layout/Header.astro` | Baja |
 | 3.3 | Uso de `set:html` en párrafos de introducción de páginas de servicio. El contenido es controlado internamente, pero aumenta superficie de riesgo. | `src/pages/*.astro`, `src/components/sections/NeaeCta.astro` | Media |
-| 3.4 | No hay **tests** de ningún tipo. | Todo el proyecto | Alta |
+| 3.4 | ~~No hay **tests** de ningún tipo.~~ | Todo el proyecto | ~~Alta~~ | ✅ Resuelto: añadidos tests unitarios con Vitest para `url.ts` y `site.ts`. |
 | 3.5 | `Header.astro` usa `(window as any).__lauvelHeaderScrollBound` para evitar duplicar listeners. Es funcional pero frágil con View Transitions. | `src/components/layout/Header.astro` | Media |
 | 3.6 | Varios componentes superan las 200 líneas (`Header.astro`, `CookieBanner.astro`, `Footer.astro`, etc.). | Varios | Media |
 
@@ -67,8 +67,8 @@
 1. Eliminar `interface Props` redundante en `SectionHeading.astro` (o utilizarla explícitamente).
 2. Limpiar CSS muerto en `Header.astro`.
 3. Reemplazar `set:html` por renderizado normal de Astro siempre que sea posible; si se conserva, documentar por qué es seguro.
-4. Añadir tests:
-   - Unitarios para utilidades (`src/utils/url.ts`, `src/data/site.ts`).
+4. ~~Añadir tests:~~ ✅ Parcialmente resuelto: tests unitarios añadidos para `url.ts` y `site.ts`.
+   - ~~Unitarios para utilidades (`src/utils/url.ts`, `src/data/site.ts`).~~ ✅
    - Tests de componentes Astro si se añade Vitest + `@astrojs/test`.
    - Considerar Playwright para E2E críticos (formulario de contacto, navegación).
 5. ~~Refactorizar `Header.astro` para un manejo más robusto de event listeners con Astro View Transitions (`astro:before-swap`, `astro:page-load`).~~ ✅ Parcialmente resuelto: se eliminó el uso de `window as any` y se añadió tipado global; el listener scroll sigue usando una flag global.
@@ -119,14 +119,14 @@ Esta skill está pensada para crear interfaces desde cero con una estética dist
 
 | # | Problema | Archivo(s) afectado(s) | Severidad |
 |---|---|---|---|
-| 6.1 | No hay **estados de carga, error ni vacío** explícitos. | Varios | Media |
-| 6.2 | No hay tests automatizados de UI. | Todo | Alta |
-| 6.3 | Algunos componentes podrían beneficiarse de una separación más clara entre presentación y datos. | `src/components/sections/` | Media |
-| 6.4 | Uso de valores arbitrarios en Tailwind (p. ej. `text-[1.05rem]`, `max-w-3xl` está bien, pero revisar `text-[0.65rem]`). | Varios | Baja |
+| 6.1 | No hay **estados de carga, error ni vacío** explícitos. | Varios | Media | Pendiente |
+| 6.2 | ~~No hay tests automatizados de UI.~~ | Todo | ~~Alta~~ | ✅ Resuelto: tests unitarios iniciales con Vitest. |
+| 6.3 | Algunos componentes podrían beneficiarse de una separación más clara entre presentación y datos. | `src/components/sections/` | Media | Pendiente |
+| 6.4 | Uso de valores arbitrarios en Tailwind (p. ej. `text-[1.05rem]`, `max-w-3xl` está bien, pero revisar `text-[0.65rem]`). | Varios | Baja | Pendiente |
 
 ### Cambios necesarios
 
-1. Añadir tests de componentes/páginas críticas.
+1. ~~Añadir tests de componentes/páginas críticas.~~ ✅ Tests unitarios iniciales añadidos; componentes y E2E quedan como mejora futura.
 2. Revisar valores arbitrarios en clases Tailwind y sustituir por tokens del sistema cuando sea posible.
 3. Mantener la separación presentación/datos en nuevas secciones.
 4. Verificar que todos los componentes manejen correctamente los casos de datos pendientes (`PENDIENTE_*`).
@@ -290,7 +290,7 @@ Esta skill requiere fetch de `https://raw.githubusercontent.com/vercel-labs/web-
 
 ### Alto
 
-4. Añadir tests (al menos unitarios para utilidades y datos).
+4. ~~Añadir tests (al menos unitarios para utilidades y datos).~~ ✅ Resuelto.
 5. Revisar permisos/consentimiento de cookies: actualmente no carga ningún script de analítica.
 6. Revisar acordeón del footer (despliegue hacia arriba sin anuncio).
 
