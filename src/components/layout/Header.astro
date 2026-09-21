@@ -184,10 +184,6 @@ const servicesActive = servicesNav.some((s) => isActive(s.href));
     color: var(--header-fg);
   }
 
-  :global(.header-logo span:last-child) {
-    color: var(--color-accent);
-  }
-
   :global(.header-logo),
   :global(.header-logo-green) {
     transition: opacity 0.35s ease;
@@ -209,11 +205,6 @@ const servicesActive = servicesNav.some((s) => isActive(s.href));
 
   :global(.mobile-logo img) {
     filter: brightness(0) invert(1);
-  }
-
-  #site-header[data-scrolled] :global(.header-logo span:first-child),
-  #site-header[data-solid] :global(.header-logo span:first-child) {
-    color: color-mix(in srgb, var(--color-ink) 75%, transparent);
   }
 
   .nav-link {

@@ -53,17 +53,18 @@
 
 | # | Problema | Archivo(s) afectado(s) | Severidad |
 |---|---|---|---|
-| 3.1 | `SectionHeading.astro` declara `interface Props` pero Astro la infiere automáticamente, generando un **hint** en `astro check`. | `src/components/ui/SectionHeading.astro` | Baja |
-| 3.2 | `Header.astro` contiene **CSS muerto** (selectores `:global(.header-logo span:last-child)` y `:global(.header-logo span:first-child)`) que parecen referirse a un logo anterior basado en texto. | `src/components/layout/Header.astro` | Baja |
-| 3.3 | Uso de `set:html` en párrafos de introducción de páginas de servicio. El contenido es controlado internamente, pero aumenta superficie de riesgo. | `src/pages/*.astro`, `src/components/sections/NeaeCta.astro` | Media |
+| 3.1 | ~~`SectionHeading.astro` declara `interface Props` pero Astro la infiere automáticamente, generando un **hint** en `astro check`.~~ | `src/components/ui/SectionHeading.astro` | ~~Baja~~ | ✅ Resuelto: eliminada `interface Props` redundante. |
+| 3.2 | ~~`Header.astro` contiene **CSS muerto** (selectores `:global(.header-logo span:last-child)` y `:global(.header-logo span:first-child)`) que parecen referirse a un logo anterior basado en texto.~~ | `src/components/layout/Header.astro` | ~~Baja~~ | ✅ Resuelto: eliminados selectores de texto no usados. |
+| 3.3 | Uso de `set:html` en párrafos de introducción de páginas de servicio. El contenido es controlado internamente, pero aumenta superficie de riesgo. | `src/pages/*.astro`, `src/components/sections/NeaeCta.astro` | Media | Pendiente |
 | 3.4 | ~~No hay **tests** de ningún tipo.~~ | Todo el proyecto | ~~Alta~~ | ✅ Resuelto: añadidos tests unitarios con Vitest para `url.ts` y `site.ts`. |
-| 3.5 | `Header.astro` usa `(window as any).__lauvelHeaderScrollBound` para evitar duplicar listeners. Es funcional pero frágil con View Transitions. | `src/components/layout/Header.astro` | Media |
-| 3.6 | Varios componentes superan las 200 líneas (`Header.astro`, `CookieBanner.astro`, `Footer.astro`, etc.). | Varios | Media |
+| 3.5 | ~~`Header.astro` usa `(window as any).__lauvelHeaderScrollBound` para evitar duplicar listeners. Es funcional pero frágil con View Transitions.~~ | `src/components/layout/Header.astro` | ~~Media~~ | ✅ Resuelto: se declaró tipo global para `Window` y se mantuvo la flag. |
+| 3.6 | Varios componentes superan las 200 líneas (`Header.astro`, `CookieBanner.astro`, `Footer.astro`, etc.). | Varios | Media | Pendiente |
+
 
 ### Cambios necesarios
 
-1. Eliminar `interface Props` redundante en `SectionHeading.astro` (o utilizarla explícitamente).
-2. Limpiar CSS muerto en `Header.astro`.
+1. ~~Eliminar `interface Props` redundante en `SectionHeading.astro` (o utilizarla explícitamente).~~ ✅ Resuelto.
+2. ~~Limpiar CSS muerto en `Header.astro`.~~ ✅ Resuelto.
 3. Reemplazar `set:html` por renderizado normal de Astro siempre que sea posible; si se conserva, documentar por qué es seguro.
 4. ~~Añadir tests:~~ ✅ Parcialmente resuelto: tests unitarios añadidos para `url.ts` y `site.ts`.
    - ~~Unitarios para utilidades (`src/utils/url.ts`, `src/data/site.ts`).~~ ✅
@@ -246,15 +247,15 @@ El proyecto ya cuenta con especificaciones:
 
 | # | Problema | Archivo(s) afectado(s) | Severidad |
 |---|---|---|---|
-| 12.1 | `interface Props` en `SectionHeading.astro` genera hint de no uso. | `src/components/ui/SectionHeading.astro` | Baja | Pendiente |
+| 12.1 | ~~`interface Props` en `SectionHeading.astro` genera hint de no uso.~~ | `src/components/ui/SectionHeading.astro` | ~~Baja~~ | ✅ Resuelto: eliminada la interfaz. |
 | 12.2 | ~~Uso de `(window as any)` en `Header.astro` y otros scripts.~~ | `src/components/layout/Header.astro` | ~~Media~~ | ✅ Resuelto en Header: se declaró tipo global para `Window`. |
 | 12.3 | Posibles mejoras tipadas en `navigation.ts`, `site.ts` (por ejemplo, tipos más estrictos para URLs). | `src/data/*.ts` | Baja | Pendiente |
 
 ### Cambios necesarios
 
-1. Eliminar o usar `interface Props` en `SectionHeading.astro`.
-2. Declarar tipos globales para `window` en lugar de usar `as any`:
-   - `declare global { interface Window { __lauvelHeaderScrollBound?: boolean; } }`
+1. ~~Eliminar o usar `interface Props` en `SectionHeading.astro`.~~ ✅ Resuelto.
+2. ~~Declarar tipos globales para `window` en lugar de usar `as any`:~~ ✅ Resuelto en Header.
+   - ~~`declare global { interface Window { __lauvelHeaderScrollBound?: boolean; } }`~~ ✅
 3. Tipar de forma más estricta los datos de navegación y site si el proyecto crece.
 
 ---
@@ -296,8 +297,8 @@ Esta skill requiere fetch de `https://raw.githubusercontent.com/vercel-labs/web-
 
 7. ~~Optimizar fuentes, imágenes de fondo y `fetchpriority`.~~ ✅ Resuelto.
 8. ~~Enriquecer datos estructurados JSON-LD.~~ ✅ Resuelto.
-9. Limpiar CSS muerto en `Header`.
-10. Revisar `set:html` y `interface Props` en `SectionHeading.astro`.
+9. ~~Limpiar CSS muerto en `Header`.~~ ✅ Resuelto.
+10. Revisar `set:html` en páginas de servicio y `NeaeCta`.
 11. Registrar scripts de utilidades en `package.json` y declarar `sharp`.
 
 ### Bajo

@@ -1,13 +1,4 @@
 ---
-interface Props {
-  eyebrow?: string;
-  title: string;
-  description?: string;
-  align?: 'center' | 'left';
-  as?: 'h1' | 'h2' | 'h3';
-  class?: string;
-}
-
 const { eyebrow, title, description, align = 'center', as: Tag = 'h2', class: className = '' } = Astro.props;
 ---
 
