@@ -20,6 +20,8 @@ export const site = {
   city: 'Sevilla',
   address: 'C.Mijail Gorbachov, 8, LOC 1, 41702 Dos Hermanas',
   mapUrl: 'https://maps.app.goo.gl/5E1CCUhbMqQSgJ6Y7',
+  mapEmbedUrl:
+    'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3765.4653176585516!2d-5.91362312371316!3d37.285679640182416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1271ed797ed141%3A0xdd6be5c43ddb7bbd!2sCl%C3%ADnica%20Lauvel!5e1!3m2!1ses!2ses!4v1790013566759!5m2!1ses!2ses',
   phone,
   phoneHref,
   email: getEnv('PUBLIC_CONTACT_EMAIL', 'PENDIENTE_EMAIL'),
