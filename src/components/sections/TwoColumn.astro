@@ -34,7 +34,7 @@ const ctaHref = cta ? withBase(cta.href) : undefined;
   <div class="container-site grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
     <div class:list={['reveal', imagePosition === 'right' ? 'reveal--left' : 'reveal--right', imagePosition === 'left' && 'lg:order-2']}>
       {eyebrow && <p class="eyebrow mb-4">{eyebrow}</p>}
-      <h2 class="max-w-xl text-[1.9rem] md:text-[2.6rem]">{title}</h2>
+      <h2 class="max-w-xl text-section md:text-section-lg">{title}</h2>
       <div class="mt-6 flex max-w-xl flex-col gap-4 text-[1.02rem] text-body">
         <slot />
       </div>

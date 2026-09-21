@@ -13,6 +13,11 @@
   --font-display: "Baloo 2", "Quicksand", system-ui, sans-serif;
   --font-sans: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 
+  --text-section: 1.9rem;
+  --text-section-lg: 2.6rem;
+  --text-legal: 2.2rem;
+  --text-legal-lg: 2.9rem;
+
   --shadow-card: 0 10px 40px rgb(22 22 21 / 0.06);
   --shadow-card-hover: 0 18px 50px rgb(22 22 21 / 0.1);
   --shadow-form: 0 20px 60px rgb(22 22 21 / 0.12);

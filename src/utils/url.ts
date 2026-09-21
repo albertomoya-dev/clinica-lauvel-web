@@ -1,3 +1,5 @@
+export function withBase(path: `/${string}`): `/${string}`;
+export function withBase(path: string): string;
 export function withBase(path: string): string {
   const base: string = import.meta.env.BASE_URL ?? '/';
   if (!base || base === '/') return path;

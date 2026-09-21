@@ -121,12 +121,12 @@ Esta skill está pensada para crear interfaces desde cero con una estética dist
 | 6.1 | No hay **estados de carga, error ni vacío** explícitos. | Varios | Media | Pendiente |
 | 6.2 | ~~No hay tests automatizados de UI.~~ | Todo | ~~Alta~~ | ✅ Resuelto: tests unitarios iniciales con Vitest. |
 | 6.3 | Algunos componentes podrían beneficiarse de una separación más clara entre presentación y datos. | `src/components/sections/` | Media | Pendiente |
-| 6.4 | Uso de valores arbitrarios en Tailwind (p. ej. `text-[1.05rem]`, `max-w-3xl` está bien, pero revisar `text-[0.65rem]`). | Varios | Baja | Pendiente |
+| 6.4 | ~~Uso de valores arbitrarios en Tailwind (p. ej. `text-[1.05rem]`, `max-w-3xl` está bien, pero revisar `text-[0.65rem]`).~~ | `src/styles/global.css` (`@theme`), varios componentes | ~~Baja~~ | ✅ Resuelto: pares repetidos migrados a tokens `--text-section/--text-section-lg` (H2, 8 usos) y `--text-legal/--text-legal-lg` (H1 legales, 4 usos); los valores sueltos restantes son ajustes fieles al spec de referencia y se mantienen. |
 
 ### Cambios necesarios
 
 1. ~~Añadir tests de componentes/páginas críticas.~~ ✅ Tests unitarios iniciales añadidos; componentes y E2E quedan como mejora futura.
-2. Revisar valores arbitrarios en clases Tailwind y sustituir por tokens del sistema cuando sea posible.
+2. ~~Revisar valores arbitrarios en clases Tailwind y sustituir por tokens del sistema cuando sea posible.~~ ✅ Resuelto (ver 6.4).
 3. Mantener la separación presentación/datos en nuevas secciones.
 4. Verificar que todos los componentes manejen correctamente los casos de datos pendientes (`PENDIENTE_*`).
 
@@ -162,7 +162,7 @@ El proyecto es un **sitio estático generado con Astro (SSG)**. No hay backend p
 | 8.2 | ~~Todas las imágenes hero tienen `fetchpriority="high"`; en cada página solo el LCP debería tenerlo.~~ | Páginas de servicios, home | ~~Media~~ | ✅ Resuelto: solo el componente `Hero` (único por página) usa `fetchpriority="high"`. |
 | 8.3 | ~~`ContactSection.astro` usa una imagen de fondo vía `style="background-image: url(...)"` en lugar de `astro:assets` con `srcset`/formatos optimizados.~~ | `src/components/sections/ContactSection.astro` | ~~Media~~ | ✅ Resuelto: convertida a `<Image>` de `astro:assets` con `srcset`, formato WebP y `loading="lazy"`. |
 | 8.4 | ~~El carrusel de testimonios **triplica el DOM** (9 tarjetas × 3 = 27 artículos).~~ | `src/components/sections/Testimonials.astro` | ~~Media~~ | ✅ Resuelto: carrusel con lista única. |
-| 8.5 | No hay **presupuestos de rendimiento** ni medición de Core Web Vitals en CI. | Todo | Baja | Pendiente |
+| 8.5 | ~~No hay **presupuestos de rendimiento** ni medición de Core Web Vitals en CI.~~ | Todo | ~~Baja~~ | ✅ Resuelto: baseline medido con Lighthouse 12 sobre el build (home, 21/9/2026): Performance 99, LCP 1.8 s, CLS 0.022, TBT 0 ms, ~160 KB. Presupuestos: LCP ≤ 2.5 s, CLS ≤ 0.1, TBT ≤ 200 ms, INP ≤ 200 ms (field), peso ≤ 500 KB/página, score ≥ 90. Re-medir tras cambios grandes; Lighthouse CI cuando el repo tenga workflows. |
 
 ### Cambios necesarios
 
@@ -172,7 +172,7 @@ El proyecto es un **sitio estático generado con Astro (SSG)**. No hay backend p
    - ~~Usar `<Image>` de `astro:assets` o generar múltiples tamaños/formatos.~~ ✅ Hecho.
    - ~~Considerar `loading="lazy"` si está below-the-fold.~~ ✅ Aplicado.
 4. ~~Refactorizar el carrusel para no triplicar nodos, o usar una implementación más ligera.~~ ✅ Resuelto.
-5. Medir LCP, CLS e INP con Lighthouse/PageSpeed Insights y establecer presupuestos.
+5. ~~Medir LCP, CLS e INP con Lighthouse/PageSpeed Insights y establecer presupuestos.~~ ✅ Resuelto: baseline y presupuestos registrados (ver 8.5).
 
 ---
 
@@ -184,19 +184,19 @@ El proyecto es un **sitio estático generado con Astro (SSG)**. No hay backend p
 |---|---|---|---|
 | 9.1 | ~~`public/robots.txt` apunta a `https://www.clinicalauvel.es/sitemap-index.xml`, mientras que `astro.config.mjs` usa `clinica-lauvel.vercel.app` o `PUBLIC_SITE_URL`.~~ | `public/robots.txt` | ~~Alta~~ | ✅ Resuelto: el fallback de `astro.config.mjs` es `https://www.clinicalauvel.es`, coherente con `robots.txt`. |
 | 9.2 | ~~No hay `<meta property="og:image:alt">` ni `twitter:site`.~~ | `src/components/seo/Seo.astro` | ~~Media~~ | ✅ Resuelto: añadidos `og:image:alt`, `twitter:image:alt` y `twitter:site` (condicional a dato no pendiente). |
-| 9.3 | Las páginas legales no tienen `noindex`. Puede ser intencional, pero conviene revisar. | `src/pages/aviso-legal.astro`, etc. | Baja | Pendiente |
+| 9.3 | ~~Las páginas legales no tienen `noindex`. Puede ser intencional, pero conviene revisar.~~ | `src/pages/aviso-legal.astro`, `src/pages/accesibilidad.astro`, `src/pages/politica-de-cookies.astro`, `src/pages/politica-de-privacidad.astro` | ~~Baja~~ | ✅ Resuelto: añadido `noindex` a las 4 páginas legales (pendiente de validación con el cliente según nota final). |
 | 9.4 | ~~No hay datos estructurados de `BreadcrumbList` ni `Organization` con logo.~~ | `src/components/seo/JsonLd.astro` | ~~Media~~ | ✅ Resuelto: `Organization` incluye `logo` y `BreadcrumbList` se renderiza en páginas interiores. |
-| 9.5 | El sitemap se genera con el dominio configurado en `astro.config.mjs`; si el fallback es vercel, el sitemap de producción final puede quedar desactualizado. | `astro.config.mjs` | Media | Pendiente |
+| 9.5 | ~~El sitemap se genera con el dominio configurado en `astro.config.mjs`; si el fallback es vercel, el sitemap de producción final puede quedar desactualizado.~~ | `astro.config.mjs` | ~~Media~~ | ✅ Resuelto: fallback en `https://www.clinicalauvel.es` y `PUBLIC_SITE_URL` documentado en `.env.example`; solo resta fijar la variable en el entorno de despliegue. |
 
 ### Cambios necesarios
 
 1. Corregir `robots.txt` para que apunte al dominio real configurado (usar variable o mantener coherencia).
 2. Añadir `og:image:alt` y `twitter:site` en `Seo.astro`.
-3. Decidir si las páginas legales deben llevar `noindex` y aplicarlo si procede.
+3. ~~Decidir si las páginas legales deben llevar `noindex` y aplicarlo si procede.~~ ✅ Resuelto: aplicado a las 4 páginas legales (validar con el cliente).
 4. Enriquecer `JsonLd.astro` con:
    - `Organization` (logo, redes sociales).
    - `BreadcrumbList` para páginas interiores.
-5. Configurar `PUBLIC_SITE_URL` correctamente en producción.
+5. ~~Configurar `PUBLIC_SITE_URL` correctamente en producción.~~ ✅ Resuelto: dominio por defecto configurado; fijar la variable solo si cambia el dominio.
 6. Validar structured data con Google Rich Results Test.
 
 ---
@@ -235,7 +235,7 @@ El proyecto ya cuenta con especificaciones:
 
 ### Cambios necesarios
 
-1. Revisar valores arbitrarios y migrar a tokens cuando tenga sentido.
+1. ~~Revisar valores arbitrarios y migrar a tokens cuando tenga sentido.~~ ✅ Resuelto: añadidos `--text-section*` y `--text-legal*` a `@theme`.
 2. Extraer la utilidad de acordeón a una clase reutilizable si se repite más.
 3. Añadir a `@theme` cualquier token adicional que se necesite (por ejemplo, espaciados específicos del spec de referencia).
 
@@ -249,14 +249,14 @@ El proyecto ya cuenta con especificaciones:
 |---|---|---|---|
 | 12.1 | ~~`interface Props` en `SectionHeading.astro` genera hint de no uso.~~ | `src/components/ui/SectionHeading.astro` | ~~Baja~~ | ✅ Resuelto: eliminada la interfaz. |
 | 12.2 | ~~Uso de `(window as any)` en `Header.astro` y otros scripts.~~ | `src/components/layout/Header.astro` | ~~Media~~ | ✅ Resuelto en Header: se declaró tipo global para `Window`. |
-| 12.3 | Posibles mejoras tipadas en `navigation.ts`, `site.ts` (por ejemplo, tipos más estrictos para URLs). | `src/data/*.ts` | Baja | Pendiente |
+| 12.3 | ~~Posibles mejoras tipadas en `navigation.ts`, `site.ts` (por ejemplo, tipos más estrictos para URLs).~~ | `src/data/navigation.ts`, `src/utils/url.ts` | ~~Baja~~ | ✅ Resuelto: añadido tipo `Path = `/${string}`` para `NavItem.href` y overloads de `withBase` (rutas relativas a raíz vs. string genérico); `site.ts` ya era estricto (`as const`). |
 
 ### Cambios necesarios
 
 1. ~~Eliminar o usar `interface Props` en `SectionHeading.astro`.~~ ✅ Resuelto.
 2. ~~Declarar tipos globales para `window` en lugar de usar `as any`:~~ ✅ Resuelto en Header.
    - ~~`declare global { interface Window { __lauvelHeaderScrollBound?: boolean; } }`~~ ✅
-3. Tipar de forma más estricta los datos de navegación y site si el proyecto crece.
+3. ~~Tipar de forma más estricta los datos de navegación y site si el proyecto crece.~~ ✅ Resuelto: tipo `Path` y overloads de `withBase`.
 
 ---
 
@@ -303,10 +303,10 @@ Esta skill requiere fetch de `https://raw.githubusercontent.com/vercel-labs/web-
 
 ### Bajo
 
-11. Mejorar tipado TypeScript y tipos de datos de navegación/site.
+11. ~~Mejorar tipado TypeScript y tipos de datos de navegación/site.~~ ✅ Resuelto.
 13. Añadir `og:image:alt`, `twitter:site`, etc. — ✅ Resuelto.
-14. Revisar páginas legales (`noindex`).
-15. Revisar dominio del sitemap en producción (`PUBLIC_SITE_URL`).
+14. ~~Revisar páginas legales (`noindex`).~~ ✅ Resuelto (validar con el cliente).
+15. ~~Revisar dominio del sitemap en producción (`PUBLIC_SITE_URL`).~~ ✅ Resuelto.
 
 
 ---

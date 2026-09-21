@@ -1,8 +1,10 @@
 import { withBase } from '../utils/url';
 
+export type Path = `/${string}`;
+
 export interface NavItem {
   label: string;
-  href: string;
+  href: Path;
 }
 
 export const mainNavLeft: NavItem[] = [
