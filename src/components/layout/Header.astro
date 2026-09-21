@@ -1,8 +1,8 @@
 ---
 import Logo from '../ui/Logo.astro';
 import Icon from '../ui/Icon.astro';
+import MobileMenu from './MobileMenu.astro';
 import { mainNavLeft, mainNavRight, servicesNav } from '../../data/navigation';
-import { primaryCtaLabel } from '../../data/site';
 import { withBase } from '../../utils/url';
 
 interface Props {
@@ -91,66 +91,7 @@ const servicesActive = servicesNav.some((s) => isActive(s.href));
     </nav>
   </div>
 
-  <div id="mobile-menu" class="mobile-menu" hidden>
-    <div class="flex h-24 items-center justify-between px-5">
-      <Logo type="icon" class="mobile-logo h-16" />
-      <button
-        type="button"
-        id="menu-close"
-        class="inline-flex size-11 items-center justify-center text-white"
-        aria-label="Cerrar menú"
-      >
-        <Icon name="close" class="size-6" />
-      </button>
-    </div>
-    <nav class="px-6 pt-6" aria-label="Navegación móvil">
-      <ul class="flex flex-col gap-1">
-        {
-          [...mainNavLeft, ...mainNavRight].map((item, i) => (
-            <li style={`--i:${i}`} class="mobile-item">
-              <a
-                href={item.href}
-                class="flex items-center justify-between border-b border-white/10 py-4 font-display text-2xl text-white"
-                data-active={isActive(item.href) ? 'true' : undefined}
-              >
-                {item.label}
-              </a>
-            </li>
-          ))
-        }
-        <li class="mobile-item" style="--i:2">
-          <button
-            type="button"
-            class="flex w-full items-center justify-between border-b border-white/10 py-4 font-display text-2xl text-white"
-            aria-expanded="false"
-            aria-controls="mobile-services"
-            data-mobile-services-trigger
-          >
-            Servicios
-            <Icon name="chevron-down" class="size-5 transition-transform duration-300" />
-          </button>
-          <div class="mobile-services-panel" id="mobile-services">
-            <ul class="overflow-hidden">
-              {
-                servicesNav.map((item) => (
-                  <li>
-                    <a
-                      href={item.href}
-                      class="block border-b border-white/5 py-3 pl-4 text-lg text-white/75"
-                      data-active={isActive(item.href) ? 'true' : undefined}
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
-        </li>
-      </ul>
-      <a href={withBase('/contacto/')} class="btn-primary mt-8 w-full">{primaryCtaLabel}</a>
-    </nav>
-  </div>
+  <MobileMenu />
 </header>
 
 <style>
@@ -201,10 +142,6 @@ const servicesActive = servicesNav.some((s) => isActive(s.href));
   #site-header[data-scrolled] :global(.header-logo-green),
   #site-header[data-solid] :global(.header-logo-green) {
     opacity: 1;
-  }
-
-  :global(.mobile-logo img) {
-    filter: brightness(0) invert(1);
   }
 
   .nav-link {
@@ -276,60 +213,6 @@ const servicesActive = servicesNav.some((s) => isActive(s.href));
     background: rgb(255 255 255 / 0.06);
     color: var(--color-gold);
   }
-
-  .mobile-menu {
-    position: fixed;
-    inset: 0;
-    z-index: 70;
-    background: var(--color-ink);
-    overflow-y: auto;
-  }
-
-  .mobile-menu[hidden] {
-    display: none;
-  }
-
-  .mobile-item {
-    animation: menu-item-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
-    animation-delay: calc(var(--i) * 60ms + 100ms);
-  }
-
-  @keyframes menu-item-in {
-    from {
-      opacity: 0;
-      transform: translateY(14px);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  .mobile-menu a[data-active] {
-    color: var(--color-gold);
-  }
-
-  .mobile-services-panel {
-    display: grid;
-    grid-template-rows: 0fr;
-    visibility: hidden;
-    opacity: 0;
-    transition:
-      grid-template-rows 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-      opacity 0.25s ease,
-      visibility 0.25s;
-  }
-
-  .mobile-services-panel.is-open {
-    grid-template-rows: 1fr;
-    visibility: visible;
-    opacity: 1;
-  }
-
-  .mobile-services-panel > ul {
-    overflow: hidden;
-    min-height: 0;
-  }
 </style>
 
 <script>
@@ -364,88 +247,10 @@ const servicesActive = servicesNav.some((s) => isActive(s.href));
     lastScrollY = scrollY;
   };
 
-  const getFocusables = (container: HTMLElement) =>
-    Array.from(
-      container.querySelectorAll<HTMLElement>(
-        'a[href], button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])',
-      ),
-    ).filter((el) => !el.hasAttribute('disabled') && !el.getAttribute('aria-hidden'));
-
   const initHeader = () => {
-    const menu = document.getElementById('mobile-menu');
-    const openBtn = document.getElementById('menu-open');
-    const closeBtn = document.getElementById('menu-close');
-    const servicesTrigger = document.querySelector('[data-mobile-services-trigger]');
-    const servicesPanel = document.getElementById('mobile-services');
     const dropdown = document.querySelector('[data-dropdown]');
     const trigger = dropdown?.querySelector('[data-dropdown-trigger]') as HTMLButtonElement | null;
     const panel = dropdown?.querySelector('[data-dropdown-panel]');
-
-    let previousActiveElement: Element | null = null;
-    let keydownHandler: ((e: KeyboardEvent) => void) | null = null;
-
-    const restoreFocus = () => {
-      if (previousActiveElement instanceof HTMLElement) {
-        previousActiveElement.focus();
-      }
-    };
-
-    const closeMenu = () => {
-      if (!menu) return;
-      menu.setAttribute('hidden', '');
-      document.body.style.overflow = '';
-      openBtn?.setAttribute('aria-expanded', 'false');
-      if (keydownHandler) {
-        menu.removeEventListener('keydown', keydownHandler);
-        document.removeEventListener('keydown', keydownHandler);
-        keydownHandler = null;
-      }
-      restoreFocus();
-      updateHeader();
-    };
-
-    const openMenu = () => {
-      if (!menu) return;
-      previousActiveElement = document.activeElement;
-      servicesPanel?.classList.remove('is-open');
-      servicesTrigger?.setAttribute('aria-expanded', 'false');
-      servicesTrigger?.querySelector('svg')?.classList.remove('rotate-180');
-      menu.removeAttribute('hidden');
-      document.body.style.overflow = 'hidden';
-      openBtn?.setAttribute('aria-expanded', 'true');
-
-      keydownHandler = (e: KeyboardEvent) => {
-        if (e.key === 'Escape') {
-          e.preventDefault();
-          closeMenu();
-          return;
-        }
-        if (e.key !== 'Tab' || !menu) return;
-
-        const focusables = getFocusables(menu);
-        if (focusables.length === 0) return;
-
-        const first = focusables[0];
-        const last = focusables[focusables.length - 1];
-
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
-      };
-
-      menu.addEventListener('keydown', keydownHandler);
-      document.addEventListener('keydown', keydownHandler);
-      closeBtn?.focus();
-      updateHeader();
-    };
-
-    openBtn?.addEventListener('click', openMenu);
-    closeBtn?.addEventListener('click', closeMenu);
-    menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
 
     trigger?.addEventListener('click', () => {
       const open = panel?.hasAttribute('data-open');
@@ -458,14 +263,6 @@ const servicesActive = servicesNav.some((s) => isActive(s.href));
       }
     });
 
-    servicesTrigger?.addEventListener('click', () => {
-      const open = servicesPanel?.classList.contains('is-open');
-      servicesTrigger.setAttribute('aria-expanded', String(!open));
-      servicesTrigger.querySelector('svg')?.classList.toggle('rotate-180', !open);
-      if (open) servicesPanel?.classList.remove('is-open');
-      else servicesPanel?.classList.add('is-open');
-    });
-
     updateHeader();
   };
 
@@ -473,6 +270,7 @@ const servicesActive = servicesNav.some((s) => isActive(s.href));
     window.__lauvelHeaderScrollBound = true;
     window.addEventListener('scroll', updateHeader, { passive: true });
     window.addEventListener('resize', updateHeader, { passive: true });
+    document.addEventListener('lauvel:menu-toggle', updateHeader);
   }
 
   document.addEventListener('click', (e) => {

@@ -58,7 +58,7 @@
 | 3.3 | ~~Uso de `set:html` en párrafos de introducción de páginas de servicio. El contenido es controlado internamente, pero aumenta superficie de riesgo.~~ | `src/pages/*.astro`, `src/components/sections/NeaeCta.astro`, `src/components/sections/TeamSection.astro` | ~~Media~~ | ✅ Resuelto: sustituido por componente `StrongText` en intros y renderizado nativo en bio de equipo; `set:html` solo persiste en `JsonLd.astro` (necesario). |
 | 3.4 | ~~No hay **tests** de ningún tipo.~~ | Todo el proyecto | ~~Alta~~ | ✅ Resuelto: añadidos tests unitarios con Vitest para `url.ts` y `site.ts`. |
 | 3.5 | ~~`Header.astro` usa `(window as any).__lauvelHeaderScrollBound` para evitar duplicar listeners. Es funcional pero frágil con View Transitions.~~ | `src/components/layout/Header.astro` | ~~Media~~ | ✅ Resuelto: se declaró tipo global para `Window` y se mantuvo la flag. |
-| 3.6 | Varios componentes superan las 200 líneas (`Header.astro`, `CookieBanner.astro`, `Footer.astro`, etc.). | Varios | Media | Pendiente |
+| 3.6 | ~~Varios componentes superan las 200 líneas (`Header.astro`, `CookieBanner.astro`, `Footer.astro`, etc.).~~ | `src/components/layout/`, `src/components/sections/` | ~~Media~~ | ✅ Resuelto: extraídos `MobileMenu.astro` (Header 488→286) y `DataProtection.astro` (ContactForm 242→193); el resto de componentes ya estaba bajo 200. |
 
 
 ### Cambios necesarios
@@ -71,7 +71,7 @@
    - Tests de componentes Astro si se añade Vitest + `@astrojs/test`.
    - Considerar Playwright para E2E críticos (formulario de contacto, navegación).
 5. ~~Refactorizar `Header.astro` para un manejo más robusto de event listeners con Astro View Transitions (`astro:before-swap`, `astro:page-load`).~~ ✅ Parcialmente resuelto: se eliminó el uso de `window as any` y se añadió tipado global; el listener scroll sigue usando una flag global.
-6. Considerar dividir componentes muy grandes en subcomponentes.
+6. ~~Considerar dividir componentes muy grandes en subcomponentes.~~ ✅ Resuelto (ver 3.6).
 
 ---
 
@@ -118,9 +118,9 @@ Esta skill está pensada para crear interfaces desde cero con una estética dist
 
 | # | Problema | Archivo(s) afectado(s) | Severidad |
 |---|---|---|---|
-| 6.1 | No hay **estados de carga, error ni vacío** explícitos. | Varios | Media | Pendiente |
+| 6.1 | ~~No hay **estados de carga, error ni vacío** explícitos.~~ | `src/components/sections/ContactForm.astro` | ~~Media~~ | ✅ Resuelto verificando el código: el formulario ya tiene estados de carga ("Enviando…" + botón deshabilitado), éxito y error; el resto de widgets son interacciones locales sincrónicas sin datos asíncronos, donde no aplican estados de carga/vacío. |
 | 6.2 | ~~No hay tests automatizados de UI.~~ | Todo | ~~Alta~~ | ✅ Resuelto: tests unitarios iniciales con Vitest. |
-| 6.3 | Algunos componentes podrían beneficiarse de una separación más clara entre presentación y datos. | `src/components/sections/` | Media | Pendiente |
+| 6.3 | ~~Algunos componentes podrían beneficiarse de una separación más clara entre presentación y datos.~~ | `src/components/sections/` | ~~Media~~ | ✅ Resuelto: las secciones consumen datos de `src/data/*` (services, treatments, team, testimonials, process); la extracción de `DataProtection.astro` y `MobileMenu.astro` refuerza la separación. |
 | 6.4 | ~~Uso de valores arbitrarios en Tailwind (p. ej. `text-[1.05rem]`, `max-w-3xl` está bien, pero revisar `text-[0.65rem]`).~~ | `src/styles/global.css` (`@theme`), varios componentes | ~~Baja~~ | ✅ Resuelto: pares repetidos migrados a tokens `--text-section/--text-section-lg` (H2, 8 usos) y `--text-legal/--text-legal-lg` (H1 legales, 4 usos); los valores sueltos restantes son ajustes fieles al spec de referencia y se mantienen. |
 
 ### Cambios necesarios
