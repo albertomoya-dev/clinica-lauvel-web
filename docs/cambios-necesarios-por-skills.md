@@ -184,7 +184,7 @@ El proyecto es un **sitio estático generado con Astro (SSG)**. No hay backend p
 |---|---|---|---|
 | 9.1 | ~~`public/robots.txt` apunta a `https://www.clinicalauvel.es/sitemap-index.xml`, mientras que `astro.config.mjs` usa `clinica-lauvel.vercel.app` o `PUBLIC_SITE_URL`.~~ | `public/robots.txt` | ~~Alta~~ | ✅ Resuelto: el fallback de `astro.config.mjs` es `https://www.clinicalauvel.es`, coherente con `robots.txt`. |
 | 9.2 | ~~No hay `<meta property="og:image:alt">` ni `twitter:site`.~~ | `src/components/seo/Seo.astro` | ~~Media~~ | ✅ Resuelto: añadidos `og:image:alt`, `twitter:image:alt` y `twitter:site` (condicional a dato no pendiente). |
-| 9.3 | ~~Las páginas legales no tienen `noindex`. Puede ser intencional, pero conviene revisar.~~ | `src/pages/aviso-legal.astro`, `src/pages/accesibilidad.astro`, `src/pages/politica-de-cookies.astro`, `src/pages/politica-de-privacidad.astro` | ~~Baja~~ | ✅ Resuelto: añadido `noindex` a las 4 páginas legales (pendiente de validación con el cliente según nota final). |
+| 9.3 | ~~Las páginas legales no tienen `noindex`. Puede ser intencional, pero conviene revisar.~~ | `src/pages/aviso-legal.astro`, `src/pages/accesibilidad.astro`, `src/pages/politica-de-cookies.astro`, `src/pages/politica-de-privacidad.astro` | ~~Baja~~ | ✅ Resuelto: se probó `noindex` y el cliente ha decidido que las páginas legales **sí se indexan**; revertido. |
 | 9.4 | ~~No hay datos estructurados de `BreadcrumbList` ni `Organization` con logo.~~ | `src/components/seo/JsonLd.astro` | ~~Media~~ | ✅ Resuelto: `Organization` incluye `logo` y `BreadcrumbList` se renderiza en páginas interiores. |
 | 9.5 | ~~El sitemap se genera con el dominio configurado en `astro.config.mjs`; si el fallback es vercel, el sitemap de producción final puede quedar desactualizado.~~ | `astro.config.mjs` | ~~Media~~ | ✅ Resuelto: fallback en `https://www.clinicalauvel.es` y `PUBLIC_SITE_URL` documentado en `.env.example`; solo resta fijar la variable en el entorno de despliegue. |
 
@@ -192,7 +192,7 @@ El proyecto es un **sitio estático generado con Astro (SSG)**. No hay backend p
 
 1. Corregir `robots.txt` para que apunte al dominio real configurado (usar variable o mantener coherencia).
 2. Añadir `og:image:alt` y `twitter:site` en `Seo.astro`.
-3. ~~Decidir si las páginas legales deben llevar `noindex` y aplicarlo si procede.~~ ✅ Resuelto: aplicado a las 4 páginas legales (validar con el cliente).
+3. ~~Decidir si las páginas legales deben llevar `noindex` y aplicarlo si procede.~~ ✅ Resuelto: validado con el cliente — se indexan (sin `noindex`).
 4. Enriquecer `JsonLd.astro` con:
    - `Organization` (logo, redes sociales).
    - `BreadcrumbList` para páginas interiores.
@@ -305,7 +305,7 @@ Esta skill requiere fetch de `https://raw.githubusercontent.com/vercel-labs/web-
 
 11. ~~Mejorar tipado TypeScript y tipos de datos de navegación/site.~~ ✅ Resuelto.
 13. Añadir `og:image:alt`, `twitter:site`, etc. — ✅ Resuelto.
-14. ~~Revisar páginas legales (`noindex`).~~ ✅ Resuelto (validar con el cliente).
+14. ~~Revisar páginas legales (`noindex`).~~ ✅ Resuelto: decisión del cliente — se indexan.
 15. ~~Revisar dominio del sitemap en producción (`PUBLIC_SITE_URL`).~~ ✅ Resuelto.
 
 
@@ -315,6 +315,6 @@ Esta skill requiere fetch de `https://raw.githubusercontent.com/vercel-labs/web-
 
 Este documento es un **análisis previo a la acción**. Antes de implementar cualquier cambio se recomienda:
 
-1. Validar con el cliente las decisiones que afecten a contenido o brand (widget de accesibilidad, páginas legales `noindex`, dominio final).
+1. Validar con el cliente las decisiones que afecten a contenido o brand (widget de accesibilidad; ~~páginas legales `noindex`~~ → validado: se indexan; ~~dominio final~~ → validado: `www.clinicalauvel.es`).
 2. Medir el rendimiento actual para justificar optimizaciones.
 3. Aplicar los cambios en pequeños lotes verificables (`npm run build && npm run check`).
