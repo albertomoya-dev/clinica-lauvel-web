@@ -1,0 +1,19 @@
+---
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+const parts = text.split(/(<strong>.*?<\/strong>)/g);
+---
+
+<>
+  {
+    parts.map((part) => {
+      if (part.startsWith('<strong>') && part.endsWith('</strong>')) {
+        return <strong>{part.slice(8, -9)}</strong>;
+      }
+      return part;
+    })
+  }
+</>

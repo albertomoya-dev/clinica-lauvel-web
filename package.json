@@ -10,7 +10,12 @@
     "check": "astro check",
     "astro": "astro",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "import-images": "node scripts/import-images.mjs",
+    "generate-og": "node scripts/generate-og.mjs",
+    "logo:black": "node scripts/logo-to-black.mjs",
+    "logo:thicken": "node scripts/logo-thicken.mjs",
+    "remove-white-bg": "node scripts/remove-white-bg.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.6.0",
@@ -21,6 +26,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.6",
     "@tailwindcss/vite": "^4.1.11",
+    "sharp": "^0.35.4",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.9.2",
     "vitest": "^4.1.10"

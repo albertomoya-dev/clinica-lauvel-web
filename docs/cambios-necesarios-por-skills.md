@@ -31,18 +31,18 @@
 | # | Problema | Archivo(s) afectado(s) | Severidad |
 |---|---|---|---|
 | 2.1 | ~~`@astrojs/vercel` está instalado pero **no configurado** como adapter. El build es estático (`output` por defecto), por lo que la dependencia es innecesaria o debe usarse/configurarse.~~ | `package.json`, `astro.config.mjs` | ~~Media~~ | ✅ Resuelto: eliminada dependencia `@astrojs/vercel`. |
-| 2.2 | Los scripts de utilidades (`scripts/*.mjs`) **no están registrados** en `package.json` ni documentados. | `package.json`, `scripts/` | Media | Pendiente |
-| 2.3 | `sharp` se usa en scripts pero **no está declarado** en `dependencies`/`devDependencies`. | `package.json`, `scripts/*.mjs` | Media | Pendiente |
+| 2.2 | ~~Los scripts de utilidades (`scripts/*.mjs`) **no están registrados** en `package.json` ni documentados.~~ | `package.json`, `scripts/` | ~~Media~~ | ✅ Resuelto: añadidos como scripts npm (`import-images`, `generate-og`, `logo:black`, `logo:thicken`, `remove-white-bg`) y documentados en `AGENTS.md`. |
+| 2.3 | ~~`sharp` se usa en scripts pero **no está declarado** en `dependencies`/`devDependencies`.~~ | `package.json`, `scripts/*.mjs` | ~~Media~~ | ✅ Resuelto: declarado como `devDependency`. |
 | 2.4 | ~~El `site` en `astro.config.mjs` usa un fallback (`process.env.PUBLIC_SITE_URL || 'https://clinica-lauvel.vercel.app'`). Cuando se confirme dominio propio debe actualizarse.~~ | `astro.config.mjs` | ~~Baja~~ | ✅ Resuelto: el fallback ahora es `https://www.clinicalauvel.es`. |
 
 ### Cambios necesarios
 
 1. ~~Decidir si se usa `@astrojs/vercel`:~~ ✅ Resuelto: eliminada la dependencia, el build sigue siendo estático.
-2. Añadir scripts útiles a `package.json`:
-   - `"import-images": "node scripts/import-images.mjs"`
-   - `"generate-og": "node scripts/generate-og.mjs"`
-   - Registrar `sharp` como `devDependency`.
-3. Documentar brevemente el uso de los scripts en `AGENTS.md` o README.
+2. ~~Añadir scripts útiles a `package.json`:~~ ✅ Resuelto.
+   - ~~`"import-images": "node scripts/import-images.mjs"`~~ ✅
+   - ~~`"generate-og": "node scripts/generate-og.mjs"`~~ ✅
+   - ~~Registrar `sharp` como `devDependency`.~~ ✅
+3. ~~Documentar brevemente el uso de los scripts en `AGENTS.md` o README.~~ ✅ Resuelto en `AGENTS.md`.
 4. ~~Actualizar `site` cuando se confirme el dominio definitivo.~~ ✅ Resuelto: dominio configurado a `https://www.clinicalauvel.es`.
 
 ---
@@ -55,7 +55,7 @@
 |---|---|---|---|
 | 3.1 | ~~`SectionHeading.astro` declara `interface Props` pero Astro la infiere automáticamente, generando un **hint** en `astro check`.~~ | `src/components/ui/SectionHeading.astro` | ~~Baja~~ | ✅ Resuelto: eliminada `interface Props` redundante. |
 | 3.2 | ~~`Header.astro` contiene **CSS muerto** (selectores `:global(.header-logo span:last-child)` y `:global(.header-logo span:first-child)`) que parecen referirse a un logo anterior basado en texto.~~ | `src/components/layout/Header.astro` | ~~Baja~~ | ✅ Resuelto: eliminados selectores de texto no usados. |
-| 3.3 | Uso de `set:html` en párrafos de introducción de páginas de servicio. El contenido es controlado internamente, pero aumenta superficie de riesgo. | `src/pages/*.astro`, `src/components/sections/NeaeCta.astro` | Media | Pendiente |
+| 3.3 | ~~Uso de `set:html` en párrafos de introducción de páginas de servicio. El contenido es controlado internamente, pero aumenta superficie de riesgo.~~ | `src/pages/*.astro`, `src/components/sections/NeaeCta.astro`, `src/components/sections/TeamSection.astro` | ~~Media~~ | ✅ Resuelto: sustituido por componente `StrongText` en intros y renderizado nativo en bio de equipo; `set:html` solo persiste en `JsonLd.astro` (necesario). |
 | 3.4 | ~~No hay **tests** de ningún tipo.~~ | Todo el proyecto | ~~Alta~~ | ✅ Resuelto: añadidos tests unitarios con Vitest para `url.ts` y `site.ts`. |
 | 3.5 | ~~`Header.astro` usa `(window as any).__lauvelHeaderScrollBound` para evitar duplicar listeners. Es funcional pero frágil con View Transitions.~~ | `src/components/layout/Header.astro` | ~~Media~~ | ✅ Resuelto: se declaró tipo global para `Window` y se mantuvo la flag. |
 | 3.6 | Varios componentes superan las 200 líneas (`Header.astro`, `CookieBanner.astro`, `Footer.astro`, etc.). | Varios | Media | Pendiente |
@@ -65,7 +65,7 @@
 
 1. ~~Eliminar `interface Props` redundante en `SectionHeading.astro` (o utilizarla explícitamente).~~ ✅ Resuelto.
 2. ~~Limpiar CSS muerto en `Header.astro`.~~ ✅ Resuelto.
-3. Reemplazar `set:html` por renderizado normal de Astro siempre que sea posible; si se conserva, documentar por qué es seguro.
+3. ~~Reemplazar `set:html` por renderizado normal de Astro siempre que sea posible; si se conserva, documentar por qué es seguro.~~ ✅ Resuelto: creado `StrongText.astro` para contenido con `<strong>` interno; `JsonLd.astro` mantiene `set:html` por requisito de JSON-LD.
 4. ~~Añadir tests:~~ ✅ Parcialmente resuelto: tests unitarios añadidos para `url.ts` y `site.ts`.
    - ~~Unitarios para utilidades (`src/utils/url.ts`, `src/data/site.ts`).~~ ✅
    - Tests de componentes Astro si se añade Vitest + `@astrojs/test`.
@@ -298,13 +298,12 @@ Esta skill requiere fetch de `https://raw.githubusercontent.com/vercel-labs/web-
 7. ~~Optimizar fuentes, imágenes de fondo y `fetchpriority`.~~ ✅ Resuelto.
 8. ~~Enriquecer datos estructurados JSON-LD.~~ ✅ Resuelto.
 9. ~~Limpiar CSS muerto en `Header`.~~ ✅ Resuelto.
-10. Revisar `set:html` en páginas de servicio y `NeaeCta`.
-11. Registrar scripts de utilidades en `package.json` y declarar `sharp`.
+10. ~~Revisar `set:html` en páginas de servicio y `NeaeCta`.~~ ✅ Resuelto.
+11. ~~Registrar scripts de utilidades en `package.json` y declarar `sharp`.~~ ✅ Resuelto.
 
 ### Bajo
 
 11. Mejorar tipado TypeScript y tipos de datos de navegación/site.
-12. Registrar scripts de utilidades en `package.json`.
 13. Añadir `og:image:alt`, `twitter:site`, etc. — ✅ Resuelto.
 14. Revisar páginas legales (`noindex`).
 15. Revisar dominio del sitemap en producción (`PUBLIC_SITE_URL`).

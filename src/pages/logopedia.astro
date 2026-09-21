@@ -4,6 +4,7 @@ import Hero from '../components/sections/Hero.astro';
 import TreatmentGrid from '../components/sections/TreatmentGrid.astro';
 import NeaeCta from '../components/sections/NeaeCta.astro';
 import ContactSection from '../components/sections/ContactSection.astro';
+import StrongText from '../components/ui/StrongText.astro';
 
 import { logopediaTreatments } from '../data/treatments';
 import { neaeLogopedia } from '../data/neae';
@@ -28,7 +29,7 @@ const intro = [
   <section class="py-20 md:py-24">
     <div class="container-site">
       <div class="reveal reveal--up mx-auto flex max-w-3xl flex-col gap-5 text-center text-[1.05rem] text-body">
-        {intro.map((p) => <p set:html={p} />)}
+        {intro.map((p) => <p><StrongText text={p} /></p>)}
       </div>
     </div>
   </section>

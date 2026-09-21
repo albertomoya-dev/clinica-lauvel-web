@@ -65,6 +65,15 @@ Ciudad/zona, dirección, teléfono, email, WhatsApp, redes sociales, equipo (nom
 
 Recibidas del cliente (provisionales, generadas con IA) en `src/assets/images/` — importadas con `scripts/import-images.mjs`, que recorta el 6% inferior para eliminar la marca de agua. Se sirven vía `astro:assets` (`<Image>`, WebP responsive). Si llegan fotos reales, se sustituyen los archivos manteniendo los nombres. `Placeholder.astro` solo queda para el mapa de Google (dirección pendiente).
 
+## Scripts de utilidad (procesamiento de imágenes, vía `sharp`)
+
+- `npm run import-images` — importa/recorta las imágenes de `images-reference/` a `src/assets/images/`
+- `npm run generate-og` — genera `public/og-default.jpg` a partir del SVG del logo
+- `npm run logo:black` / `npm run logo:thicken` — variantes de procesado del logo
+- `npm run remove-white-bg` — elimina fondo blanco de una imagen
+
+Son herramientas puntuales de mantenimiento, no parte del build.
+
 ## Checklist SEO por página (spec LAUVEL §13)
 
 - `title` del spec (sustituir `[Ciudad]` cuando se confirme) + meta description + canonical

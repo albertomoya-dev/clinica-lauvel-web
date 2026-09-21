@@ -9,8 +9,6 @@ interface Props {
 
 const { variant = 'preview' } = Astro.props;
 const quienesHref = withBase('/quienes-somos/');
-
-const formatBio = (bio: string) => bio.replace(/\n/g, '<br />');
 ---
 
 {
@@ -52,7 +50,14 @@ const formatBio = (bio: string) => bio.replace(/\n/g, '<br />');
             <article class="reveal reveal--up">
               <h3 class="font-display text-xl font-medium text-ink">{member.name}</h3>
               <p class="mt-1 text-sm font-medium text-accent">{member.role}</p>
-              <p class="mt-4 text-[0.95rem] text-body" set:html={formatBio(member.bio)} />
+              <p class="mt-4 text-[0.95rem] text-body">
+                {member.bio.split('\n').map((line, i, arr) => (
+                  <>
+                    {line}
+                    {i < arr.length - 1 && <br />}
+                  </>
+                ))}
+              </p>
             </article>
           ))}
         </div>
