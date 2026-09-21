@@ -65,8 +65,8 @@ Ciudad/zona, dirección, teléfono, email, WhatsApp, redes sociales, equipo (nom
 
 En `src/assets/images/`. Se sirven vía `astro:assets` (`<Image>`, WebP responsive). Estado actual:
 
-- **Fotos reales de la clínica**: `hero-home.jpeg` (recibidor), `form-bg.jpeg` y `team-1.jpeg` (Laura), `team-3.jpeg` (Lucía).
-- **Provisionales (generadas con IA)**: `team-2.png` (Daniel) y los heroes de servicios/contacto/quienes-somos; importadas con `scripts/import-images.mjs`, que recorta el 6% inferior para eliminar la marca de agua. Cuando lleguen las reales, se sustituyen los archivos manteniendo los nombres.
+- **Fotos reales de la clínica**: `hero-home.jpeg` (recibidor), `hero-contacto.jpeg` (mostrador de recepción), `form-bg.jpeg` y `team-1.jpeg` (Laura), `team-3.jpeg` (Lucía).
+- **Provisionales (generadas con IA)**: `team-2.png` (Daniel) y los heroes de servicios/quienes-somos; importadas con `scripts/import-images.mjs`, que recorta el 6% inferior para eliminar la marca de agua. Cuando lleguen las reales, se sustituyen los archivos manteniendo los nombres.
 
 El mapa de contacto usa el embed oficial de la ficha de Google (`site.mapEmbedUrl`); `Placeholder.astro` queda solo como fallback si la dirección estuviera pendiente.
 
