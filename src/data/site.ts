@@ -27,12 +27,12 @@ export const site = {
   email: getEnv('PUBLIC_CONTACT_EMAIL', 'PENDIENTE_EMAIL'),
   whatsappNumber: getEnv('PUBLIC_CONTACT_WHATSAPP', 'PENDIENTE_WHATSAPP'),
   whatsappMessage: 'Hola, me gustaría pedir información sobre vuestros servicios.',
-  instagramUrl: 'PENDIENTE_INSTAGRAM',
+  instagramUrl: 'https://www.instagram.com/clinicalauvel/',
   twitterHandle: 'PENDIENTE_TWITTER',
 
-  rgpdOwner: 'PENDIENTE_TITULAR_RGPD',
-  legalName: 'PENDIENTE_RAZON_SOCIAL',
-  cif: 'PENDIENTE_CIF',
+  rgpdOwner: 'Laura Velasco Zambrano',
+  legalName: 'Laura Velasco Zambrano',
+  cif: '49524024X',
 
   firstConsultFree: true,
   languageSelector: false,

@@ -22,7 +22,7 @@ Web corporativa de **Clínica LAUVEL**, centro multidisciplinar de **Logopedia, 
 - **Tailwind CSS v4** vía `@tailwindcss/vite`; tokens de diseño en `src/styles/global.css` (`@theme`)
 - Fuentes: `@fontsource/dm-sans` (cuerpo/eyebrow/botones) + `@fontsource/baloo-2` (display/titulares; sustituta libre de Aloevera Display)
 - Carrusel testimonios: **JS vanilla con scroll-snap** (sin dependencias)
-- Formulario: **Web3Forms** (`PUBLIC_WEB3FORMS_KEY` en `.env`; pendiente del cliente)
+- Formulario: **Web3Forms** (`PUBLIC_WEB3FORMS_KEY` en `.env`; ya configurada)
 - SEO: `@astrojs/sitemap`, metas/OG en `src/components/seo/`, JSON-LD `MedicalClinic`
 - Sin framework JS de islas: interactividad con **JS vanilla en `<script>`** de componentes Astro
 
@@ -59,7 +59,9 @@ npm run check     # astro check (tipos)
 
 ## Datos pendientes del cliente (spec LAUVEL §15)
 
-Ciudad/zona, dirección, teléfono, email, WhatsApp, redes sociales, equipo (nombres/roles/bios — fotos ya recibidas), logo, gratuidad de primera consulta (CTA), titular RGPD, selector de idioma, logos de financiación, reseñas de Google, aseguradoras. → **Todos en `src/data/site.ts`**.
+Ya recibidos y volcados: ciudad/dirección, teléfono, email, Instagram, equipo (nombres/roles/bios/fotos de Laura y Lucía), gratuidad de primera consulta (sí), titular RGPD (Laura Velasco Zambrano, autónoma, NIF 49524024X), ficha de Google Maps. → **Todos en `src/data/site.ts`**.
+
+Siguen pendientes: **WhatsApp** (la clienta lo dejó en blanco — decidir si se usa el teléfono principal), **foto real de Daniel** (`team-2.png` sigue siendo IA), **reseñas reales de Google** (texto/autor/fecha/estrellas → `src/data/testimonials.ts`), logo definitivo. Descartados por la clienta: selector de idioma (solo ES), logos de financiación, aseguradoras, Twitter/X y otras redes.
 
 ## Imágenes
 
