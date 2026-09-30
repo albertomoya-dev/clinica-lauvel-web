@@ -61,7 +61,7 @@ npm run check     # astro check (tipos)
 
 Ya recibidos y volcados: ciudad/dirección, teléfono, email, Instagram, equipo (nombres/roles/bios/fotos de Laura y Lucía), gratuidad de primera consulta (sí), titular RGPD (Laura Velasco Zambrano, autónoma, NIF 49524024X), ficha de Google Maps. → **Todos en `src/data/site.ts`**.
 
-Siguen pendientes: **WhatsApp** (la clienta lo dejó en blanco — decidir si se usa el teléfono principal), **foto real de Daniel** (`team-2.png` sigue siendo IA), **reseñas reales de Google** (texto/autor/fecha/estrellas → `src/data/testimonials.ts`), logo definitivo. Descartados por la clienta: selector de idioma (solo ES), logos de financiación, aseguradoras, Twitter/X y otras redes.
+Siguen pendientes: **WhatsApp** (la clienta lo dejó en blanco — decidir si se usa el teléfono principal), **foto real de Daniel** (`team-2.png` sigue siendo IA), **Google Places API key** para activar el refresco automático de reseñas (`npm run fetch-reviews`; sin key el carrusel muestra placeholders), logo definitivo. Descartados por la clienta: selector de idioma (solo ES), logos de financiación, aseguradoras, Twitter/X y otras redes.
 
 ## Imágenes
 
@@ -80,6 +80,7 @@ El mapa de contacto usa el embed oficial de la ficha de Google (`site.mapEmbedUr
 - `npm run generate-og` — genera `public/og-default.jpg` a partir del SVG del logo
 - `npm run logo:black` / `npm run logo:thicken` — variantes de procesado del logo
 - `npm run remove-white-bg` — elimina fondo blanco de una imagen
+- `npm run fetch-reviews` — descarga las reseñas de Google (Places API New) a `src/data/google-reviews.json`. Requiere `GOOGLE_PLACES_API_KEY` (sin `PUBLIC_`) en `.env`; `GOOGLE_PLACE_ID` es opcional (se resuelve por dirección). Sin key no hace nada. El workflow `.github/workflows/refresh-reviews.yml` lo ejecuta cada lunes y commitea los cambios, lo que dispara el redeploy en Vercel. Si `google-reviews.json` tiene reseñas, `testimonials.ts` las usa en lugar de los placeholders.
 
 Son herramientas puntuales de mantenimiento, no parte del build.
 

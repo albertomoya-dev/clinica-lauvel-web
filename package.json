@@ -15,7 +15,8 @@
     "generate-og": "node scripts/generate-og.mjs",
     "logo:black": "node scripts/logo-to-black.mjs",
     "logo:thicken": "node scripts/logo-thicken.mjs",
-    "remove-white-bg": "node scripts/remove-white-bg.mjs"
+    "remove-white-bg": "node scripts/remove-white-bg.mjs",
+    "fetch-reviews": "node --env-file-if-exists=.env scripts/fetch-reviews.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.6.0",

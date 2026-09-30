@@ -1,0 +1,37 @@
+name: Refrescar reseñas de Google
+
+on:
+  schedule:
+    - cron: '17 6 * * 1' # lunes ~06:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-reviews:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Descargar reseñas de Google
+        env:
+          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+          GOOGLE_PLACE_ID: ${{ vars.GOOGLE_PLACE_ID }}
+        run: node scripts/fetch-reviews.mjs
+
+      - name: Commit y push si hay cambios
+        run: |
+          if git diff --quiet src/data/google-reviews.json; then
+            echo "Sin cambios en las reseñas"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/google-reviews.json
+          git commit -m "chore(resenas): actualizar reseñas de Google"
+          git push
