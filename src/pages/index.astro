@@ -10,6 +10,7 @@ import ContactSection from '../components/sections/ContactSection.astro';
 
 import heroHome from '../assets/images/hero-home.jpeg';
 import heroHomeWide from '../assets/images/hero-home-wide.jpeg';
+import heroHomeWide2x from '../assets/images/hero-home-wide-2x.jpeg';
 import sessionVertical from '../assets/images/session-vertical.png';
 import materials from '../assets/images/materials.jpg';
 import heroQuienes from '../assets/images/hero-quienes.png';
@@ -29,6 +30,7 @@ const city = isPending(site.city) ? '' : ` en ${site.city}`;
     title={`Centro multidisciplinar de logopedia, psicología, pedagogía y fisioterapia${city}`}
     image={heroHome}
     imageWide={heroHomeWide}
+    imageWide2x={heroHomeWide2x}
     imageAlt="Recibidor de Clínica LAUVEL con zona de espera de sillones blancos y plantas"
     cta={{ label: primaryCtaLabel, href: '/contacto/' }}
     large

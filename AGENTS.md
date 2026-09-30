@@ -69,6 +69,7 @@ En `src/assets/images/`. Se sirven vía `astro:assets` (`<Image>`, WebP responsi
 
 - **Fotos reales de la clínica**: `hero-home.jpeg` (recibidor), `hero-contacto.jpeg` (mostrador de recepción), `form-bg.jpeg` y `team-1.jpeg` (Laura), `team-3.jpeg` (Lucía).
 - **Variantes panorámicas** (`*-wide.jpeg`, recortes 16:9 de las verticales para art direction): `hero-home-wide`, `hero-contacto-wide`, `form-bg-wide`. Se sirven en escritorio vía `<source media="(min-width: 768px)">` en `Hero.astro` (prop `imageWide`) y `ContactSection.astro`; en móvil se usa la vertical original. Si se sustituye una foto vertical, regenerar su `-wide` con el mismo encuadre.
+- **Variantes 2×** (`*-wide-2x.jpeg`): reescalado Lanczos3 + enfoque suave de las `-wide` para viewports >1536px de ancho (las originales son 1086–1536px y el navegador las estiraba). Se sirven en el mismo srcset (`imageWide2x` en `Hero.astro`).
 - **Provisionales (generadas con IA)**: `team-2.png` (Daniel) y los heroes de servicios/quienes-somos; importadas con `scripts/import-images.mjs`, que recorta el 6% inferior para eliminar la marca de agua. Cuando lleguen las reales, se sustituyen los archivos manteniendo los nombres.
 
 El mapa de contacto usa el embed oficial de la ficha de Google (`site.mapEmbedUrl`); `Placeholder.astro` queda solo como fallback si la dirección estuviera pendiente.

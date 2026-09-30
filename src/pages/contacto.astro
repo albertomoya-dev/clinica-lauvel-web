@@ -8,13 +8,14 @@ import Icon from '../components/ui/Icon.astro';
 import { site, isPending } from '../data/site';
 import heroContacto from '../assets/images/hero-contacto.jpeg';
 import heroContactoWide from '../assets/images/hero-contacto-wide.jpeg';
+import heroContactoWide2x from '../assets/images/hero-contacto-wide-2x.jpeg';
 ---
 
 <BaseLayout
   title="Contacto Clínica LAUVEL | Pide tu cita"
   description="Contacta con Clínica LAUVEL: resuelve dudas, solicita una valoración o pide cita de logopedia, psicología, pedagogía o fisioterapia."
 >
-  <Hero title="Contacta con nosotros" image={heroContacto} imageWide={heroContactoWide} imageAlt="Mostrador de recepción de Clínica LAUVEL" />
+  <Hero title="Contacta con nosotros" image={heroContacto} imageWide={heroContactoWide} imageWide2x={heroContactoWide2x} imageAlt="Mostrador de recepción de Clínica LAUVEL" />
 
   <section class="py-20 md:py-28">
     <div class="container-site grid gap-14 lg:grid-cols-2 lg:gap-16">

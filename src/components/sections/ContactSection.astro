@@ -3,6 +3,7 @@ import { Image, getImage } from 'astro:assets';
 import ContactForm from './ContactForm.astro';
 import formBg from '../../assets/images/form-bg.jpeg';
 import formBgWide from '../../assets/images/form-bg-wide.jpeg';
+import formBgWide2x from '../../assets/images/form-bg-wide-2x.jpeg';
 import { primaryCtaLabel } from '../../data/site';
 import { withBase } from '../../utils/url';
 
@@ -13,11 +14,15 @@ interface Props {
 const { showNeae = true } = Astro.props;
 
 const wideWidths = [768, 1086];
-const wideSrcset = (
-  await Promise.all(wideWidths.map((width) => getImage({ src: formBgWide, width, format: 'webp', quality: 85 })))
-)
-  .map((img, i) => `${img.src} ${wideWidths[i]}w`)
-  .join(', ');
+const wide2xWidths = [1600, 2172];
+const wideSrcset = [
+  ...(await Promise.all(wideWidths.map((width) => getImage({ src: formBgWide, width, format: 'webp', quality: 85 })))).map(
+    (img, i) => `${img.src} ${wideWidths[i]}w`,
+  ),
+  ...(await Promise.all(wide2xWidths.map((width) => getImage({ src: formBgWide2x, width, format: 'webp', quality: 85 })))).map(
+    (img, i) => `${img.src} ${wide2xWidths[i]}w`,
+  ),
+].join(', ');
 ---
 
 <section class="relative overflow-hidden">

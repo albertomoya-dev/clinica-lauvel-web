@@ -10,20 +10,25 @@ interface Props {
   cta?: { label: string; href: string };
   large?: boolean;
   imageWide?: ImageMetadata;
+  imageWide2x?: ImageMetadata;
 }
 
-const { title, image, imageAlt, cta, large = false, imageWide } = Astro.props;
+const { title, image, imageAlt, cta, large = false, imageWide, imageWide2x } = Astro.props;
 const ctaHref = cta ? withBase(cta.href) : undefined;
 
 const wideWidths = [1024, 1280, 1536];
+const wide2xWidths = [1920, 2560];
+const wideEntries = imageWide
+  ? await Promise.all(wideWidths.map((width) => getImage({ src: imageWide, width, format: 'webp', quality: 85 })))
+  : [];
+const wide2xEntries = imageWide2x
+  ? await Promise.all(wide2xWidths.map((width) => getImage({ src: imageWide2x, width, format: 'webp', quality: 85 })))
+  : [];
 const wideSrcset = imageWide
-  ? (
-      await Promise.all(
-        wideWidths.map((width) => getImage({ src: imageWide, width, format: 'webp', quality: 85 })),
-      )
-    )
-      .map((img, i) => `${img.src} ${wideWidths[i]}w`)
-      .join(', ')
+  ? [
+      ...wideEntries.map((img, i) => `${img.src} ${wideWidths[i]}w`),
+      ...wide2xEntries.map((img, i) => `${img.src} ${wide2xWidths[i]}w`),
+    ].join(', ')
   : undefined;
 ---
 
