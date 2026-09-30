@@ -1,7 +1,8 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import ContactForm from './ContactForm.astro';
 import formBg from '../../assets/images/form-bg.jpeg';
+import formBgWide from '../../assets/images/form-bg-wide.jpeg';
 import { primaryCtaLabel } from '../../data/site';
 import { withBase } from '../../utils/url';
 
@@ -10,19 +11,29 @@ interface Props {
 }
 
 const { showNeae = true } = Astro.props;
+
+const wideWidths = [768, 1086];
+const wideSrcset = (
+  await Promise.all(wideWidths.map((width) => getImage({ src: formBgWide, width, format: 'webp', quality: 85 })))
+)
+  .map((img, i) => `${img.src} ${wideWidths[i]}w`)
+  .join(', ');
 ---
 
 <section class="relative overflow-hidden">
-  <Image
-    src={formBg}
-    alt=""
-    widths={[768, 1024, 1280, 1920]}
-    sizes="100vw"
-    class="absolute inset-0 -z-10 h-full w-full object-cover object-[25%_center]"
-    loading="lazy"
-    decoding="async"
-    aria-hidden="true"
-  />
+  <picture>
+    <source media="(min-width: 768px)" srcset={wideSrcset} sizes="100vw" type="image/webp" />
+    <Image
+      src={formBg}
+      alt=""
+      widths={[768, 1024, 1280, 1920]}
+      sizes="100vw"
+      class="absolute inset-0 -z-10 h-full w-full object-cover object-[25%_center]"
+      loading="lazy"
+      decoding="async"
+      aria-hidden="true"
+    />
+  </picture>
   <div class="hero-overlay absolute inset-0" aria-hidden="true"></div>
   <div class="container-site relative z-10 grid gap-14 py-20 md:py-28 lg:grid-cols-2 lg:items-start">
     <div class="reveal reveal--left lg:pt-4">
