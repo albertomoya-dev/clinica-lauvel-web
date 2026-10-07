@@ -15,18 +15,18 @@ import team4 from '../assets/images/team-4.jpeg';
 
 export const team: TeamMember[] = [
   {
-    name: 'Laura Velasco Zambrano',
+    name: 'Laura Velasco',
     role: 'Logopeda y directora de Clínica LAUVEL',
-    bio: 'Laura Velasco Zambrano es logopeda y directora de Clínica LAUVEL. Su vocación por el desarrollo, la comunicación y el lenguaje la ha llevado a especializarse y mantener una formación continua en diferentes áreas de la logopedia.\n\nCuenta con un Máster en Atención Temprana y formación especializada en terapia miofuncional, además de diferentes formaciones relacionadas con el lenguaje, el habla, la comunicación, las funciones orofaciales y la intervención en población infantil y adulta.\n\nA lo largo de su trayectoria profesional ha trabajado con niños, adolescentes y adultos, realizando intervenciones adaptadas a las necesidades individuales de cada paciente. Su forma de trabajar se basa en una atención cercana y personalizada.\n\nComo directora de LAUVEL, Laura apuesta por un modelo de intervención multidisciplinar, coordinado con las familias, los centros educativos y otros profesionales, con el objetivo de ofrecer una atención integral y favorecer el desarrollo y bienestar de cada paciente.\n\nSu principal objetivo es acompañar a cada persona y a su familia durante el proceso terapéutico, proporcionando herramientas que permitan avanzar, mejorar la comunicación y potenciar al máximo sus capacidades.',
+    bio: 'Laura Velasco es logopeda y directora de Clínica LAUVEL. Su vocación por el desarrollo, la comunicación y el lenguaje la ha llevado a especializarse y mantener una formación continua en diferentes áreas de la logopedia.\n\nCuenta con un Máster en Atención Temprana y formación especializada en terapia miofuncional, además de diferentes formaciones relacionadas con el lenguaje, el habla, la comunicación, las funciones orofaciales y la intervención en población infantil y adulta.\n\nA lo largo de su trayectoria profesional ha trabajado con niños, adolescentes y adultos, realizando intervenciones adaptadas a las necesidades individuales de cada paciente. Su forma de trabajar se basa en una atención cercana y personalizada.\n\nComo directora de LAUVEL, Laura apuesta por un modelo de intervención multidisciplinar, coordinado con las familias, los centros educativos y otros profesionales, con el objetivo de ofrecer una atención integral y favorecer el desarrollo y bienestar de cada paciente.\n\nSu principal objetivo es acompañar a cada persona y a su familia durante el proceso terapéutico, proporcionando herramientas que permitan avanzar, mejorar la comunicación y potenciar al máximo sus capacidades.',
     photo: team1,
-    photoAlt: 'Laura Velasco Zambrano, logopeda y directora de Clínica LAUVEL',
+    photoAlt: 'Laura Velasco, logopeda y directora de Clínica LAUVEL',
   },
   {
-    name: 'Daniel Suárez Bejines',
+    name: 'Daniel Suárez',
     role: 'Pedagogo',
-    bio: 'Daniel Suárez Bejines es Graduado en Pedagogía y forma parte del equipo de Clínica LAUVEL. Su labor se centra en acompañar y apoyar a niños y adolescentes en sus procesos de aprendizaje, adaptando la intervención a las necesidades y características individuales de cada persona.\n\nSu objetivo es favorecer el desarrollo de las capacidades de cada paciente, proporcionando estrategias y herramientas que permitan mejorar su autonomía, aprendizaje y rendimiento académico. Para ello, trabaja de manera individualizada y coordinada con las familias y otros profesionales, buscando siempre una intervención cercana y adaptada.\n\nEn LAUVEL apuesta por una atención personalizada, creando un entorno de confianza en el que cada niño pueda avanzar a su propio ritmo y desarrollar al máximo sus capacidades.',
+    bio: 'Daniel Suárez es Graduado en Pedagogía y forma parte del equipo de Clínica LAUVEL. Su labor se centra en acompañar y apoyar a niños y adolescentes en sus procesos de aprendizaje, adaptando la intervención a las necesidades y características individuales de cada persona.\n\nSu objetivo es favorecer el desarrollo de las capacidades de cada paciente, proporcionando estrategias y herramientas que permitan mejorar su autonomía, aprendizaje y rendimiento académico. Para ello, trabaja de manera individualizada y coordinada con las familias y otros profesionales, buscando siempre una intervención cercana y adaptada.\n\nEn LAUVEL apuesta por una atención personalizada, creando un entorno de confianza en el que cada niño pueda avanzar a su propio ritmo y desarrollar al máximo sus capacidades.',
     photo: team2,
-    photoAlt: 'Daniel Suárez Bejines, pedagogo en Clínica LAUVEL',
+    photoAlt: 'Daniel Suárez, pedagogo en Clínica LAUVEL',
   },
   {
     name: 'Lucía Cabezas',
