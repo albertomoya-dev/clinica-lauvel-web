@@ -61,13 +61,13 @@ npm run check     # astro check (tipos)
 
 Ya recibidos y volcados: ciudad/dirección, teléfono, email, Instagram, equipo (nombres/roles/bios/fotos de Laura, Daniel y Lucía), gratuidad de primera consulta (sí), titular RGPD (Laura Velasco Zambrano, autónoma, NIF 49524024X), ficha de Google Maps. → **Todos en `src/data/site.ts`**.
 
-Siguen pendientes: **WhatsApp** (la clienta lo dejó en blanco — decidir si se usa el teléfono principal), **rol y bio de Pablo Sierra** (foto ya en `team-4.jpeg`; añadir entrada en `src/data/team.ts` cuando llegue), logo definitivo. Descartados por la clienta: selector de idioma (solo ES), logos de financiación, aseguradoras, Twitter/X y otras redes.
+Siguen pendientes: **WhatsApp** (la clienta lo dejó en blanco — decidir si se usa el teléfono principal), **bio ampliada de Pablo Sierra** (fisioterapeuta; ya visible con bio provisional facilitada por él), logo definitivo. Descartados por la clienta: selector de idioma (solo ES), logos de financiación, aseguradoras, Twitter/X y otras redes.
 
 ## Imágenes
 
 En `src/assets/images/`. Se sirven vía `astro:assets` (`<Image>`, WebP responsive). Estado actual:
 
-- **Fotos reales de la clínica**: `hero-home.jpeg` (recibidor), `hero-contacto.jpeg` (mostrador de recepción), `form-bg.jpeg`, `team-1.jpeg` (Laura), `team-2.jpeg` (Daniel), `team-3.jpeg` (Lucía), `team-4.jpeg` (Pablo — pendiente de activar en `team.ts`), `hero-quienes.jpeg` (foto de grupo), `session-vertical.jpeg` (Daniel con tarjetas), `hero-logopedia.jpeg` (sala de logopedia) y `hero-pedagogia.jpeg` (Daniel en sesión).
+- **Fotos reales de la clínica**: `hero-home.jpeg` (recibidor), `hero-contacto.jpeg` (mostrador de recepción), `form-bg.jpeg`, `team-1.jpeg` (Laura), `team-2.jpeg` (Daniel), `team-3.jpeg` (Lucía), `team-4.jpeg` (Pablo), `hero-quienes.jpeg` (foto de grupo), `session-vertical.jpeg` (Daniel con tarjetas), `hero-logopedia.jpeg` (sala de logopedia) y `hero-pedagogia.jpeg` (Daniel en sesión).
 - **Variantes panorámicas** (`*-wide.jpeg`, recortes 16:9 de las verticales para art direction): `hero-home-wide`, `hero-contacto-wide`, `form-bg-wide`, `hero-logopedia-wide`, `hero-pedagogia-wide`. Se sirven en escritorio vía `<source media="(min-width: 768px)">` en `Hero.astro` (prop `imageWide`) y `ContactSection.astro`; en móvil se usa la vertical original. Si se sustituye una foto vertical, regenerar su `-wide` con el mismo encuadre.
 - **Variantes 2×** (`*-wide-2x.jpeg`): reescalado Lanczos3 + enfoque suave de las `-wide` para viewports >1536px de ancho (las originales son 1086–1536px y el navegador las estiraba). Se sirven en el mismo srcset (`imageWide2x` en `Hero.astro`).
 - **Provisionales (generadas con IA)**: los heroes de `fisioterapia` y `psicologia` (`hero-fisioterapia.png`, `hero-psicologia.png`) y `materials.jpg`; importadas con `scripts/import-images.mjs`, que recorta el 6% inferior para eliminar la marca de agua. Cuando lleguen las reales, se sustituyen los archivos manteniendo los nombres.

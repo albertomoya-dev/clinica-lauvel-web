@@ -22,14 +22,14 @@ const quienesHref = withBase('/quienes-somos/');
           description="En LAUVEL contamos con un equipo multidisciplinar especializado y en constante formación. Nuestra forma de trabajar se basa en la evidencia científica, la personalización de cada intervención y un trato cercano que genera confianza desde el primer día."
           class="reveal reveal--up"
         />
-        <div class="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {team.map((member) => (
             <article class="reveal reveal--up rounded-2xl border border-ink/10 bg-soft p-7">
               <Image
                 src={member.photo}
                 alt={member.photoAlt}
                 widths={[400, 640]}
-                sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
+                sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 90vw"
                 class="aspect-[4/5] w-full rounded-xl object-cover object-top"
                 loading="lazy"
                 decoding="async"
@@ -53,14 +53,14 @@ const quienesHref = withBase('/quienes-somos/');
           description="Este equipo forma el núcleo del centro y es la razón por la que tantas familias depositan su confianza en nosotros."
           class="reveal reveal--up"
         />
-        <div class="mt-14 grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="mt-14 grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
           {team.map((member) => (
             <article class="reveal reveal--up">
               <Image
                 src={member.photo}
                 alt={member.photoAlt}
                 widths={[480, 768]}
-                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                sizes="(min-width: 1024px) 24vw, (min-width: 640px) 50vw, 100vw"
                 class="aspect-[4/5] w-full rounded-2xl object-cover object-top"
                 loading="lazy"
                 decoding="async"

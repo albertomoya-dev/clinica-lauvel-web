@@ -11,6 +11,7 @@ export interface TeamMember {
 import team1 from '../assets/images/team-1.jpeg';
 import team2 from '../assets/images/team-2.jpeg';
 import team3 from '../assets/images/team-3.jpeg';
+import team4 from '../assets/images/team-4.jpeg';
 
 export const team: TeamMember[] = [
   {
@@ -33,5 +34,12 @@ export const team: TeamMember[] = [
     bio: 'Lucía Cabezas es psicóloga general sanitaria, especializada en intervención psicológica y familiar. Cuenta con un Máster en Psicología General Sanitaria y un Máster en Intervención y Mediación Familiar, formación que le permite abordar el bienestar psicológico teniendo en cuenta tanto las necesidades individuales como la influencia de las relaciones y el contexto familiar.\n\nSu trayectoria profesional combina la intervención psicológica, la investigación y la divulgación, con experiencia en el ámbito clínico y en proyectos de investigación vinculados al desarrollo, las relaciones familiares y el bienestar psicológico.\n\nAdemás complementa su formación con un Experto en Terapia Sistémica Breve, desde el que profundiza en una perspectiva centrada en las relaciones, los patrones de interacción y los recursos de cada persona y sistema familiar.\n\nSu forma de trabajar parte de una atención cercana, individualizada y basada en la evidencia, adaptando la intervención a las necesidades, circunstancias y objetivos de cada persona. Entiende el proceso terapéutico como un espacio de acompañamiento en el que comprender lo que está ocurriendo, desarrollar nuevas herramientas y favorecer cambios que puedan mantenerse en el tiempo.\n\nEn su intervención presta especial atención a aspectos como las relaciones interpersonales, la familia, la comunicación, la gestión emocional y las dificultades que pueden aparecer en las diferentes etapas de la vida.\n\nSu objetivo es acompañar a cada persona desde una mirada integradora y respetuosa, ayudándola a comprender mejor lo que necesita, identificar sus propios recursos y construir formas más saludables de relacionarse consigo misma y con los demás.',
     photo: team3,
     photoAlt: 'Lucía Cabezas, psicóloga general sanitaria en Clínica LAUVEL',
+  },
+  {
+    name: 'Pablo Sierra',
+    role: 'Fisioterapeuta',
+    bio: 'Pablo Sierra es fisioterapeuta y forma parte del equipo de Clínica LAUVEL. Desde que comenzó su camino en la fisioterapia tuvo claro que quería dedicarse a una profesión en la que pudiera ayudar a las personas, acompañarlas en sus procesos y seguir aprendiendo cada día.\n\nPara él, cada paciente es diferente, por lo que considera fundamental escuchar, entender las necesidades de cada persona y adaptar el tratamiento de manera individualizada.\n\nEn LAUVEL afronta esta etapa con ilusión, ganas de seguir creciendo y de aportar todo lo que pueda al bienestar de cada paciente.',
+    photo: team4,
+    photoAlt: 'Pablo Sierra, fisioterapeuta en Clínica LAUVEL',
   },
 ];
