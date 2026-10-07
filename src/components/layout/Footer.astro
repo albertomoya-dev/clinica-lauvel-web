@@ -111,7 +111,8 @@ const isActive = (href: string) => (href === homeHref ? path === homeHref : path
     }
 
     <p class="border-t border-white/10 pt-7 text-[0.82rem] text-white/50">
-      {site.name}©.
+      {site.name}©
+      <span class="mx-2" aria-hidden="true">·</span>
       {
         legalNav.map((item, i) => (
           <>
