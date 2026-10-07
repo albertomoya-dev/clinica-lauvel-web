@@ -11,9 +11,10 @@ interface Props {
   large?: boolean;
   imageWide?: ImageMetadata;
   imageWide2x?: ImageMetadata;
+  imagePosition?: string;
 }
 
-const { title, image, imageAlt, cta, large = false, imageWide, imageWide2x } = Astro.props;
+const { title, image, imageAlt, cta, large = false, imageWide, imageWide2x, imagePosition = 'center' } = Astro.props;
 const ctaHref = cta ? withBase(cta.href) : undefined;
 
 const wideWidths = [1024, 1280, 1536];
@@ -41,6 +42,7 @@ const wideSrcset = imageWide
       widths={[768, 1024, 1280, 1600]}
       sizes="100vw"
       class="absolute inset-0 h-full w-full object-cover"
+      style={`object-position: ${imagePosition}`}
       loading="eager"
       fetchpriority="high"
     />
