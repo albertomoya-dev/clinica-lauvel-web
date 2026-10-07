@@ -9,7 +9,9 @@ import StrongText from '../components/ui/StrongText.astro';
 import { pedagogiaTreatments } from '../data/treatments';
 import { neaePedagogia } from '../data/neae';
 import { site, isPending } from '../data/site';
-import heroPedagogia from '../assets/images/hero-pedagogia.jpg';
+import heroPedagogia from '../assets/images/hero-pedagogia.jpeg';
+import heroPedagogiaWide from '../assets/images/hero-pedagogia-wide.jpeg';
+import heroPedagogiaWide2x from '../assets/images/hero-pedagogia-wide-2x.jpeg';
 
 const city = isPending(site.city) ? '' : ` en ${site.city}`;
 
@@ -24,7 +26,7 @@ const intro = [
   title={`Pedagogía y reeducación pedagógica${city} | Clínica LAUVEL`}
   description="Reeducación pedagógica y dificultades de aprendizaje: dislexia, TDAH y técnicas de estudio, en coordinación con familias y centros educativos."
 >
-  <Hero title={`Pedagogía${city}`} image={heroPedagogia} imageAlt="Sesión de pedagogía en Clínica LAUVEL" />
+  <Hero title={`Pedagogía${city}`} image={heroPedagogia} imageWide={heroPedagogiaWide} imageWide2x={heroPedagogiaWide2x} imageAlt="Pedagogo de Clínica LAUVEL en una sesión con tarjetas didácticas" />
 
   <section class="py-20 md:py-24">
     <div class="container-site">

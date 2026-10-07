@@ -11,9 +11,9 @@ import ContactSection from '../components/sections/ContactSection.astro';
 import heroHome from '../assets/images/hero-home.jpeg';
 import heroHomeWide from '../assets/images/hero-home-wide.jpeg';
 import heroHomeWide2x from '../assets/images/hero-home-wide-2x.jpeg';
-import sessionVertical from '../assets/images/session-vertical.png';
+import sessionVertical from '../assets/images/session-vertical.jpeg';
 import materials from '../assets/images/materials.jpg';
-import heroQuienes from '../assets/images/hero-quienes.png';
+import heroQuienes from '../assets/images/hero-quienes.jpeg';
 
 import { homeServices } from '../data/services';
 import { processSteps } from '../data/process';
@@ -47,7 +47,7 @@ const city = isPending(site.city) ? '' : ` en ${site.city}`;
     eyebrow="Logopedia · Psicología · Pedagogía · Fisioterapia"
     title="Un centro multidisciplinar, un único objetivo: tu bienestar"
     image={sessionVertical}
-    imageAlt="Logopeda de Clínica LAUVEL mostrando una tarjeta didáctica a una niña en sesión"
+    imageAlt="Daniel Suárez, pedagogo de Clínica LAUVEL, trabajando con tarjetas didácticas"
     smallImage={materials}
     smallImageAlt="Tarjetas didácticas de animales para terapia del lenguaje"
     cta={{ label: 'Sobre nosotros', href: '/quienes-somos/' }}
@@ -65,7 +65,7 @@ const city = isPending(site.city) ? '' : ` en ${site.city}`;
     title="Atención integral y personalizada, paso a paso"
     steps={processSteps}
     image={heroQuienes}
-    imageAlt="Equipo de Clínica LAUVEL con uniforme rosa en el pasillo de la clínica"
+    imageAlt="Equipo de Clínica LAUVEL: Daniel, Laura, Pablo y Lucía"
   />
 
   <TeamSection variant="preview" />

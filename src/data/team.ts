@@ -9,7 +9,7 @@ export interface TeamMember {
 }
 
 import team1 from '../assets/images/team-1.jpeg';
-import team2 from '../assets/images/team-2.png';
+import team2 from '../assets/images/team-2.jpeg';
 import team3 from '../assets/images/team-3.jpeg';
 
 export const team: TeamMember[] = [
