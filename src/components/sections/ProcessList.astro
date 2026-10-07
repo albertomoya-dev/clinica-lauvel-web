@@ -9,9 +9,10 @@ interface Props {
   steps: ProcessStep[];
   image?: ImageMetadata;
   imageAlt?: string;
+  imagePosition?: string;
 }
 
-const { eyebrow, title, steps, image, imageAlt = '' } = Astro.props;
+const { eyebrow, title, steps, image, imageAlt = '', imagePosition = 'center' } = Astro.props;
 ---
 
 <section class="py-20 md:py-28">
@@ -42,6 +43,7 @@ const { eyebrow, title, steps, image, imageAlt = '' } = Astro.props;
           widths={[1024, 1536]}
           sizes="(min-width: 1280px) 1216px, 100vw"
           class="reveal reveal--up mt-14 aspect-[21/9] w-full rounded-2xl object-cover"
+          style={`object-position: ${imagePosition}`}
           loading="lazy"
           decoding="async"
         />
