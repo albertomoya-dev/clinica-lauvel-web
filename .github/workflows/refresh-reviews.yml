@@ -11,6 +11,7 @@ permissions:
 jobs:
   fetch-reviews:
     runs-on: ubuntu-latest
+    environment: GOOGLE_PLACES_API_KEY
     steps:
       - uses: actions/checkout@v4
 
