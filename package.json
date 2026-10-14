@@ -13,6 +13,7 @@
     "test:watch": "vitest",
     "import-images": "node scripts/import-images.mjs",
     "generate-og": "node scripts/generate-og.mjs",
+    "generate-favicon": "node scripts/generate-favicon.mjs",
     "logo:black": "node scripts/logo-to-black.mjs",
     "logo:thicken": "node scripts/logo-thicken.mjs",
     "remove-white-bg": "node scripts/remove-white-bg.mjs",
