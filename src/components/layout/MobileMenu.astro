@@ -82,6 +82,7 @@ const isActive = (href: string) => (href === homeHref ? path === homeHref : path
     z-index: 70;
     background: var(--color-ink);
     overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .mobile-menu[hidden] {
@@ -162,6 +163,7 @@ const isActive = (href: string) => (href === homeHref ? path === homeHref : path
 
     const closeMenu = () => {
       menu.setAttribute('hidden', '');
+      document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
       openBtn.setAttribute('aria-expanded', 'false');
       if (keydownHandler) {
@@ -179,6 +181,7 @@ const isActive = (href: string) => (href === homeHref ? path === homeHref : path
       servicesTrigger?.setAttribute('aria-expanded', 'false');
       servicesTrigger?.querySelector('svg')?.classList.remove('rotate-180');
       menu.removeAttribute('hidden');
+      document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
       openBtn.setAttribute('aria-expanded', 'true');
 
