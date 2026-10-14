@@ -56,7 +56,16 @@ const reviews = (details.reviews ?? [])
   .filter((r) => r.text);
 
 if (reviews.length === 0) {
-  console.log('La ficha no devolvió reseñas; no se toca google-reviews.json.');
+  if ((details.userRatingCount ?? 0) > 0) {
+    console.warn(
+      `La ficha tiene ${details.userRatingCount} reseñas pero la API no devolvió sus textos. ` +
+        'Causa habitual: el proyecto de Google Cloud no tiene la facturación activa ' +
+        '(el campo reviews pertenece al SKU Enterprise + Atmosphere). ' +
+        'Ver docs/instrucciones-google-places-api.md, sección "Solución de problemas".',
+    );
+  } else {
+    console.log('La ficha no tiene reseñas todavía; no se toca google-reviews.json.');
+  }
   process.exit(0);
 }
 
