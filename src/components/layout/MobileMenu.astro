@@ -227,6 +227,5 @@ const isActive = (href: string) => (href === homeHref ? path === homeHref : path
     });
   };
 
-  initMobileMenu();
   document.addEventListener('astro:page-load', initMobileMenu);
 </script>
