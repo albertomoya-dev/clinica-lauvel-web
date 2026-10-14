@@ -14,7 +14,7 @@ import { isPending } from '../../data/site';
     <div class="relative mt-14">
       <div
         id="testimonials-track"
-        class="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        class="-m-6 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-p-6 p-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         tabindex="0"
         aria-label="Carrusel de reseñas de Google"
       >
@@ -52,7 +52,7 @@ import { isPending } from '../../data/site';
       <button
         type="button"
         id="testimonials-prev"
-        class="absolute top-[calc(50%-0.5rem)] -left-5 hidden size-12 -translate-y-1/2 items-center justify-center rounded-full border border-accent/50 bg-white text-accent shadow-md transition-colors hover:bg-accent hover:text-white md:inline-flex"
+        class="absolute top-1/2 -left-5 hidden size-12 -translate-y-1/2 items-center justify-center rounded-full border border-accent/50 bg-white text-accent shadow-md transition-colors hover:bg-accent hover:text-white md:inline-flex"
         aria-label="Reseñas anteriores"
       >
         <Icon name="arrow-right" class="size-5 rotate-180" />
@@ -60,7 +60,7 @@ import { isPending } from '../../data/site';
       <button
         type="button"
         id="testimonials-next"
-        class="absolute top-[calc(50%-0.5rem)] -right-5 hidden size-12 -translate-y-1/2 items-center justify-center rounded-full border border-accent/50 bg-white text-accent shadow-md transition-colors hover:bg-accent hover:text-white md:inline-flex"
+        class="absolute top-1/2 -right-5 hidden size-12 -translate-y-1/2 items-center justify-center rounded-full border border-accent/50 bg-white text-accent shadow-md transition-colors hover:bg-accent hover:text-white md:inline-flex"
         aria-label="Reseñas siguientes"
       >
         <Icon name="arrow-right" class="size-5" />
@@ -77,16 +77,22 @@ import { isPending } from '../../data/site';
     if (!track || !card) return;
     const trackRect = track.getBoundingClientRect();
     const cardRect = card.getBoundingClientRect();
-    track.scrollBy({ left: cardRect.left - trackRect.left, behavior: smooth ? 'smooth' : ('instant' as ScrollBehavior) });
+    const padding = parseFloat(getComputedStyle(track).paddingLeft) || 0;
+    track.scrollBy({
+      left: cardRect.left - trackRect.left - padding,
+      behavior: smooth ? 'smooth' : ('instant' as ScrollBehavior),
+    });
   };
 
   const currentIndex = () => {
     if (!track || cards.length === 0) return 0;
-    const trackLeft = track.getBoundingClientRect().left;
+    const trackRect = track.getBoundingClientRect();
+    const padding = parseFloat(getComputedStyle(track).paddingLeft) || 0;
+    const snapLeft = trackRect.left + padding;
     let best = 0;
     let bestDist = Infinity;
     cards.forEach((card, i) => {
-      const d = Math.abs(card.getBoundingClientRect().left - trackLeft);
+      const d = Math.abs(card.getBoundingClientRect().left - snapLeft);
       if (d < bestDist) {
         bestDist = d;
         best = i;
