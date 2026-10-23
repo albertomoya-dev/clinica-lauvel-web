@@ -8,14 +8,29 @@ interface Props {
   image: ImageMetadata;
   imageAlt: string;
   cta?: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
   large?: boolean;
+  compact?: boolean;
   imageWide?: ImageMetadata;
   imageWide2x?: ImageMetadata;
   imagePosition?: string;
 }
 
-const { title, image, imageAlt, cta, large = false, imageWide, imageWide2x, imagePosition = 'center' } = Astro.props;
-const ctaHref = cta ? withBase(cta.href) : undefined;
+const {
+  title,
+  image,
+  imageAlt,
+  cta,
+  secondaryCta,
+  large = false,
+  compact = false,
+  imageWide,
+  imageWide2x,
+  imagePosition = 'center',
+} = Astro.props;
+const resolveHref = (href: string) => (href.startsWith('/') ? withBase(href) : href);
+const ctaHref = cta ? resolveHref(cta.href) : undefined;
+const secondaryHref = secondaryCta ? resolveHref(secondaryCta.href) : undefined;
 
 const wideWidths = [1024, 1280, 1536];
 const wide2xWidths = [1920, 2560];
@@ -33,7 +48,12 @@ const wideSrcset = imageWide
   : undefined;
 ---
 
-<section class:list={['relative flex items-center overflow-hidden', large ? 'min-h-[88svh]' : 'min-h-[68svh]']}>
+<section
+  class:list={[
+    'relative flex items-center overflow-hidden',
+    large ? 'min-h-[88svh]' : compact ? 'min-h-[46svh] md:min-h-[68svh]' : 'min-h-[68svh]',
+  ]}
+>
   <picture>
     {wideSrcset && <source media="(min-width: 768px)" srcset={wideSrcset} sizes="100vw" type="image/webp" />}
     <Image
@@ -48,7 +68,7 @@ const wideSrcset = imageWide
     />
   </picture>
   <div class="hero-overlay absolute inset-0" aria-hidden="true"></div>
-  <div class="container-site relative z-10 pt-36 pb-20">
+  <div class:list={['container-site relative z-10', compact ? 'pt-32 pb-10 md:pt-36 md:pb-20' : 'pt-36 pb-20']}>
     <h1
       class:list={[
         'max-w-4xl font-display font-medium text-white',
@@ -57,6 +77,20 @@ const wideSrcset = imageWide
     >
       {title}
     </h1>
-    {cta && <a href={ctaHref} class="btn-primary mt-9">{cta.label}</a>}
+    {
+      (cta || secondaryCta) && (
+        <div class:list={['flex flex-wrap gap-3', compact ? 'mt-6 md:mt-9' : 'mt-9']}>
+          {cta && <a href={ctaHref} class="btn-primary">{cta.label}</a>}
+          {secondaryCta && (
+            <a
+              href={secondaryHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md border border-white/80 px-8 py-3.5 font-sans text-base font-medium text-white transition-colors duration-300 hover:bg-white hover:text-ink"
+            >
+              {secondaryCta.label}
+            </a>
+          )}
+        </div>
+      )
+    }
   </div>
 </section>

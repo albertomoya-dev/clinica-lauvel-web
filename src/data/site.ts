@@ -17,7 +17,10 @@ export const site = {
   disciplines: ['Logopedia', 'Psicología', 'Pedagogía', 'Fisioterapia'] as const,
   population: 'bebés, niños, adolescentes y adultos',
 
-  city: 'Sevilla',
+  city: 'Dos Hermanas',
+  region: 'Sevilla',
+  streetAddress: 'C.Mijail Gorbachov, 8, LOC 1',
+  postalCode: '41702',
   address: 'C.Mijail Gorbachov, 8, LOC 1, 41702 Dos Hermanas',
   mapUrl: 'https://maps.app.goo.gl/5E1CCUhbMqQSgJ6Y7',
   mapEmbedUrl:
@@ -35,10 +38,14 @@ export const site = {
   cif: '49524024X',
 
   firstConsultFree: true,
+  // Qué incluye la primera consulta gratuita (duración, formato, cómo se confirma). Texto a facilitar por la clienta.
+  firstConsultDetails: 'PENDIENTE_ALCANCE_PRIMERA_CONSULTA',
   languageSelector: false,
   fundingLogos: false,
 } as const;
 
 export const isPending = (value: string): boolean => value.startsWith('PENDIENTE_');
+
+export const cityWithRegion = isPending(site.city) ? '' : `${site.city} (${site.region})`;
 
 export const primaryCtaLabel = site.firstConsultFree ? 'Primera consulta gratuita' : 'Pide tu valoración';

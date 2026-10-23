@@ -92,7 +92,7 @@ const isActive = (href: string) => (href === homeHref ? path === homeHref : path
             </a>
           )}
           <span>
-            {!isPending(site.phone) && <>Tel. {site.phone}</>}
+            {!isPending(site.phone) && <a href={site.phoneHref} class="transition-colors hover:text-gold">Tel. {site.phone}</a>}
             {!isPending(site.phone) && !isPending(site.email) && <> · </>}
             {!isPending(site.email) && <a href={`mailto:${site.email}`} class="transition-colors hover:text-gold">{site.email}</a>}
           </span>

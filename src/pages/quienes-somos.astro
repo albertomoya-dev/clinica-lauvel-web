@@ -19,7 +19,7 @@ const city = isPending(site.city) ? '' : ` en ${site.city}`;
 
 <BaseLayout
   title={isPending(site.city) ? 'Equipo Clínica LAUVEL | Especialistas en logopedia, psicología, pedagogía y fisioterapia' : `Equipo Clínica LAUVEL | Especialistas en ${site.city}`}
-  description="Conoce al equipo multidisciplinar de Clínica LAUVEL: especialistas en logopedia, psicología, pedagogía y fisioterapia comprometidos con tu bienestar."
+  description={`Conoce al equipo multidisciplinar de Clínica LAUVEL en ${site.city}: especialistas en logopedia, psicología, pedagogía y fisioterapia comprometidos con tu bienestar.`}
 >
   <Hero
     title={`Quiénes somos: tu equipo de confianza${city}`}
