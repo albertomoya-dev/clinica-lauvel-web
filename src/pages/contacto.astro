@@ -12,10 +12,19 @@ import heroContactoWide2x from '../assets/images/hero-contacto-wide-2x.jpeg';
 ---
 
 <BaseLayout
-  title="Contacto Clínica LAUVEL | Pide tu cita"
-  description="Contacta con Clínica LAUVEL: resuelve dudas, solicita una valoración o pide cita de logopedia, psicología, pedagogía o fisioterapia."
+  title={`Contacto Clínica LAUVEL en ${site.city} | Pide tu cita`}
+  description={`Contacta con Clínica LAUVEL en ${site.city}: resuelve dudas, solicita una valoración o pide cita de logopedia, psicología, pedagogía o fisioterapia.`}
 >
-  <Hero title="Contacta con nosotros" image={heroContacto} imageWide={heroContactoWide} imageWide2x={heroContactoWide2x} imageAlt="Mostrador de recepción de Clínica LAUVEL" />
+  <Hero
+    title="Contacta con nosotros"
+    image={heroContacto}
+    imageWide={heroContactoWide}
+    imageWide2x={heroContactoWide2x}
+    imageAlt="Mostrador de recepción de Clínica LAUVEL"
+    compact
+    cta={{ label: 'Ir al formulario', href: '#formulario' }}
+    secondaryCta={isPending(site.phone) ? undefined : { label: `Llamar: ${site.phone}`, href: site.phoneHref }}
+  />
 
   <section class="py-20 md:py-28">
     <div class="container-site grid gap-14 lg:grid-cols-2 lg:gap-16">
@@ -34,7 +43,7 @@ import heroContactoWide2x from '../assets/images/hero-contacto-wide-2x.jpeg';
             !isPending(site.address) && (
               <p class="flex items-start gap-3 text-body">
                 <Icon name="map-pin" class="mt-0.5 size-5 shrink-0 text-accent" />
-                <span>{site.address}{!isPending(site.city) && `, ${site.city}`}</span>
+                <span>{site.address}, {site.region}</span>
               </p>
             )
           }
@@ -42,7 +51,7 @@ import heroContactoWide2x from '../assets/images/hero-contacto-wide-2x.jpeg';
             !isPending(site.phone) && (
               <p class="flex items-center gap-3">
                 <Icon name="phone" class="size-5 shrink-0 text-accent" />
-                <span class="font-semibold text-ink">Tel. {site.phone}</span>
+                <a href={site.phoneHref} class="font-semibold text-ink transition-colors hover:text-accent">Tel. {site.phone}</a>
               </p>
             )
           }

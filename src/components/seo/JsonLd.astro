@@ -2,6 +2,7 @@
 import type { ImageMetadata } from 'astro';
 import { site, isPending } from '../../data/site';
 import { withBase } from '../../utils/url';
+import { team } from '../../data/team';
 import logoMain from '../../assets/images/logo-main.png';
 
 const homeUrl = new URL(withBase('/'), site.domain).href;
@@ -15,15 +16,30 @@ const medicalClinic: Record<string, unknown> = {
   description:
     'Centro multidisciplinar de logopedia, psicología, pedagogía y fisioterapia para bebés, niños, adolescentes y adultos.',
   medicalSpecialty: ['Logopedia', 'Psicología', 'Pedagogía', 'Fisioterapia'],
+  image: logoUrl,
+  parentOrganization: { '@id': `${homeUrl}#organization` },
+  employee: team.map((member) => ({
+    '@type': 'Person',
+    name: member.name,
+    jobTitle: member.role,
+    url: new URL(withBase('/quienes-somos/'), site.domain).href,
+  })),
 };
 
 if (!isPending(site.address)) {
   medicalClinic.address = {
     '@type': 'PostalAddress',
-    streetAddress: site.address,
+    streetAddress: site.streetAddress,
+    postalCode: site.postalCode,
     addressLocality: isPending(site.city) ? undefined : site.city,
+    addressRegion: site.region,
     addressCountry: 'ES',
   };
+  medicalClinic.hasMap = site.mapUrl;
+  medicalClinic.areaServed = [
+    { '@type': 'City', name: site.city },
+    { '@type': 'AdministrativeArea', name: `Provincia de ${site.region}` },
+  ];
 }
 if (!isPending(site.phone)) medicalClinic.telephone = site.phone;
 if (!isPending(site.email)) medicalClinic.email = site.email;

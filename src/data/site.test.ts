@@ -5,7 +5,9 @@ describe('site data', () => {
   it('has the expected static values', () => {
     expect(site.name).toBe('Clínica LAUVEL');
     expect(site.shortName).toBe('LAUVEL');
-    expect(site.city).toBe('Sevilla');
+    expect(site.city).toBe('Dos Hermanas');
+    expect(site.region).toBe('Sevilla');
+    expect(site.address).toContain(site.postalCode);
     expect(site.disciplines).toEqual(['Logopedia', 'Psicología', 'Pedagogía', 'Fisioterapia']);
     expect(site.firstConsultFree).toBe(true);
   });
