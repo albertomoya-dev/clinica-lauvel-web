@@ -23,6 +23,7 @@
     "@astrojs/sitemap": "^3.6.0",
     "@fontsource/baloo-2": "^5.2.5",
     "@fontsource/dm-sans": "^5.2.5",
+    "@vercel/analytics": "^2.0.1",
     "astro": "^7.1.6"
   },
   "devDependencies": {
